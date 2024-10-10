@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.take-screen {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: white;
+  color: black;
+  font-size: medium;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.content-mid-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content-mid-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.bg-pangasinan {
+  background-image: url("./assets/pangasinan.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
-.card {
-  padding: 2em;
+.gap-xlarge {
+  gap: 56px;
+}
+.gap-medium {
+  gap: 24px;
+}
+.gap-xsmall {
+  gap: 6px;
 }
 
-.read-the-docs {
-  color: #888;
+/* INPUT CSS */
+input {
+  padding: 10px;
+  width: 300px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: white;
+  border-radius: 9999px;
+  outline: none;
+  border: none;
+  color: black;
+  filter: drop-shadow(5px 5px 10px #000000);
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+
+/* BUTTON CSS */
+button {
+  padding: 12px 48px;
+  font-size: 14px;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  filter: drop-shadow(5px 5px 10px #000000);
+}
+
+button:hover {
+  background-color: #3fa8ff;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  color: white;
+  filter: drop-shadow(5px 5px 10px #000000);
+  font-size: 120px;
+  height: fit-content;
+}
+h4 {
+  margin: 0;
+  padding: 0;
+  color: white;
+  filter: drop-shadow(5px 5px 10px #000000);
+  font-size: 14px;
+  height: fit-content;
+}
+
+/* BACKGROUNDS */
+
+bg-orange {
+  background-color: orange !important;
 }
