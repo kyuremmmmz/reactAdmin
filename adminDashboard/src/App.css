@@ -1,42 +1,197 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.take-screen {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: white;
+  color: black;
+  font-size: medium;
+}
+body {
+  overflow-x: hidden;
+
+}
+
+.content-mid-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.content-mid-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-start-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+}
+
+.content-start-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.bg-pangasinan {
+  background-image: url("./assets/pangasinan.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.gap-xlarge {
+  gap: 56px;
+}
+.gap-medium {
+  gap: 24px;
+}
+.gap-xsmall {
+  gap: 6px;
+}
+
+/* INPUT CSS */
+input {
+  padding: 10px;
+  width: 300px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: white;
+  border-radius: 9999px;
+  outline: none;
+  border: none;
+  color: black;
+  filter: drop-shadow(5px 5px 10px #000000);
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+
+/* BUTTON CSS */
+.side-panel-button {
+  width: 100px;
+  padding: 12px 48px;
+  margin: 4px 0px;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+
+}
+.side-panel-button:hover {
+  background-color: #3fa8ff;
+  cursor: pointer;
+}
+
+.selected-button {
+  background-color: #00467f;
+}
+button {
+  padding: 12px 48px;
+  font-size: 14px;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 9999px;
+ cursor: pointer;
+}
+
+button:hover {
+  background-color: #3fa8ff;
+}
+
+
+h4 {
+  margin: 0;
+  padding: 0;
+  color: white;
+  filter: drop-shadow(5px 5px 10px #000000);
+  font-size: 14px;
+  height: fit-content;
+}
+
+/* BACKGROUNDS */
+
+.bg-orange {
+  background-color: orange !important;
+}
+
+.bg-primary {
+  background-color: #2196f3 !important;
+}
+
+/* SIDE PANEL */
+
+.item-side-panel {
+  height: 150vh;
+  width: 400px;
+  position: relative; /* Allows positioning of child elements */
+
+}
+
+.item-side-panel::after {
+  content: ""; /* Creates a pseudo-element */
+  display: block;
+  height: 500px; /* Height of the visible area at the bottom */
+  background-color: #DAF4FE; /* Change this color to whatever you prefer */
+  position: absolute;
+  bottom: -24.4rem; /* Position at the bottom */
+  left: 0; /* Align to the left */
+  right: 0; /* Stretch to the right */
+}
+
+/* MAIN PANEL */
+
+.item-main-panel {
+  height: 100%;
+  width: 90%;
+}
+
+/* IMAGES */
+
+.profile-image {
+  aspect-ratio: 0.97;
+  object-fit: fill;
+  width: 180px;
+  box-shadow: 0 10px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  align-self: center;
+  margin-top: 250px;
+
+  max-width: 100%;
+}
+
+.profile-name {
+  text-shadow: 0 0 0 1px rgba(125, 125, 125, 0.25);
   text-align: center;
+  align-self: center;
+  margin-top: 35px;
+  font: 600 15px Roboto Flex, sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* HR CSS */
+
+hr {
+  width: 80%;
+  margin: 24px 64px;
+  background-color: #cccccc;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.drop-shadow-large {
+  filter: drop-shadow(5px 5px 10px #000000);
 }
