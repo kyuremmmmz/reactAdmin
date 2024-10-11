@@ -5,6 +5,10 @@
   color: black;
   font-size: medium;
 }
+body {
+  overflow-x: hidden;
+
+}
 
 .content-mid-horizontal {
   display: flex;
@@ -12,6 +16,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 .content-mid-vertical {
   display: flex;
@@ -75,7 +80,6 @@ input:focus {
   width: 100px;
   padding: 12px 48px;
   margin: 4px 0px;
-  font-size: 14px;
   background-color: #2196f3;
   border: none;
   border-radius: 9999px;
@@ -85,6 +89,10 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+
 }
 .side-panel-button:hover {
   background-color: #3fa8ff;
@@ -100,21 +108,14 @@ button {
   background-color: #2196f3;
   border: none;
   border-radius: 9999px;
-  cursor: pointer;
+ cursor: pointer;
 }
 
 button:hover {
   background-color: #3fa8ff;
 }
 
-h1 {
-  margin: 0;
-  padding: 0;
-  color: white;
-  filter: drop-shadow(5px 5px 10px #000000);
-  font-size: 120px;
-  height: fit-content;
-}
+
 h4 {
   margin: 0;
   padding: 0;
@@ -137,31 +138,57 @@ h4 {
 /* SIDE PANEL */
 
 .item-side-panel {
-  height: 100%;
-  width: 300px;
+  height: 150vh;
+  width: 400px;
+  position: relative; /* Allows positioning of child elements */
+
+}
+
+.item-side-panel::after {
+  content: ""; /* Creates a pseudo-element */
+  display: block;
+  height: 500px; /* Height of the visible area at the bottom */
+  background-color: #DAF4FE; /* Change this color to whatever you prefer */
+  position: absolute;
+  bottom: -24.4rem; /* Position at the bottom */
+  left: 0; /* Align to the left */
+  right: 0; /* Stretch to the right */
 }
 
 /* MAIN PANEL */
 
 .item-main-panel {
   height: 100%;
-  width: 100%;
+  width: 90%;
 }
 
 /* IMAGES */
 
-.profile {
-  margin: 12px 12px;
-  border-radius: 9999px;
-  background-color: red;
+.profile-image {
+  aspect-ratio: 0.97;
+  object-fit: fill;
+  width: 180px;
+  box-shadow: 0 10px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  align-self: center;
+  margin-top: 250px;
+
+  max-width: 100%;
+}
+
+.profile-name {
+  text-shadow: 0 0 0 1px rgba(125, 125, 125, 0.25);
+  text-align: center;
+  align-self: center;
+  margin-top: 35px;
+  font: 600 15px Roboto Flex, sans-serif;
 }
 
 /* HR CSS */
 
 hr {
-  width: 100%;
+  width: 80%;
   margin: 24px 64px;
-  height: 1px;
   background-color: #cccccc;
 }
 

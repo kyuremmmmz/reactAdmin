@@ -11,12 +11,10 @@ const SidePanel = () => {
         <img
           src="https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D"
           alt="profile"
-          className="profile"
-          height={120}
-          width={120}
+          className="profile-image"
         />
-        <h4>David Something</h4>
-      </header>
+  <h4 className="profile-name">Christian David B. Jasmin</h4>
+  </header>
       <hr />
 
       <main className="content-start-vertical">

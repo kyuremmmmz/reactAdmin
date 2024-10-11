@@ -1,42 +1,42 @@
 const NavigationData = [
   {
     _id: "1",
-    name: "Dashboard",
+    name: "DASHBOARD",
     path: "/home/",
   },
   {
     _id: "2",
-    name: "Flights",
+    name: "FLIGHTS",
     path: "/home/flights/",
   },
   {
     _id: "3",
-    name: "Hotels",
+    name: "HOTELS",
     path: "/home/hotels/",
   },
   {
     _id: "4",
-    name: "Wallets",
+    name: "WALLETS",
     path: "/home/wallets/",
   },
   {
     _id: "5",
-    name: "Reports",
+    name: "REPORTS",
     path: "/home/reports/",
   },
   {
     _id: "6",
-    name: "Reviews",
+    name: "REVIEWS",
     path: "/home/reviews/",
   },
   {
     _id: "7",
-    name: "Settings",
+    name: "SETTINGS",
     path: "/home/settings/",
   },
   {
     _id: "7",
-    name: "Logout",
+    name: "LOG OUT",
     path: "/home/logout/",
   },
 ];

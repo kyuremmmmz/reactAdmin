@@ -31,8 +31,17 @@ const Login = () => {
   return (
     <div className="take-screen content-mid-vertical bg-pangasinan gap-xlarge">
       <header className="content-mid-vertical gap-xsmall">
-        <h1 className="">TRAVEL GO</h1>
-        <h4 className="">Travel and get more experience here in Pangasinan!</h4>
+      <h1 style={{
+            margin: 0,
+            padding: 0,
+            color: 'white',
+            filter: 'drop-shadow(5px 5px 10px #000000)',
+            fontSize: '120px',
+            height: 'fit-content',
+        }}>
+            TRAVEL GO
+        </h1>
+    <h4 className="">Travel and get more experience here in Pangasinan!</h4>
       </header>
 
       <main className="content-mid-vertical">

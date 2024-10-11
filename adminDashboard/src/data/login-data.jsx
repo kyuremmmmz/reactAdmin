@@ -2,7 +2,7 @@ const LoginData = [
   {
     _id: "",
     name: "Person",
-    email: "sample@example.com",
+    email: "admin",
     password: "123456",
   },
 ];

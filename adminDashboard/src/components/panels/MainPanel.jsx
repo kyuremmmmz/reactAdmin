@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "../contents/main/Dashboard";
+import Dashboard from "../contents/main/Dashboard/Dashboard";
 import Flights from "../contents/main/Flights";
 import Hotels from "../contents/main/Hotels";
 import Logout from "../contents/main/Logout";
@@ -11,7 +11,7 @@ import Wallets from "../contents/main/Wallets";
 
 const MainPanel = () => {
   return (
-    <div className="item-main-panel content-mid-vertical">
+    <div className="item-main-panel main-layout">
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/flights" element={<Flights />} />
