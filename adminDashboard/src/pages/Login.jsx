@@ -11,20 +11,12 @@ const Login = () => {
     localStorage.removeItem("token");
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const user = LoginData.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (user) {
-      const token = "sample-token-123";
-      localStorage.setItem("token", token);
-
-      navigate("/home");
-    } else {
-      alert("Invalid email or password!");
+    const user = await LoginData(email, password);
+    if (user.error) {
+      return 'gago';
     }
   };
 
