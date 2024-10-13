@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import "./App.css";
 import ProtectedRoute from "./pages/ProtectedRoute";
-
+import MainPanel from "./components/panels/MainPanel";
 function App() {
   return (
     <Router>
@@ -14,7 +14,6 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
-              
             </ProtectedRoute>
           }
         />

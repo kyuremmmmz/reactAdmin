@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"; 
+import { useNavigate } from "react-router-dom";
 import './style.css';
+import Header from "../../../panels/Header";
 
 import newBookingsIcon from '../../../../assets/image.png';
 import checkOutsTodayIcon from '../../../../assets/image.png';
@@ -10,8 +12,8 @@ import scheduledFlightIcon from '../../../../assets/image.png';
 import cancelledFlightIcon from '../../../../assets/image.png';
 import completedFlightIcon from '../../../../assets/image.png';
 
-const StatCard = ({ value, icon, label }) => (
-  <div className="stat-card">
+const StatCard = ({ value, icon, label, onClick }) => (
+  <div className="stat-card" onClick={onClick} style={{ cursor: 'pointer' }}>
     <div className="stat-content">
       <div>{value}</div>
       <img src={icon} alt="" className="stat-icon" />
@@ -45,6 +47,7 @@ const TicketStatCard = ({ title, value, total, fillWidth, fillColor }) => (
     <div className="ticket-stat-value">{value}</div>
   </div>
 );
+
 const fetchHotelStats = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -75,6 +78,7 @@ const fetchFlightStats = () => {
     }, 500); 
   });
 };
+
 const fetchTicketStats = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -88,11 +92,22 @@ const fetchTicketStats = () => {
 };
 
 const Dashboard = () => {
-  const [hotelStats, setHotelStats] = useState([]);
+  const navigate = useNavigate(); 
+  const [hotelStats, setHotelStats] = useState([
+    { value: 0, icon: newBookingsIcon, label: 'New Bookings' },
+    { value: 0, icon: scheduledRoomsIcon, label: 'Scheduled Rooms' },
+    { value: 0, icon: checkedInIcon, label: 'Checked-In' },
+    { value: 0, icon: checkOutsTodayIcon, label: 'Check-Outs Today' },
+  ]);
   const [availableRooms, setAvailableRooms] = useState(0);
   const [soldOutRooms, setSoldOutRooms] = useState(0);
   const [totalRooms, setTotalRooms] = useState(0);
-  const [flightStats, setFlightStats] = useState([]);
+  const [flightStats, setFlightStats] = useState([
+    { value: 0, icon: newFlightBookingIcon, label: 'New Flight Bookings' },
+    { value: 0, icon: scheduledFlightIcon, label: 'Scheduled Flights' },
+    { value: 0, icon: cancelledFlightIcon, label: 'Cancelled Flights' },
+    { value: 0, icon: completedFlightIcon, label: 'Completed Flights' },
+  ]);
   const [availableTicket, setAvailableTicket] = useState(0);
   const [soldOutTicket, setSoldOutTicket] = useState(0);
   const [totalTicket, setTotalTicket] = useState(0);
@@ -129,6 +144,14 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
+  const handleNewBookingsClick = () => {
+    navigate('/home/newbookings');
+  };
+
+  const handleRoomSchedulesClick = () => {
+    navigate('/home/roomsched');
+  };
+
   const currentDate = new Date();
   const day = currentDate.toLocaleString('default', { weekday: 'long' });
   const date = currentDate.getDate();
@@ -139,17 +162,22 @@ const Dashboard = () => {
     <main className="dashboard">
       <div className="layout">
         <section className="main-content">
-          <header className="header">
-            <h1 className="header-title">TRAVEL GO</h1>
-            <p className="header-subtitle">Northwestern part of Luzon Island, Philippines</p>
-          </header>
+        <Header />
+
           <section className="dashboard-section">
             <h2 className="dashboard-title">Hotel Dashboard</h2>
             <p className="dashboard-date">{day}, <span style={{ color: '#3d3d3d' }}>{`${date} ${month} ${year}`}</span></p>
             <div className="stats-grid">
-              {hotelStats.map((stat, index) => (
-                <StatCard key={index} {...stat} />
-              ))}
+              {hotelStats.map((stat, index) => {
+                if (stat.label === 'New Bookings') {
+                  return (
+                    <StatCard key={index} {...stat} onClick={handleNewBookingsClick} />
+                  );
+                }
+                return (
+                  <StatCard key={index} {...stat} onClick={handleRoomSchedulesClick} />
+                );
+              })}
             </div>
             <div className="room-stats">
               <RoomStatCard 
@@ -174,12 +202,17 @@ const Dashboard = () => {
             <p className="dashboard-date">{day}, <span style={{ color: '#3d3d3d' }}>{`${date} ${month} ${year}`}</span></p>
             <div className="stats-grid">
               {flightStats.map((stat, index) => (
-                <StatCard key={index} {...stat} className={stat.label === 'New Bookings' ? 'new-bookings-card' : ''} />
+                <StatCard key={index} {...stat} />
               ))}
             </div>
+          </section>
+          <div className="section-divider" />
+          <section className="dashboard-section">
+            <h2 className="dashboard-title">Ticket Dashboard</h2>
+            <p className="dashboard-date">{day}, <span style={{ color: '#3d3d3d' }}>{`${date} ${month} ${year}`}</span></p>
             <div className="ticket-stats">
               <TicketStatCard 
-                title="Available Tickets Today" 
+                title="Available Tickets" 
                 value={availableTicket} 
                 total={totalTicket} 
                 fillWidth={`${(availableTicket / totalTicket) * 100}%`} 

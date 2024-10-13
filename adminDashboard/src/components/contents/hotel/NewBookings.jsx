@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css'; 
 import Header from '../../panels/Header';
-import calendar from '../../../assets/calendar.png';
+import image from '../../../assets/image.png';
 
 const bookings = [
   { id: 'A09863', title: 'Deluxe Suite', date: 'Monday, 16 Sept 2024, 09:42 am' },
@@ -20,7 +20,7 @@ const getCurrentDateInfo = () => {
   };
 };
 
-const RoomSchedules = () => {
+const NewBookings = () => {
   const { day, date, month, year } = getCurrentDateInfo();
 
   return (
@@ -30,7 +30,7 @@ const RoomSchedules = () => {
         <div className="container">
           <section className="newbooking-section">
             <div className="newbooking">
-              <h2 className="newbooking-title">Room Schedules</h2>
+              <h2 className="newbooking-title">New Bookings</h2>
               <p className="newbooking-date">
                 {day}, <span style={{ color: '#3d3d3d' }}>{`${date} ${month} ${year}`}</span>
               </p>
@@ -55,11 +55,11 @@ const BookingItem = ({ booking }) => {
   return (
     <div className="booking-item">
       <div className="booking-icon">
-        <img src={calendar} alt="Calendar" />
+        <img src={image} alt="Booking Image" />
       </div>
       <div className="booking-info">
         <p className="booking-id">Booking ID #{booking.id}</p>
-        <h2 className="booking-title">{booking.title}</h2>
+        <h2 className="booking-title">{booking.title} {booking.id}</h2>
       </div>
       <div className="booking-date-info">
         <p className="booking-date-label">Booking Date</p>
@@ -69,4 +69,4 @@ const BookingItem = ({ booking }) => {
   );
 };
 
-export default RoomSchedules;
+export default NewBookings;
