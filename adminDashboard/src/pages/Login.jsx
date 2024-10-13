@@ -14,9 +14,15 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const user = await LoginData(email, password);
-    if (user.error) {
-      return 'gago';
+    const user = await LoginData(email, password)
+
+    if (user) {
+      const token = user.data.session.access_token;
+      localStorage.setItem("token", token);
+      alert(token);
+      navigate("/home");
+    } else {
+      alert("Invalid email or password!");
     }
   };
 

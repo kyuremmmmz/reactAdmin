@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import ProtectedRoute from './pages/ProtectedRoute';
-import { supabase } from './supabaseClient';
-import './App.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import "./App.css";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { supabase } from "./supabaseClient";
 
 function App() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const fetchSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
-    });
+    };
+
+    fetchSession();
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
@@ -31,7 +34,7 @@ function App() {
           path="/home/*"
           element={
             <ProtectedRoute session={session}>
-              {session ? <Home key={session.user.id} session={session} /> : <Login />}
+              <Home session={session} key={session}/>
             </ProtectedRoute>
           }
         />

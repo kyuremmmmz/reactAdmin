@@ -1,15 +1,11 @@
-import { supabase } from "../supabaseClient";
+import { supabase } from '../supabaseClient';
+
 const LoginData = async (email, password) => {
-  const { error, session } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
   });
-  if (error) {
-    alert(`${error.message}`);
-    return error.status;
-  } else {
-    return session;
-  }
-}
+  return { data, error };
+};
 
 export default LoginData;
