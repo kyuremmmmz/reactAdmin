@@ -66,6 +66,7 @@ input:focus {
 
 /* BUTTON CSS */
 <<<<<<< HEAD
+<<<<<<< HEAD
 .side-panel-button {
   width: 100px;
   padding: 12px 48px;
@@ -94,6 +95,8 @@ input:focus {
 }
 =======
 >>>>>>> parent of 690fb9c (add Home Page)
+=======
+>>>>>>> parent of 690fb9c (add Home Page)
 button {
   padding: 12px 48px;
   font-size: 14px;
@@ -105,6 +108,9 @@ button {
 =======
   cursor: pointer;
   filter: drop-shadow(5px 5px 10px #000000);
+<<<<<<< HEAD
+>>>>>>> parent of 690fb9c (add Home Page)
+=======
 >>>>>>> parent of 690fb9c (add Home Page)
 }
 
@@ -127,6 +133,7 @@ h4 {
 bg-orange {
   background-color: orange !important;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 .bg-primary {
