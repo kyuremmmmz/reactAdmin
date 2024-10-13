@@ -1,11 +1,11 @@
 import { supabase } from '../supabaseClient';
 
-const LoginData = async (email, password) => {
+const LoginData = async (email, password, captcha) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
     options: {
-      captchaToken
+      captchaToken : captcha
     }
   });
   return { data, error };

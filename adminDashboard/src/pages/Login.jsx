@@ -6,7 +6,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [Hcaptcha, setCaptcha] = useState("");
+  const [rcaptcha, setCaptcha] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const captcha = useRef();
@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
 
-    const user = await LoginData(email, password);
+    const user = await LoginData(email, password, rcaptcha);
     setLoading(false);
 
     if (user && user.data && user.data.session) {
@@ -72,13 +72,9 @@ const Login = () => {
         />
       </div>
       <div className="">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <button onClick={handleLogin} className="drop-shadow-large">
-            LOGIN
-          </button>
-        )}
+        <button onClick={handleLogin} className="drop-shadow-large">
+          LOGIN
+        </button>
       </div>
     </div>
   );
