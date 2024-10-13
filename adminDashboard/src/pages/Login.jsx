@@ -31,6 +31,7 @@ const Login = () => {
   return (
     <div className="take-screen content-mid-vertical bg-pangasinan gap-xlarge">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <header className="content-mid-vertical gap-xsmall">
       <h1 style={{
             margin: 0,
@@ -44,6 +45,8 @@ const Login = () => {
         </h1>
     <h4 className="">Travel and get more experience here in Pangasinan!</h4>
 =======
+=======
+>>>>>>> parent of 690fb9c (add Home Page)
       <header className="content-mid-vertical gap-xsmall bg-orange">
         <h1 className="">TRAVEL GO</h1>
         <h4 className="">Travel and get more experience here in Pangasinan!</h4>

@@ -2,6 +2,7 @@ import React from "react";
 
 const SidePanel = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const location = useLocation();
 
   return (
@@ -33,6 +34,9 @@ const SidePanel = () => {
       </main>
     </div>
   );
+=======
+  return <div>SidePanel</div>;
+>>>>>>> parent of 690fb9c (add Home Page)
 =======
   return <div>SidePanel</div>;
 >>>>>>> parent of 690fb9c (add Home Page)
