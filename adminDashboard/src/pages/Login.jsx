@@ -30,6 +30,7 @@ const Login = () => {
 
   return (
     <div className="take-screen content-mid-vertical bg-pangasinan gap-xlarge">
+<<<<<<< HEAD
       <header className="content-mid-vertical gap-xsmall">
       <h1 style={{
             margin: 0,
@@ -42,6 +43,11 @@ const Login = () => {
             TRAVEL GO
         </h1>
     <h4 className="">Travel and get more experience here in Pangasinan!</h4>
+=======
+      <header className="content-mid-vertical gap-xsmall bg-orange">
+        <h1 className="">TRAVEL GO</h1>
+        <h4 className="">Travel and get more experience here in Pangasinan!</h4>
+>>>>>>> parent of 690fb9c (add Home Page)
       </header>
 
       <main className="content-mid-vertical">
@@ -62,9 +68,7 @@ const Login = () => {
       </main>
 
       <div className="">
-        <button onClick={handleLogin} className="drop-shadow-large">
-          LOGIN
-        </button>
+        <button onClick={handleLogin}>LOGIN</button>
       </div>
     </div>
   );

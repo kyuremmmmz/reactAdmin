@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import './styles.css'; 
 import Header from '../../panels/Header';
@@ -70,3 +71,5 @@ const BookingItem = ({ booking }) => {
 };
 
 export default RoomSchedules;
+=======
+>>>>>>> parent of 690fb9c (add Home Page)

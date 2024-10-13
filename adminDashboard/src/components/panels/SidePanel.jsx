@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import NavigationData from "../../data/navigation-data";
 
 const SidePanel = () => {
+<<<<<<< HEAD
   const location = useLocation();
 
   return (
@@ -34,6 +33,9 @@ const SidePanel = () => {
       </main>
     </div>
   );
+=======
+  return <div>SidePanel</div>;
+>>>>>>> parent of 690fb9c (add Home Page)
 };
 
 export default SidePanel;
