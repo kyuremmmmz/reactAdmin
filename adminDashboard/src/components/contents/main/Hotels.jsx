@@ -283,10 +283,10 @@ const CheckInItem = ({ checkin }) => {
       </div>
       <div className="checkin-info">
         <p className="checkin-id">Check-In ID #{checkin.id}</p>
-        <h2 className="checkin-title">{checkin.title}</h2>
+        <h2 className="checkin-status-title">{checkin.title}</h2>
       </div>
-      <div className="checkin-date-info">
-        <p className="checkin-date-label">Check-In Date</p>
+      <div className="checkin-status-info">
+        <p className="checkin-status-label">Check-In Date</p>
         <p className="checkin-date">{formatCheckInDate(checkin.date)}</p>
       </div>
     </div>
@@ -311,13 +311,13 @@ const CheckOutItem = ({ checkout }) => {
       <div className="co-icon">
         <img src={out} alt="Check-Out Image" />
       </div>
-      <div className="co-info">
+      <div className="co-info-status">
         <p className="co-id">Check-Out ID #{checkout.id}</p>
-        <h2 className="co-title">{checkout.title}</h2>
+        <h2 className="co-status-title">{checkout.title}</h2>
       </div>
-      <div className="co-date-info">
-        <p className="co-date-label">Check-Out Date</p>
-        <p className="co-date">{formatCheckOutDate(checkout.date)}</p>
+      <div className="co-info-date">
+        <p className="co-status-label">Check-Out Date</p>
+        <p className="co-status-date">{formatCheckOutDate(checkout.date)}</p>
       </div>
     </div>
   );

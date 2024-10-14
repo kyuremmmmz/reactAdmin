@@ -77,14 +77,14 @@
 
 .booking-info,
 .checkin-info,
-.co-info,
+.co-info-status,
 .room-schedule-info {
   flex-grow: 1;
 }
 
 .booking-id,
-.check-status-id,
-.co-status-id,
+.checkin-id,
+.co-id,
 .room-schedule-id {
   font-size: 14px;
   color: #007bff;
@@ -92,7 +92,7 @@
 
 .booking-title,
 .checkin-status-title,
-.co-status-title,
+.co-info-title,
 .room-schedule-title {
   font-size: 18px;
   font-weight: bold;
