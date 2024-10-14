@@ -1,14 +1,14 @@
 html, body {
-    height: 100%; /* Ensure the full height is used */
-    margin: 0; /* Reset default margin */
-    overflow: auto; /* Allow scrolling */
+    height: 100%; 
+    margin: 0;
+    overflow: auto;
 }
 .dashboard {
-    height: auto; /* Allow the content to define the height */
-    max-height: 79vh; /* Cap the height to the viewport height */
-    overflow-y: auto; /* Enable vertical scrolling when content exceeds max-height */
-    padding-bottom: 25px; /* Padding at the bottom */
-    box-sizing: border-box; /* Include padding in the height calculation */
+    height: auto; 
+    max-height: 79vh; 
+    overflow-y: auto;
+    padding-bottom: 25px;
+    box-sizing: border-box;
 }
 
 

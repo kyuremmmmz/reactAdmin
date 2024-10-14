@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useNavigation } from "./NavigationContext";
+import { useNavigation } from "./NavigationContext"; 
 import NavigationData from "../../data/navigation-data";
 
 const SidePanel = () => {
   const { activePath, setActivePath } = useNavigation();
+
   const handleLinkClick = (path) => {
     setActivePath(path);
   };
@@ -19,7 +20,7 @@ const SidePanel = () => {
           height={120}
           width={120}
         />
-        <h3 className="profile-name">Christian David B. Jasmin</h3>
+        <h4 className="profile-name">Christian David B. Jasmin</h4>
       </header>
       <hr />
 
@@ -32,7 +33,7 @@ const SidePanel = () => {
               className={`side-panel-button ${
                 activePath === item.path ? "selected-button" : ""
               }`}
-              onClick={() => handleLinkClick(item.path)}
+              onClick={() => handleLinkClick(item.path)} 
             >
               {item.name}
             </Link>

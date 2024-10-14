@@ -3,11 +3,11 @@ body {
 }
 
 .take-screen {
-  height: 100vh; 
+  height: 100vh;
   background-color: rgb(255, 255, 255);
   color: black;
   font-size: medium;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .content-mid-horizontal {
@@ -184,23 +184,23 @@ hr {
 
 .header {
   background-color: #daf4fe;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)  !important;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25) !important;
   text-align: center;
-  padding: 15px 90px; 
+  padding: 15px 90px;
   font-family: Inter, sans-serif;
 }
 
 .header-title {
   color: #44caf9;
   text-shadow: 0px -2px 10px rgba(110, 110, 110, 0.305);
-  font-size: 40px; 
+  font-size: 40px;
   font-weight: 700;
   padding: 2px;
 }
 
 .header-subtitle {
   color: #3d3d3d;
-  font-size: 15px; 
+  font-size: 15px;
   font-weight: 500;
   margin-top: -30px;
 }
@@ -231,7 +231,8 @@ hr {
     width: 90%;
   }
 
-  .side-panel-button, button {
+  .side-panel-button,
+  button {
     width: 100%;
   }
 
