@@ -85,12 +85,6 @@
   margin-right: 15px;
 }
 
-.booking-info,
-.checkin-info,
-.co-info,
-.room-schedule-info {
-  flex-grow: 1;
-}
 
 .booking-id,
 .check-status-id,
