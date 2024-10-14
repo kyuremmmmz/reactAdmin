@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
@@ -12,6 +13,7 @@ import cancelledFlightIcon from "../../../../assets/lock.png";
 import completedFlightIcon from "../../../../assets/lock.png";
 import { useNavigation } from "../../../panels/NavigationContext";
 
+// eslint-disable-next-line react/prop-types
 const StatCard = ({ value, icon, label, onClick }) => (
   <div className="stat-card" onClick={onClick} style={{ cursor: "pointer" }}>
     <div className="stat-content">
@@ -22,6 +24,7 @@ const StatCard = ({ value, icon, label, onClick }) => (
   </div>
 );
 
+// eslint-disable-next-line react/prop-types
 const RoomStatCard = ({ title, value, total, fillWidth, fillColor }) => (
   <div className="room-stat-card">
     <div className="room-stat-title">{title}</div>
@@ -41,6 +44,7 @@ const RoomStatCard = ({ title, value, total, fillWidth, fillColor }) => (
   </div>
 );
 
+// eslint-disable-next-line react/prop-types
 const TicketStatCard = ({ title, value, total, fillWidth, fillColor }) => (
   <div className="ticket-stat-card">
     <div className="ticket-stat-title">{title}</div>

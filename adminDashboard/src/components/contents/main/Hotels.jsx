@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./hotel.css";
 import Header from "../../panels/Header";
 import calendar from "../../../assets/calendar.png";
 import lock from "../../../assets/lock.png";
 import check from "../../../assets/check.png";
 import out from "../../../assets/out.png";
+import Schedules from "./Schedules";
+import { supabase } from "../../../supabaseClient";
 
 const bookings = [
   {
@@ -29,28 +31,6 @@ const bookings = [
   },
 ];
 
-const roomSchedules = [
-  {
-    id: "A09863",
-    title: "Deluxe Suite",
-    date: "Monday, 16 Sept 2024, 09:42 am",
-  },
-  {
-    id: "A09864",
-    title: "Presidential Suite",
-    date: "Monday, 16 Sept 2024, 08:02 am",
-  },
-  {
-    id: "A09865",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 06:52 am",
-  },
-  {
-    id: "A09866",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 04:44 am",
-  },
-];
 
 const checkins = [
   {
@@ -109,6 +89,18 @@ const getCurrentDateInfo = () => {
 };
 
 const Hotels = () => {
+  const [hotelBookings, setData] = useState([]);
+
+  useEffect(() => {
+    getTheHotelList();
+  }, [])
+  async function getTheHotelList() {
+    const { data, error } = await supabase.from('hotel_booking').select('*');
+    if (error) throw error;
+    console.log(data);
+
+    setData(data);
+  }
   const { day, date, month, year } = getCurrentDateInfo();
 
   return (
@@ -146,9 +138,9 @@ const Hotels = () => {
               >{`${date} ${month} ${year}`}</span>
             </p>
             <div className="room-schedules-list">
-              {roomSchedules.length > 0 ? (
-                roomSchedules.map((schedule, index) => (
-                  <RoomScheduleItem key={index} schedule={schedule} />
+              {hotelBookings.length > 0 ? (
+                hotelBookings.map((schedule, index) => (
+                  <Schedules key={index} schedule={schedule} />
                 ))
               ) : (
                 <p>No new schedules available.</p>
@@ -231,37 +223,7 @@ const BookingItem = ({ schedule, onClick }) => {
   );
 };
 
-const RoomScheduleItem = ({ schedule }) => {
-  const formatRoomScheduleDate = (dateString) => {
-    const parts = dateString.split(", ");
-    const dayOfWeek = parts[0];
-    const restOfDate = parts.slice(1).join(", ");
 
-    return (
-      <>
-        <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
-      </>
-    );
-  };
-
-  return (
-    <div className="room-schedule-item">
-      <div className="room-schedule-icon">
-        <img src={calendar} alt="Room Schedule Image" />
-      </div>
-      <div className="room-schedule-info">
-        <p className="room-schedule-id">Room ID #{schedule.id}</p>
-        <h2 className="room-schedule-title">{schedule.title}</h2>
-      </div>
-      <div className="room-schedule-date-info">
-        <p className="room-schedule-date-label">Scheduled Date</p>
-        <p className="room-schedule-date">
-          {formatRoomScheduleDate(schedule.date)}
-        </p>
-      </div>
-    </div>
-  );
-};
 
 const CheckInItem = ({ checkin }) => {
   const formatCheckInDate = (dateString) => {

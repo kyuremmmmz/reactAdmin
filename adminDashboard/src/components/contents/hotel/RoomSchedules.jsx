@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import './styles.css'; 
 import Header from '../../panels/Header';
@@ -79,12 +80,12 @@ const RoomScheduleItem = ({ schedule }) => {
         <img src={image} alt="Schedule Image" />
       </div>
       <div className="room-schedule-info">
-        <p className="room-schedule-id">Room Schedule ID #{schedule.id}</p>
-        <h2 className="room-schedule-title">{schedule.title} {schedule.id}</h2>
+        <p className="room-schedule-id">Room Schedule ID #{this.schedule.id}</p>
+        <h2 className="room-schedule-title">{this.schedule.title} {this.schedule.id}</h2>
       </div>
       <div className="room-schedule-date-info">
         <p className="room-schedule-date-label">Schedule Date</p>
-        <p className="room-schedule-date">{formatRoomScheduleDate(schedule.date)}</p>
+        <p className="room-schedule-date">{formatRoomScheduleDate(this.schedule.date)}</p>
       </div>
     </div>
   );
