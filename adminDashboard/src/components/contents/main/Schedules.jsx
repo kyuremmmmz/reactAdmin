@@ -3,10 +3,7 @@ import './hotel.css';
 import lock from "../../../assets/lock.png";
 import { useState } from 'react';
 function Schedules(props) {
-    const schedule = props.schedule;
-    const [name, setName] = useState("");
-    const [roomType, setRoomType] = useState("");
-    const [price, setPrice] = useState("");
+    const schedule = props.schedule;;
     const formatBookingDate = (dateString) => {
         const date = new Date(dateString);
 

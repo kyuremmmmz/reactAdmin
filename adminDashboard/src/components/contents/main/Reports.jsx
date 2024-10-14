@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { supabase } from '../../../supabaseClient';
-import { format } from 'date-fns'; 
+import { format } from 'date-fns';
 import Header from "../../panels/Header";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 const Reports = () => {
   const [chartData, setChartData] = useState({ options: {}, series: [] });
-  const [totalFlights, setFlightStats] = useState({options: {}, series: [] });
+  const [totalFlights, setFlightStats] = useState({ options: {}, series: [] });
   const [loading, setLoading] = useState(true);
 
-
   const fetchFlightStats = async () => {
-    setLoading(true);
     try {
       const { data, error } = await supabase.from('flightBooking').select('created_at, payment');
       if (error) throw error;
-    const totalAmount = data.map(item => item.payment)
+      const groupedData = data.reduce((acc, item) => {
+        const formattedDate = format(new Date(item.created_at), 'eeee, dd MMM yyyy, hh:mm a');
+        acc[formattedDate] = (acc[formattedDate] || 0) + item.payment;
+        return acc;
+      }, {});
+
+      const dates = Object.keys(groupedData);
+      const totalAmounts = Object.values(groupedData);
+
       setFlightStats({
         options: {
           chart: {
@@ -26,21 +32,20 @@ const Reports = () => {
             },
           },
           xaxis: {
-            categories: data.map(item => format(new Date(item.created_at), 'eeee, dd MMM yyyy, hh:mm a')),
+            categories: dates,
           },
         },
         series: [{
-          name: 'Total bookings',
-          data: totalAmount,
-        }]
-      })
-    } catch (e) {
-      console.error(e);
-     };
-  }
+          name: 'Total Bookings',
+          data: totalAmounts,
+        }],
+      });
+    } catch (error) {
+      console.error('Error fetching flight stats:', error);
+    }
+  };
 
   const fetchData = async () => {
-    setLoading(true);
     try {
       const { data, error } = await supabase
         .from('hotel_booking')
@@ -58,21 +63,16 @@ const Reports = () => {
         options: {
           chart: {
             height: 350,
-            type: 'line',
+            type: 'donut',
             zoom: {
               enabled: false,
             },
           },
           xaxis: {
-            categories: formattedDates,
-          },
+            categories: formattedDates
+          }
         },
-        series: [
-          {
-            name: 'Total Payments',
-            data: salesAmounts,
-          },
-        ],
+        series: salesAmounts,
       });
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -80,7 +80,9 @@ const Reports = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
+    setLoading(true);
     fetchFlightStats();
     fetchData();
   }, []);
@@ -93,19 +95,19 @@ const Reports = () => {
     <div>
       <Header />
       <main className='data'>
-        <h2>Sales Data</h2>
+        <h2>Hotel Booking Data</h2>
         <Chart
           options={chartData.options}
           series={chartData.series}
-          type="bar"
           height={350}
+          type='donut'
         />
         <h2>Sales Data Flights</h2>
         <Chart
           options={totalFlights.options}
           series={totalFlights.series}
-          type="bar"
           height={350}
+          type='bar'
         />
       </main>
     </div>

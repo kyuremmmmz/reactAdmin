@@ -5,6 +5,12 @@
   padding-bottom: 20px;
 }
 
+.wallets{
+    height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 20px;
+}
 .data {
     height: calc(100vh - 20px);
     overflow-y: auto;
@@ -145,4 +151,33 @@
     text-align: left;
     margin-top: 10px;
   }
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.custom-table tr:hover {
+  background-color: #ddd;
 }
