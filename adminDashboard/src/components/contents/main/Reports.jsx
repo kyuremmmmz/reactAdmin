@@ -9,6 +9,36 @@ const Reports = () => {
   const [totalFlights, setFlightStats] = useState({options: {}, series: [] });
   const [loading, setLoading] = useState(true);
 
+
+  const fetchFlightStats = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.from('flightBooking').select('created_at, payment');
+      if (error) throw error;
+    const totalAmount = data.map(item => item.payment)
+      setFlightStats({
+        options: {
+          chart: {
+            height: 350,
+            type: 'bar',
+            zoom: {
+              enabled: false,
+            },
+          },
+          xaxis: {
+            categories: data.map(item => format(new Date(item.created_at), 'eeee, dd MMM yyyy, hh:mm a')),
+          },
+        },
+        series: [{
+          name: 'Total bookings',
+          data: totalAmount,
+        }]
+      })
+    } catch (e) {
+      console.error(e);
+     };
+  }
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -51,7 +81,7 @@ const Reports = () => {
     }
   };
   useEffect(() => {
-
+    fetchFlightStats();
     fetchData();
   }, []);
 
@@ -62,27 +92,22 @@ const Reports = () => {
   return (
     <div>
       <Header />
-      <h2>Sales Data</h2>
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="line"
-        height={350}
-      />
-      <h2>Sales Data Flights</h2>
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="line"
-        height={350}
-      />
-      <h2>Sales Data</h2>
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="line"
-        height={350}
-      />
+      <main className='data'>
+        <h2>Sales Data</h2>
+        <Chart
+          options={chartData.options}
+          series={chartData.series}
+          type="bar"
+          height={350}
+        />
+        <h2>Sales Data Flights</h2>
+        <Chart
+          options={totalFlights.options}
+          series={totalFlights.series}
+          type="bar"
+          height={350}
+        />
+      </main>
     </div>
   );
 };
