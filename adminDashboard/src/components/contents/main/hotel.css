@@ -1,0 +1,141 @@
+.hotels {
+  height: calc(100vh - 20px);
+  overflow-y: auto; 
+  padding: 20px;
+  padding-bottom: 20px;
+}
+
+.newbooking,
+.checkin,
+.co-container,
+.room-schedules {
+  background-color: #fff;
+  flex-grow: 1;
+}
+
+.newbooking-section,
+.checkin-section,
+.co-section,
+.room-schedules-section {
+  margin-top: 30px;
+  padding: 0 12px;
+}
+
+.newbooking-title,
+.checkin-title,
+.co-title,
+.room-title {
+  color: #3d3d3d;
+  font: 700 30px "Roboto Flex", sans-serif;
+  padding: 0 25px;
+  margin: 0;
+}
+
+.newbooking-date,
+.checkin-date,
+.co-date,
+.room-date {
+  color: #0047fa;
+  font: 300 12px "Inter", sans-serif;
+  padding: 0 25px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.booking-list,
+.checkin-list,
+.co-list,
+.room-schedules-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 25px;
+}
+
+.booking-item,
+.checkin-item,
+.co-status-item,
+.room-schedule-item {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #e0f0ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.booking-icon img,
+.checkin-icon img,
+.co-icon img,
+.room-schedule-icon img {
+  width: 80px;
+  margin-right: 15px;
+}
+
+.booking-info,
+.checkin-info,
+.co-info,
+.room-schedule-info {
+  flex-grow: 1;
+}
+
+.booking-id,
+.check-status-id,
+.co-status-id,
+.room-schedule-id {
+  font-size: 14px;
+  color: #007bff;
+}
+
+.booking-title,
+.checkin-status-title,
+.co-status-title,
+.room-schedule-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #3d3d3d;
+}
+
+.booking-date-info,
+.checkin-status-info,
+.co-info-date,
+.room-schedule-date-info {
+  text-align: right;
+}
+
+.booking-date-label,
+.checkin-status-label,
+.co-status-label,
+.room-schedule-date-label {
+  font-size: 12px;
+  color: #7b7b7b;
+}
+
+.booking-date,
+.checkin-status-date,
+.co-status-date,
+.room-schedule-date {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .booking-item,
+  .checkin-item,
+  .co-status-item,
+  .room-schedule-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .booking-date-info,
+  .checkin-status-info,
+  .co-info-date,
+  .room-schedule-date-info {
+    text-align: left;
+    margin-top: 10px;
+  }
+}

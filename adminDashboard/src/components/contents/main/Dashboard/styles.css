@@ -1,0 +1,188 @@
+html, body {
+    height: 100%; 
+    margin: 0;
+    overflow: auto;
+}
+.dashboard {
+    height: auto; 
+    max-height: 79vh; 
+    overflow-y: auto;
+    padding-bottom: 25px;
+    box-sizing: border-box;
+}
+
+
+.dashboard-section {
+    margin-top: 30px;
+    padding: 0 30px;
+}
+
+.dashboard-title {
+    color: #3d3d3d;
+    font: 700 30px 'Roboto Flex', sans-serif;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.dashboard-date {
+    color: #0047fa;
+    font: 300 12px 'Inter', sans-serif;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.stats-grid {
+    display: flex;
+    margin-top: 20px;
+    gap: 17px;
+    
+}
+
+.stat-card {
+    border-radius: 15px;
+    background-color: #32ade6;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-family: 'Roboto Flex', sans-serif;
+    font-weight: 600;
+    padding: 40px 15px 10px;
+    width: calc(25% - 13px);
+    min-width: 255px;
+}
+
+.stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 15px;
+    font-size: 38px;
+}
+
+.stat-label {
+    margin: 8px;
+}
+
+.stat-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    width: 84px;
+}
+
+.room-stats,
+.ticket-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 56px;
+}
+
+.room-stat-card,
+.ticket-stat-card {
+    border-radius: 10px;
+    background-color: #daf4fe;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 45px 18px;
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 300px;
+    overflow: visible;
+}
+
+.room-stat-title,
+.ticket-stat-title {
+    color: #595959;
+    font: 600 19px 'Roboto Flex', sans-serif;
+}
+
+.room-stat-bar,
+.ticket-stat-bar {
+    border-radius: 10px;
+    background-color: #fff;
+    margin-top: 19px;
+    height: 21px;
+    width: 80%;
+}
+
+.room-stat-fill,
+.ticket-stat-fill {
+    border-radius: 10px;
+    height: 100%;
+}
+
+.room-stat-total,
+.ticket-stat-total {
+    color: #595959;
+    font: 600 10px 'Roboto Flex', sans-serif;
+    text-align: left;
+    position: absolute;
+    bottom: 55px;
+}
+
+.room-stat-value,
+.ticket-stat-value {
+    color: #595959;
+    font: 600 38px 'Roboto Flex', sans-serif;
+    text-align: right;
+}
+
+.section-divider {
+    border-radius: 5px;
+    background-color: #91bdce;
+    height: 4px;
+    margin-top: 56px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 1200px) {
+    .stat-card {
+        width: calc(33.33% - 11px);
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        width: calc(50% - 8.5px);
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+    }
+
+    .dashboard-date {
+        font-size: 10px;
+    }
+
+    .room-stat-card,
+    .ticket-stat-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-title {
+        font-size: 20px;
+    }
+
+    .stat-content {
+        font-size: 28px;
+    }
+
+    .stat-icon {
+        width: 60px;
+    }
+}
