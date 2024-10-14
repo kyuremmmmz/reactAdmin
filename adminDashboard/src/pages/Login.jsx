@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginData from "../data/login-data";
@@ -17,6 +18,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!rcaptcha) {
+      alert("Please complete the CAPTCHA!");
+      return;
+    }
+
     setLoading(true);
 
     const user = await LoginData(email, password, rcaptcha);
@@ -28,7 +35,7 @@ const Login = () => {
       alert(token);
       navigate("/home");
     } else {
-      alert("Invalid email or password!");
+      alert("Invalid email, password, or CAPTCHA!");
     }
   };
 
@@ -68,12 +75,12 @@ const Login = () => {
         <HCaptcha
           ref={captcha}
           sitekey="030e62ac-0200-47b6-9e7a-e086d94872a2"
-          onVerify={setCaptcha}
+          onVerify={setCaptcha}  // This sets the captcha token
         />
       </div>
       <div className="">
-        <button onClick={handleLogin} className="drop-shadow-large">
-          LOGIN
+        <button onClick={handleLogin} className="drop-shadow-large" disabled={loading}>
+          {loading ? "Logging in..." : "LOGIN"}
         </button>
       </div>
     </div>
