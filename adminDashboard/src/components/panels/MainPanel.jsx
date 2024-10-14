@@ -8,7 +8,7 @@ import Logout from "../contents/main/Logout";
 import Settings from "../contents/main/Settings";
 import Reviews from "../contents/main/Reviews";
 import Reports from "../contents/main/Reports";
-import Wallets from "../contents/main/Wallets";
+import Wallets from "../contents/main/Postings";
 import NewBookings from "../contents/hotel/NewBookings";
 import RoomSchedules from "../contents/hotel/RoomSchedules";
 import CheckIns from "../contents/hotel/CheckIns";

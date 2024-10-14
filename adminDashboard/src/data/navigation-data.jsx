@@ -16,7 +16,7 @@ const NavigationData = [
   },
   {
     _id: "4",
-    name: "WALLETS",
+    name: "POSTINGS",
     path: "/home/wallets/",
   },
   {
