@@ -1,13 +1,13 @@
+body {
+  overflow: hidden;
+}
+
 .take-screen {
-  width: 100dvw;
-  height: 100dvh;
-  background-color: white;
+  height: 100vh; 
+  background-color: rgb(255, 255, 255);
   color: black;
   font-size: medium;
-}
-body {
-  overflow-x: hidden;
-
+  overflow: hidden; 
 }
 
 .content-mid-horizontal {
@@ -16,7 +16,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 
 .content-mid-vertical {
   display: flex;
@@ -57,25 +56,24 @@ body {
   gap: 6px;
 }
 
-/* INPUT CSS */
 input {
   padding: 10px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: white;
   border-radius: 9999px;
+  background-color: white;
   outline: none;
   border: none;
   color: black;
   filter: drop-shadow(5px 5px 10px #000000);
 }
+
 input:focus {
   outline: none;
   border: none;
 }
 
-/* BUTTON CSS */
 .side-panel-button {
   width: 100px;
   padding: 12px 48px;
@@ -92,8 +90,8 @@ input:focus {
   font-family: Inter, sans-serif;
   font-weight: 700;
   font-size: 15px;
-
 }
+
 .side-panel-button:hover {
   background-color: #3fa8ff;
   cursor: pointer;
@@ -102,19 +100,28 @@ input:focus {
 .selected-button {
   background-color: #00467f;
 }
+
 button {
   padding: 12px 48px;
   font-size: 14px;
   background-color: #2196f3;
   border: none;
   border-radius: 9999px;
- cursor: pointer;
+  cursor: pointer;
 }
 
 button:hover {
   background-color: #3fa8ff;
 }
 
+h1 {
+  margin: 0;
+  padding: 0;
+  color: white;
+  filter: drop-shadow(5px 5px 10px #000000);
+  font-size: 120px;
+  height: fit-content;
+}
 
 h4 {
   margin: 0;
@@ -125,8 +132,6 @@ h4 {
   height: fit-content;
 }
 
-/* BACKGROUNDS */
-
 .bg-orange {
   background-color: orange !important;
 }
@@ -135,63 +140,105 @@ h4 {
   background-color: #2196f3 !important;
 }
 
-/* SIDE PANEL */
-
 .item-side-panel {
-  height: 150vh;
-  width: 400px;
-  position: relative; /* Allows positioning of child elements */
-
+  height: 100%;
+  width: 300px;
+  position: relative;
 }
-
-.item-side-panel::after {
-  content: ""; /* Creates a pseudo-element */
-  display: block;
-  height: 500px; /* Height of the visible area at the bottom */
-  background-color: #DAF4FE; /* Change this color to whatever you prefer */
-  position: absolute;
-  bottom: -24.4rem; /* Position at the bottom */
-  left: 0; /* Align to the left */
-  right: 0; /* Stretch to the right */
-}
-
-/* MAIN PANEL */
 
 .item-main-panel {
   height: 100%;
-  width: 90%;
+  width: 100%;
 }
-
-/* IMAGES */
 
 .profile-image {
   aspect-ratio: 0.97;
   object-fit: fill;
   width: 180px;
+  height: 180px;
   box-shadow: 0 10px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   align-self: center;
-  margin-top: 250px;
-
-  max-width: 100%;
+  margin-top: 50px;
 }
 
 .profile-name {
-  text-shadow: 0 0 0 1px rgba(125, 125, 125, 0.25);
+  filter: drop-shadow(0px 5px 10px #242424bb);
   text-align: center;
   align-self: center;
   margin-top: 35px;
-  font: 600 15px Roboto Flex, sans-serif;
+  font: 900 15px Roboto Flex, sans-serif;
+  color: white;
 }
 
-/* HR CSS */
-
 hr {
-  width: 80%;
+  width: 100%;
   margin: 24px 64px;
+  height: 1px;
   background-color: #cccccc;
 }
 
 .drop-shadow-large {
   filter: drop-shadow(5px 5px 10px #000000);
+}
+
+.header {
+  background-color: #daf4fe;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)  !important;
+  text-align: center;
+  padding: 15px 90px; 
+  font-family: Inter, sans-serif;
+}
+
+.header-title {
+  color: #44caf9;
+  text-shadow: 0px -2px 10px rgba(110, 110, 110, 0.305);
+  font-size: 40px; 
+  font-weight: 700;
+  padding: 2px;
+}
+
+.header-subtitle {
+  color: #3d3d3d;
+  font-size: 15px; 
+  font-weight: 500;
+  margin-top: -30px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 60px;
+  }
+
+  .header-title {
+    font-size: 30px;
+  }
+
+  .header-subtitle {
+    font-size: 12px;
+  }
+
+  .item-side-panel {
+    width: 100%;
+  }
+
+  .profile-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  .side-panel-button, button {
+    width: 100%;
+  }
+
+  .content-mid-horizontal,
+  .content-start-horizontal {
+    flex-direction: column;
+    bottom: -150px;
+    position: relative;
+  }
 }

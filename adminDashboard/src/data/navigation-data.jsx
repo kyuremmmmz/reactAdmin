@@ -38,7 +38,9 @@ const NavigationData = [
     _id: "7",
     name: "LOG OUT",
     path: "/home/logout/",
+    
   },
+  
 ];
 
 export default NavigationData;

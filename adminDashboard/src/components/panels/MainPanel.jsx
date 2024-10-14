@@ -8,6 +8,10 @@ import Settings from "../contents/main/Settings";
 import Reviews from "../contents/main/Reviews";
 import Reports from "../contents/main/Reports";
 import Wallets from "../contents/main/Wallets";
+import NewBookings from "../contents/hotel/NewBookings";
+import RoomSchedules from "../contents/hotel/RoomSchedules";
+import CheckIns from "../contents/hotel/CheckIns";
+import CheckOuts from "../contents/hotel/CheckOuts";
 
 const MainPanel = () => {
   return (
@@ -20,6 +24,12 @@ const MainPanel = () => {
         <Route path="/reports" element={<Reports />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/newbookings" element={<NewBookings />} />
+        <Route path="/roomsched" element={<RoomSchedules />} />
+        <Route path="/checkedout" element={<CheckOuts />} />
+        <Route path="/checkedin" element={<CheckIns />} />
+
+
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </div>
