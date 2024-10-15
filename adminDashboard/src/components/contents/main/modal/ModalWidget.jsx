@@ -13,7 +13,7 @@ function ModalWidget({ HotelData, show, hide }) {
       setPrice(HotelData.hotel_price || 0);
     }
   }, [HotelData])
-
+  
   const save = async () => {
     const { data, error } = await supabase.from('hotels').update({
       hotel_name: name,
