@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
 import InsertionModalWidget from './modal/InsertionModalWidget';
+import Swal from 'sweetalert2';
 
 function Postings() {
   const [dataFetched, setData] = useState([]);
@@ -17,7 +18,14 @@ function Postings() {
     if (error) throw error;
     setData(data);
   }
-
+  async function deleteData(id) {
+    await supabase.from('hotels').delete().eq('id', id);
+    Swal.fire({
+      title: 'Hotel deleted successfully!',
+      icon:'success',
+      timer: 15000
+    })
+  }
   function handleEditClick() {
     setShow(true);
   }
@@ -77,13 +85,24 @@ function Postings() {
                     <Card.Text>
                       <strong>Description:</strong> {hotel.hotel_description}
                     </Card.Text>
+                    <Card.Text>
+                      <strong>Description:</strong> {hotel.hotel_located}
+                    </Card.Text>
                     <div className="text-center">
-                      <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className="mx-2">
-                        Edit
-                      </Button>
-                      <Button variant="danger" className="mx-2">
-                        Delete
-                      </Button>
+                      <Container>
+                        <Row>
+                          <Col>
+                            <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className="mx-2">
+                              Edit
+                            </Button>
+                          </Col>
+                          <Col>
+                            <Button variant="danger" className="mt-2" onClick={()=> deleteData(hotel.id)}>
+                              Delete
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Container>
                     </div>
                   </Card.Body>
                 </Card>
@@ -97,9 +116,9 @@ function Postings() {
               hide={handleCloseClickModal}
             />
           )}
-          
-            <InsertionModalWidget show={show} hide={handleCloseClick}/>
-          
+
+          <InsertionModalWidget show={show} hide={handleCloseClick} />
+
         </div>
       </main>
     </div>
