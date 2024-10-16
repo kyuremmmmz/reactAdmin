@@ -1,10 +1,44 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigation } from "./NavigationContext"; 
+import { useNavigation } from "./NavigationContext";
 import NavigationData from "../../data/navigation-data";
+import { supabase } from "../../supabaseClient";
 
 const SidePanel = () => {
   const { activePath, setActivePath } = useNavigation();
+  const [name, setName] = useState('');
+  const fetchUserData = async () => {
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      if (user) {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name')
+          .eq('id', user.id)
+          .single();
+
+        if (error) {
+          console.error("Error fetching user profile:", error);
+          return;
+        }
+
+        setName(data.full_name);
+      }
+    } catch (error) {
+      console.error("Error in fetchUserData:", error);
+    }
+  };
+  useEffect(() => {
+
+    fetchUserData();
+  }, []);
 
   const handleLinkClick = (path) => {
     setActivePath(path);
@@ -20,7 +54,7 @@ const SidePanel = () => {
           height={120}
           width={120}
         />
-        <h4 className="profile-name">Christian David B. Jasmin</h4>
+        <h4 className="profile-name">Welcome {name}</h4>
       </header>
       <hr />
 
@@ -30,10 +64,8 @@ const SidePanel = () => {
             <Link
               to={item.path}
               key={item._id}
-              className={`side-panel-button ${
-                activePath === item.path ? "selected-button" : ""
-              }`}
-              onClick={() => handleLinkClick(item.path)} 
+              className={`side-panel-button ${activePath === item.path ? "selected-button" : ""}`}
+              onClick={() => handleLinkClick(item.path)}
             >
               {item.name}
             </Link>

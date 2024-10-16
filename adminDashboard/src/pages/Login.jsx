@@ -27,15 +27,13 @@ const Login = () => {
     }
 
     setLoading(true);
-
     const user = await LoginData(email, password, rcaptcha);
     setLoading(false);
 
     if (user && user.data && user.data.session) {
       const token = user.data.session.access_token;
       localStorage.setItem("token", token);
-      alert(token);
-      navigate("/home");
+      navigate("/home", { state: { user: user.data.user } });
     } else {
       alert("Invalid email, password, or CAPTCHA!");
     }
@@ -58,11 +56,12 @@ const Login = () => {
       </header>
 
       <main className="content-mid-vertical">
-        <Form>
+        <Form className="form">
           <FormGroup>
             <FormControl
               type="text"
               placeholder="Admin Id"
+              className="field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -72,6 +71,7 @@ const Login = () => {
             <FormControl
               type="password"
               placeholder="Password"
+              className="field"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -83,7 +83,7 @@ const Login = () => {
         <HCaptcha
           ref={captcha}
           sitekey="030e62ac-0200-47b6-9e7a-e086d94872a2"
-          onVerify={setCaptcha}  // This sets the captcha token
+          onVerify={setCaptcha}
         />
       </div>
       <div className="">

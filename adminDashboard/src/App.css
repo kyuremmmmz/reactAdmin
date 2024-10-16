@@ -68,6 +68,28 @@ input {
   color: black;
 }
 
+.field {
+  padding: 10px;
+  width: 200%;
+  max-width: 400px;
+  margin-bottom: 10px;
+  display: flex;
+  align-self: center;
+  border-radius: 9999px;
+  background-color: white;
+  outline: none;
+  border: none;
+  color: black;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin-right: 190px;
+}
+
 input:focus {
   outline: none;
   border: none;
@@ -103,10 +125,12 @@ input:focus {
 button {
   padding: 12px 48px;
   font-size: 14px;
+  width: 200px;
   background-color: #2196f3;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
+  transition: all 0.8s ease;
 }
 
 button:hover {
