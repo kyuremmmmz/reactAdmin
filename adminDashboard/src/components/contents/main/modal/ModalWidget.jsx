@@ -21,7 +21,8 @@ function ModalWidget({ HotelData, show, hide }) {
 
     const handleAmenityUrlChange = async (index, file) => {
         if (file) {
-            const filePath = `${HotelData.id}${index + 1}_${file.name}`;
+            const fileName = `${HotelData.id}_${file.name}`;
+            const filePath = `${fileName}`;
             const { data, error } = await supabase.storage
                 .from('hotel_amenities_url')
                 .upload(filePath, file);
@@ -29,12 +30,8 @@ function ModalWidget({ HotelData, show, hide }) {
             if (error) {
                 Swal.fire('Error', error.message, 'error');
             } else {
-                const publicUrl = supabase.storage
-                    .from('hotel_amenities_url')
-                    .getPublicUrl(filePath)
-                    .data.publicUrl;
                 const updatedUrls = [...amenityUrls];
-                updatedUrls[index] = publicUrl;
+                updatedUrls[index] = fileName; // Store only the file name
                 setAmenityUrls(updatedUrls);
             }
         }
