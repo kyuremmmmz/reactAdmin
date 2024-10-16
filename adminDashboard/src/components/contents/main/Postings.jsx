@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
+import InsertionModalWidget from './modal/InsertionModalWidget';
 
 function Postings() {
   const [dataFetched, setData] = useState([]);
@@ -16,8 +17,7 @@ function Postings() {
     setData(data);
   }
 
-  function handleEditClick(hotel) {
-    setHotelToEdit(hotel);
+  function handleEditClick() {
     setShow(true);
   }
 
@@ -36,7 +36,7 @@ function Postings() {
       <main className='main'>
         <div className="container mt-5">
           <h2 className="text-center">Postings</h2>
-          <Button variant='success' className='mt-4'>Add Hotel</Button>
+          <Button variant='success' className='mt-4' onClick={handleEditClick}>Add Hotel</Button>
           <Row className="mt-4 justify-content-center">
             {dataFetched.map((hotel) => (
               <Col key={hotel.id} sm={12} md={6} lg={4} className="mb-4">
@@ -87,6 +87,9 @@ function Postings() {
               hide={handleCloseClick}
             />
           )}
+          {
+            <InsertionModalWidget show={show} hide={handleCloseClick}/>
+          }
         </div>
       </main>
     </div>

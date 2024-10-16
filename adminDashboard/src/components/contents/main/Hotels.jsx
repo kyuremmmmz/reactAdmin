@@ -1,7 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import "./hotel.css";
 import Header from "../../panels/Header";
-import calendar from "../../../assets/calendar.png";
 import lock from "../../../assets/lock.png";
 import check from "../../../assets/check.png";
 import out from "../../../assets/out.png";

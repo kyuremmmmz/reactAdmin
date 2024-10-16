@@ -1,15 +1,20 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { supabase } from '../../../../supabaseClient';
+// eslint-disable-next-line react/prop-types
 function ModalWidget({ HotelData, show, hide }) {
   const [name, setName] = useState('');
   const [hotelDescription, setHotelDescription] = useState('');
   const [price, setPrice] = useState(0);
   useEffect(() => {
     if (HotelData) {
+      // eslint-disable-next-line react/prop-types
       setName(HotelData.hotel_name || '');
+      // eslint-disable-next-line react/prop-types
       setHotelDescription(HotelData.hotel_description || '');
+      // eslint-disable-next-line react/prop-types
       setPrice(HotelData.hotel_price || 0);
     }
   }, [HotelData])
@@ -19,6 +24,7 @@ function ModalWidget({ HotelData, show, hide }) {
       hotel_name: name,
       hotel_description: hotelDescription,
       hotel_price: price,
+    // eslint-disable-next-line react/prop-types
     }).eq('id', HotelData.id);
     if (error) throw error;
     hide();

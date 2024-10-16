@@ -13,6 +13,7 @@ import NewBookings from "../contents/hotel/NewBookings";
 import RoomSchedules from "../contents/hotel/RoomSchedules";
 import CheckIns from "../contents/hotel/CheckIns";
 import CheckOuts from "../contents/hotel/CheckOuts";
+import Discounts from "../contents/main/Discounts";
 
 const MainPanel = () => {
   return (
@@ -25,6 +26,7 @@ const MainPanel = () => {
         <Route path="/reports" element={<Reports />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/discounts" element={<Discounts />} />
         <Route path="/newbookings" element={<NewBookings />} />
         <Route path="/roomsched" element={<RoomSchedules />} />
         <Route path="/checkedout" element={<CheckOuts />} />
