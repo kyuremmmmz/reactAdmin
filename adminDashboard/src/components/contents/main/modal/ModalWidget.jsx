@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import 'bootstrap/dist/css/bootstrap.min.css';
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { supabase } from '../../../../supabaseClient';
