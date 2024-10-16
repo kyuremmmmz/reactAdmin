@@ -59,14 +59,13 @@ body {
 input {
   padding: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
   margin-bottom: 10px;
   border-radius: 9999px;
   background-color: white;
   outline: none;
   border: none;
   color: black;
-  filter: drop-shadow(5px 5px 10px #000000);
 }
 
 input:focus {

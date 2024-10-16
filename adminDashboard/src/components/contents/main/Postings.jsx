@@ -9,6 +9,7 @@ import InsertionModalWidget from './modal/InsertionModalWidget';
 function Postings() {
   const [dataFetched, setData] = useState([]);
   const [show, setShow] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [hotelToEdit, setHotelToEdit] = useState(null);
 
   async function fetchData() {
@@ -24,6 +25,15 @@ function Postings() {
   function handleCloseClick() {
     setShow(false);
     setHotelToEdit(null);
+  }
+
+  function handleEditClickModal(hotel) {
+    setHotelToEdit(hotel);
+    setShowEditModal(true);
+  }
+
+  function handleCloseClickModal() {
+    setShowEditModal(false);
   }
 
   useEffect(() => {
@@ -68,7 +78,7 @@ function Postings() {
                       <strong>Description:</strong> {hotel.hotel_description}
                     </Card.Text>
                     <div className="text-center">
-                      <Button variant="primary" onClick={() => handleEditClick(hotel)} className="mx-2">
+                      <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className="mx-2">
                         Edit
                       </Button>
                       <Button variant="danger" className="mx-2">
@@ -82,14 +92,14 @@ function Postings() {
           </Row>
           {hotelToEdit && (
             <ModalWidget
-              show={show}
+              show={showEditModal}
               HotelData={hotelToEdit}
-              hide={handleCloseClick}
+              hide={handleCloseClickModal}
             />
           )}
-          {
+          
             <InsertionModalWidget show={show} hide={handleCloseClick}/>
-          }
+          
         </div>
       </main>
     </div>

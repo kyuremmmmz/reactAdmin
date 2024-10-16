@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginData from "../data/login-data";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { Form, FormControl, FormGroup } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -56,20 +58,26 @@ const Login = () => {
       </header>
 
       <main className="content-mid-vertical">
-        <input
-          type="text"
-          placeholder="Admin Id"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <Form>
+          <FormGroup>
+            <FormControl
+              type="text"
+              placeholder="Admin Id"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormControl
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </FormGroup>
+        </Form>
       </main>
       <div className="">
         <HCaptcha
