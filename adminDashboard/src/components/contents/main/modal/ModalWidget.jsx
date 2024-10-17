@@ -39,17 +39,17 @@ function ModalWidget({ HotelData, show, hide }) {
 
     useEffect(() => {
         if (HotelData) {
-            setHotelName(HotelData.hotel_name || '');
-            setHotelDescription(HotelData.hotel_description || '');
+            setHotelName(HotelData.hotel_name || null);
+            setHotelDescription(HotelData.hotel_description || null);
             setPrice(HotelData.hotel_price || 0);
-            setDiscount(HotelData.hotel_discount || '');
+            setDiscount(HotelData.hotel_discount || null);
             setImage(HotelData.image || null);
-            setLocated(HotelData.hotel_located || '');
+            setLocated(HotelData.hotel_located || null);
             const newAmenities = [];
             const newUrls = [];
             for (let i = 1; i <= 20; i++) {
-                newAmenities.push(HotelData[`amenity${i}`] || '');
-                newUrls.push(HotelData[`amenity${i}Url`] || '');
+                newAmenities.push(HotelData[`amenity${i}`] || null);
+                newUrls.push(HotelData[`amenity${i}Url`] || null);
             }
             setAmenities(newAmenities);
             setAmenityUrls(newUrls);
