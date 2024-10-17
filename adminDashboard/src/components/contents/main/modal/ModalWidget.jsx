@@ -31,7 +31,7 @@ function ModalWidget({ HotelData, show, hide }) {
                 Swal.fire('Error', error.message, 'error');
             } else {
                 const updatedUrls = [...amenityUrls];
-                updatedUrls[index] = fileName; // Store only the file name
+                updatedUrls[index] = fileName;
                 setAmenityUrls(updatedUrls);
             }
         }
@@ -73,9 +73,14 @@ function ModalWidget({ HotelData, show, hide }) {
 
         if (error) {
             Swal.fire('Error', error.message, 'error');
+            return null;
         } else {
             Swal.fire('Success', 'Hotel details updated successfully!', 'success');
             hide();
+        }
+
+        if (data == null) {
+            return null;
         }
     };
 
