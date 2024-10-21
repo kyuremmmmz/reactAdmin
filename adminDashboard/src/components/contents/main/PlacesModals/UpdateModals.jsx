@@ -4,12 +4,11 @@ import Swal from 'sweetalert2';
 import { supabase } from '../../../../supabaseClient';
 
 function UpdateModals({ PlaceData, show, hide }) {
-    const [place_name, setHotelName] = useState('');
-    const [description, setHotelDescription] = useState('');
+    const [place_name, setHotelName] = useState(null);
+    const [description, setHotelDescription] = useState(null);
     const [price, setPrice] = useState(0);
-    const [discount, setDiscount] = useState('');
     const [image, setImage] = useState(null);
-    const [locatedIn, setLocated] = useState('');
+    const [locatedIn, setLocated] = useState(null);
 
 
 
@@ -27,10 +26,9 @@ function UpdateModals({ PlaceData, show, hide }) {
         const { data, error } = await supabase.from('places').update({
             place_name: place_name,
             description: description,
-            hotel_price: price,
-            hotel_discount: discount,
+            price: price,
             image: image,
-            hotel_located: locatedIn,
+            locatedIn: locatedIn,
         }).match({ id: PlaceData.id });
 
         if (error) {
