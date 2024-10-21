@@ -20,10 +20,11 @@
 }
 
 .main {
-  height: calc(100vh - 20px);
+  height: calc(100vh - 100px);
   overflow-y: auto;
   overflow-x: auto;
-  
+  padding: 20px;
+  padding-bottom: 70px;
 }
 
 .newbooking,
