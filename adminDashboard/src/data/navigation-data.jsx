@@ -16,7 +16,7 @@ const NavigationData = [
   },
   {
     _id: "4",
-    name: "WALLETS",
+    name: "POSTINGS",
     path: "/home/wallets/",
   },
   {
@@ -36,9 +36,36 @@ const NavigationData = [
   },
   {
     _id: "7",
+    name: "DISCOUNTS",
+    path: "/home/discounts/",
+  },
+  {
+    _id: "7",
+    name: "USERS",
+    path: "/home/users/",
+  },
+  {
+    _id: "7",
+    name: "PLACES",
+    path: "/home/places/",
+  },
+  {
+    _id: "7",
+    name: "BEACHES",
+    path: "/home/beaches/",
+  },
+  {
+    _id: "7",
+    name: "FESTIVALS",
+    path: "/home/festivals/",
+  },
+  {
+    _id: "7",
     name: "LOG OUT",
     path: "/home/logout/",
+
   },
+
 ];
 
 export default NavigationData;
