@@ -62,7 +62,7 @@ function UpdateModals({ PlaceData, show, hide }) {
                     <FormGroup controlId="formHotelDescription">
                         <Form.Label> Description</Form.Label>
                         <Form.Control
-                            type="text"
+                            as={'textarea'}
                             value={description}
                             onChange={(e) => setHotelDescription(e.target.value)}
                         />
