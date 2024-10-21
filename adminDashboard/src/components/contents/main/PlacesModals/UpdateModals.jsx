@@ -15,7 +15,7 @@ function UpdateModals({ PlaceData, show, hide }) {
 
     useEffect(() => {
         if (PlaceData) {
-            setHotelName(PlaceData.hotel_name || null);
+            setHotelName(PlaceData.place_name || null);
             setHotelDescription(PlaceData.description || null);
             setPrice(PlaceData.price || 0);
             setImage(PlaceData.image || null);
@@ -75,14 +75,6 @@ function UpdateModals({ PlaceData, show, hide }) {
                             type="number"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="formDiscount">
-                        <Form.Label>Discount</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={discount}
-                            onChange={(e) => setDiscount(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup controlId="formLocated">

@@ -7,13 +7,24 @@ import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
 import InsertionModalWidget from './modal/InsertionModalWidget';
 import Swal from 'sweetalert2';
+import UpdateModals from './PlacesModals/updateModals';
 function Places() {
     const [data, setData] = useState([]);
-
+    const [editModal, setEdit] = useState(false);
+    const [set, setEditData] = useState(null);
     const saveData = async () => {
         const { data, error } = await supabase.from('places').select('*');
         if (error) throw error;
         setData(data);
+    }
+
+    const openEdit = async (data) => {
+        setEditData(data);
+        setEdit(true);
+    }
+
+    const hideModal = async() => {
+        setEdit(false);
     }
 
     useEffect(() => {
@@ -39,7 +50,7 @@ function Places() {
                                             <strong>Description:</strong> {item.description}
                                         </Card.Text>
                                         <div className="text-center">
-                                            <Button variant="primary"  className="mx-2">
+                                            <Button variant="primary"  className="mx-2" onClick={()=> openEdit(item)}>
                                                 Edit
                                             </Button>
                                             <Button variant="danger" className="mt-2" >
@@ -51,6 +62,15 @@ function Places() {
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
+                    {
+                        editModal && (
+                            <UpdateModals
+                                show={editModal}
+                                PlaceData={set}
+                                hide={hideModal}
+                            />
+                        )
+                    }
                 </div>
             </main>
         </div>
