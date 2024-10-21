@@ -36,6 +36,8 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .bg-pangasinan {
