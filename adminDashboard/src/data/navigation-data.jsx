@@ -45,17 +45,17 @@ const NavigationData = [
     path: "/home/users/",
   },
   {
-    _id: "7",
+    _id: "8",
     name: "PLACES",
     path: "/home/places/",
   },
   {
-    _id: "7",
+    _id: "9",
     name: "BEACHES",
     path: "/home/beaches/",
   },
   {
-    _id: "7",
+    _id: "10",
     name: "FESTIVALS",
     path: "/home/festivals/",
   },

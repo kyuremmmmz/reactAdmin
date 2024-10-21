@@ -14,6 +14,7 @@ import RoomSchedules from "../contents/hotel/RoomSchedules";
 import CheckIns from "../contents/hotel/CheckIns";
 import CheckOuts from "../contents/hotel/CheckOuts";
 import Discounts from "../contents/main/Discounts";
+import Places from "../contents/main/Places";
 
 const MainPanel = () => {
   return (
@@ -31,6 +32,7 @@ const MainPanel = () => {
         <Route path="/roomsched" element={<RoomSchedules />} />
         <Route path="/checkedout" element={<CheckOuts />} />
         <Route path="/checkedin" element={<CheckIns />} />
+        <Route path="/places" element={<Places />} />
 
 
         <Route path="/logout" element={<Logout />} />
