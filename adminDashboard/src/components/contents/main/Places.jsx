@@ -8,10 +8,12 @@ import ModalWidget from './modal/ModalWidget';
 import InsertionModalWidget from './modal/InsertionModalWidget';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
+import InsertionModal from './PlacesModals/InsertionModals';
 function Places() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
     const [set, setEditData] = useState(null);
+    const [showModal, setModal] = useState(false);
     const saveData = async () => {
         const { data, error } = await supabase.from('places').select('*');
         if (error) throw error;
@@ -27,6 +29,14 @@ function Places() {
         setEdit(false);
     }
 
+    const showInserModal = async () => {
+        setModal(true);
+    }
+
+    const hide = async () => {
+        setModal(false);
+    }
+
     useEffect(() => {
         saveData();
     }, [])
@@ -37,6 +47,7 @@ function Places() {
             <main className='places-data'>
                 <div className="container mt-5">
                     <h2 className="text-center">Places</h2>
+                    <Button variant='success' className='mt-4' onClick={showInserModal}>Add Places</Button>
                     <ListGroup className="mt-4">
                         {data.map((item) => (
                             <ListGroup.Item key={item.id} className="mb-4">
@@ -71,6 +82,10 @@ function Places() {
                             />
                         )
                     }
+                    <InsertionModal
+                        show={showModal}
+                        hide={hide}
+                    />
                 </div>
             </main>
         </div>
