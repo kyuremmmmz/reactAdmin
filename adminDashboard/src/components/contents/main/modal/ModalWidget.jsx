@@ -102,7 +102,7 @@ function ModalWidget({ HotelData, show, hide }) {
                     <FormGroup controlId="formHotelDescription">
                         <Form.Label>Hotel Description</Form.Label>
                         <Form.Control
-                            type="text"
+                            as={'textarea'}
                             value={hotel_description}
                             onChange={(e) => setHotelDescription(e.target.value)}
                         />

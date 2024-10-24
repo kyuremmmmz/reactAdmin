@@ -66,8 +66,22 @@ function Postings() {
                   <div className='width'>
                     <img  className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel.image}`} />
                   </div>
+                  <div className=' col-9'>
+                    <h3>
+                      {hotel.hotel_name}
+                    </h3>
+                    <p className=' text-info fw-bolder'>
+                      {hotel.hotel_located}
+                    </p>
+                    <p className=''>
+                      {hotel.hotel_description}
+                    </p>
+                    <h3 className=''>
+                      Accomodations
+                    </h3>
+                  </div>
                 </Row>
-                <div className="text-center">
+                <div className="text-center top-100 mb-3">
                   <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className="mx-2">
                     Edit
                   </Button>

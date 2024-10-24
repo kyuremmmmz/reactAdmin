@@ -164,11 +164,11 @@ function InsertionModalWidget({ show, hide }) {
                     <Form>
                         <Form.Group>
                             <Form.Label>Hotel Name</Form.Label>
-                            <Form.Control type="text" value={hotelName} placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Hotel Description</Form.Label>
-                            <Form.Control type="text" value={hotelDescription} placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
@@ -176,15 +176,15 @@ function InsertionModalWidget({ show, hide }) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Discount</Form.Label>
-                            <Form.Control type="text" value={discount} placeholder="Enter hotel discount" onChange={(e) => setDiscount(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Enter hotel discount" onChange={(e) => setDiscount(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Hotel Price</Form.Label>
-                            <Form.Control type="text" value={price} placeholder="Enter hotel Price" onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)} />
+                            <Form.Control type="text"  placeholder="Enter hotel Price" onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Hotel Located</Form.Label>
-                            <Form.Control type="text" value={located} placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
                         </Form.Group>
                         {amenities.map((amenity, index) => (
                             <React.Fragment key={index}>
