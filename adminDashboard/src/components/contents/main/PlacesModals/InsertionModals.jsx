@@ -4,8 +4,8 @@ import { supabase } from '../../../../supabaseClient';
 import Swal from 'sweetalert2';
 
 function InsertionModal({ show, hide }) {
-    const [placeName, setPlaceName] = useState('');
-    const [placeDescription, setPlaceDescription] = useState('');
+    const [hotelName, setHotelName] = useState('');
+    const [hotelDescription, setHotelDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState('');
     const [imageFile, setImageFile] = useState(null);
@@ -40,14 +40,15 @@ function InsertionModal({ show, hide }) {
         }
     };
 
+
     const handlePost = async () => {
         const imagePath = await handleImageUpload();
         if (!imagePath) return;
 
         try {
             const { data, error } = await supabase.from('places').insert([{
-                place_name: placeName,
-                description: placeDescription,
+                place_name: hotelName,
+                description: hotelDescription,
                 price: price,
                 locatedIn: located,
                 image: imagePath,
@@ -71,66 +72,38 @@ function InsertionModal({ show, hide }) {
         }
     };
 
+
     return (
         <div>
             <Modal show={show} onHide={hide}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Post Place</Modal.Title>
+                    <Modal.Title>Post Hotels</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Place Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={placeName}
-                                placeholder="Enter place name"
-                                onChange={(e) => setPlaceName(e.target.value)}
-                            />
+                            <Form.Label>Hotel Name</Form.Label>
+                            <Form.Control type="text" value={hotelName} placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Place Description</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={placeDescription}
-                                placeholder="Enter place description"
-                                onChange={(e) => setPlaceDescription(e.target.value)}
-                            />
+                            <Form.Label>Hotel Description</Form.Label>
+                            <Form.Control type="text" value={hotelDescription} placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
-                            <Form.Control
-                                style={{ textAlign: 'center' }}
-                                type="file"
-                                onChange={(e) => setImageFile(e.target.files[0])}
-                            />
+                            <Form.Control style={{ textAlign: 'center' }} type="file" onChange={(e) => setImageFile(e.target.files[0])} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Discount</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={discount}
-                                placeholder="Enter discount"
-                                onChange={(e) => setDiscount(e.target.value)}
-                            />
+                            <Form.Control type="text" value={discount} placeholder="Enter hotel discount" onChange={(e) => setDiscount(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={price}
-                                placeholder="Enter place price"
-                                onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)}
-                            />
+                            <Form.Label>Hotel Price</Form.Label>
+                            <Form.Control type="text" value={price} placeholder="Enter hotel Price" onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={located}
-                                placeholder="Enter place location"
-                                onChange={(e) => setLocated(e.target.value)}
-                            />
+                            <Form.Label>Hotel Located</Form.Label>
+                            <Form.Control type="text" value={located} placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

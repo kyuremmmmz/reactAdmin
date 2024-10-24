@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup } from 'react-bootstrap';
+import { Button, Card, Container, ListGroup, Row, Col } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
@@ -51,48 +51,52 @@ function Places() {
     return (
         <div>
             <Header />
-            <main className='places-data'>
+            <main className='main'>
                 <div className="container mt-5">
-                    <h2 className="text-center">Places</h2>
-                    <Button variant='success' className='mt-4' onClick={showInserModal}>Add Places</Button>
+                    <Row>
+                        <h2 className="text-center w-25 col-1">Hotel Postings</h2>
+                        <Button variant='success' className=' col-2' onClick={showInserModal}>Add Hotel</Button>
+                    </Row>
                     <ListGroup className="mt-4">
-                        {data.map((item) => (
-                            <ListGroup.Item key={item.id} className="mb-4">
-                                <Card style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'row', border: '1px solid #007bff', borderRadius: '0.5rem' }} className="shadow-sm">
-                                    <Card.Body style={{ flex: 1 }}>
-                                        <Card.Title className="text-center">{item.place_name}</Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted text-center">
-                                            Price: PHP {item.price}
-                                        </Card.Subtitle>
-                                        <Card.Text>
-                                            <strong>Description:</strong> {item.description}
-                                        </Card.Text>
-                                        <div className="text-center">
-                                            <Button variant="primary"  className="mx-2" onClick={()=> openEdit(item)}>
+                        {data.map((hotel) => (
+                            <Container key={hotel.id} className='color'>
+                                <Row className='object-fit-cover'>
+                                        <div className='width'>
+                                            <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/places_url/${hotel.image}`} />
+                                        </div>
+                                    <div className='col-9 col-md-9 col-lg-9'>
+                                        <h3>
+                                            {hotel.place_name}
+                                        </h3>
+                                        <p className=' text-info fw-bolder'>
+                                            {hotel.locatedIn}
+                                        </p>
+                                        <p className=''>
+                                            {hotel.description}
+                                        </p>
+                                        <div className="text-center mb-2">
+                                            <Button variant="primary" onClick={() => openEdit(hotel)} className=" mt-3 mx-2">
                                                 Edit
                                             </Button>
-                                            <Button variant="danger" className="mt-2" onClick={()=>deleteData(item.id)}>
+                                            <Button variant="danger" onClick={() => deleteData(hotel.id)} className=" mt-3  mx-2">
                                                 Delete
                                             </Button>
                                         </div>
-                                    </Card.Body>
-                                </Card>
-                            </ListGroup.Item>
+                                    </div>
+                                </Row>
+                            </Container>
                         ))}
                     </ListGroup>
-                    {
-                        editModal && (
-                            <UpdateModals
-                                show={editModal}
-                                PlaceData={set}
-                                hide={hideModal}
-                            />
-                        )
-                    }
-                    <InsertionModal
-                        show={showModal}
-                        hide={hide}
-                    />
+
+                    {data && (
+                        <UpdateModals
+                            show={editModal}
+                            hide={hideModal}
+                            PlaceData={data}
+                        />
+                    )}
+
+                    <InsertionModal show={showModal} hide={hide} />
                 </div>
             </main>
         </div>
