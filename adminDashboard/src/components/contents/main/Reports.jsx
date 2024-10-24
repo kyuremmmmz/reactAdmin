@@ -4,22 +4,25 @@ import { supabase } from '../../../supabaseClient';
 import { format } from 'date-fns';
 import Header from "../../panels/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Row } from 'react-bootstrap';
+
 const Reports = () => {
   const [chartData, setChartData] = useState({ options: {}, series: [] });
   const [totalFlights, setFlightStats] = useState({ options: {}, series: [] });
+  const [hotelBookingCount, setHotelBookingCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const fetchFlightStats = async () => {
     try {
       const { data, error } = await supabase.from('flightBooking').select('created_at, payment');
       if (error) throw error;
+
       const groupedData = data.reduce((acc, item) => {
-        const formattedDate = format(new Date(item.created_at), 'eeee, dd MMM yyyy, hh:mm a');
+        const formattedDate = format(new Date(item.created_at), 'eeee, dd MMM yyyy');
         acc[formattedDate] = (acc[formattedDate] || 0) + item.payment;
         return acc;
       }, {});
 
-      const dates = Object.keys(groupedData);
       const totalAmounts = Object.values(groupedData);
 
       setFlightStats({
@@ -32,7 +35,7 @@ const Reports = () => {
             },
           },
           xaxis: {
-            categories: dates,
+            categories: Object.keys(groupedData),
           },
         },
         series: [{
@@ -53,8 +56,11 @@ const Reports = () => {
 
       if (error) throw error;
 
+      const count = data.length;
+      setHotelBookingCount(count);
+
       const formattedDates = data.map(item =>
-        format(new Date(item.date_of_booking), 'eeee, dd MMM yyyy, hh:mm a')
+        format(new Date(item.date_of_booking), 'eeee, dd MMM yyyy')
       );
 
       const salesAmounts = data.map(item => item.price);
@@ -68,14 +74,12 @@ const Reports = () => {
               enabled: false,
             },
           },
-          xaxis: {
-            categories: formattedDates
-          }
+          labels: formattedDates,
         },
         series: salesAmounts,
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching hotel booking data:', error);
     } finally {
       setLoading(false);
     }
@@ -95,20 +99,36 @@ const Reports = () => {
     <div>
       <Header />
       <main className='data'>
-        <h2>Hotel Booking Data</h2>
-        <Chart
-          options={chartData.options}
-          series={chartData.series}
-          height={350}
-          type='donut'
-        />
-        <h2>Sales Data Flights</h2>
-        <Chart
-          options={totalFlights.options}
-          series={totalFlights.series}
-          height={350}
-          type='bar'
-        />
+        <Row>
+          <div className='m-5 col-4 rounded-2 bg-body w-75'>
+            <h2>Hotel Booking Data</h2>
+            <p>Total Bookings: {hotelBookingCount}</p>
+            <Chart
+              options={chartData.options}
+              series={chartData.series}
+              height={350}
+              type='donut'
+            />
+          </div>
+          <div className='col-4 m-5 h-25 rounded-2 bg-gradient w-50'>
+            <h2>Sales Data Flights</h2>
+            <Chart
+              options={totalFlights.options}
+              series={totalFlights.series}
+              height={350}
+              type='bar'
+            />
+          </div>
+          <div className='col-4 m-5 h-25 rounded-2 bg-gradient w-50'>
+            <h2>Users</h2>
+            <Chart
+              options={totalFlights.options}
+              series={totalFlights.series}
+              height={350}
+              type='donut'
+            />
+          </div>
+        </Row>
       </main>
     </div>
   );

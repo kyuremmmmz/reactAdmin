@@ -4,8 +4,6 @@ import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, ListGroup } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
-import ModalWidget from './modal/ModalWidget';
-import InsertionModalWidget from './modal/InsertionModalWidget';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
 import InsertionModal from './PlacesModals/InsertionModals';

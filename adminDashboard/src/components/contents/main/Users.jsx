@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
-import { Button, Container, Row, Table } from 'react-bootstrap';
+import { Button, Container, Dropdown, DropdownButton, Row, Table } from 'react-bootstrap';
 import usersDatas from '../../../data/UsersData';
 
 function Users() {
@@ -31,12 +31,18 @@ function Users() {
                 <Table striped bordered hover className=' mt-4'>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Manage</th>
+                            <th className='text-center'>ID</th>
+                            <th className='text-center'>Name</th>
+                            <th className='text-center'>User Name</th>
+                            <th className='text-center'>Email</th>
+                            <th className='text-center'>Phone Number</th>
+                            <th className='text-center'>
+                                <Dropdown>
+                                    <Dropdown.Toggle variant='primary'>
+                                        Actions
+                                    </Dropdown.Toggle>
+                                </Dropdown>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
