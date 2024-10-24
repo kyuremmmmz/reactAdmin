@@ -54,8 +54,8 @@ function Places() {
             <main className='main'>
                 <div className="container mt-5">
                     <Row>
-                        <h2 className="text-center w-25 col-1">Hotel Postings</h2>
-                        <Button variant='success' className=' col-2' onClick={showInserModal}>Add Hotel</Button>
+                        <h2 className="text-center w-25 col-1">Places Postings</h2>
+                        <Button variant='success' className=' col-2' onClick={showInserModal}>Add Place</Button>
                     </Row>
                     <ListGroup className="mt-4">
                         {data.map((hotel) => (
