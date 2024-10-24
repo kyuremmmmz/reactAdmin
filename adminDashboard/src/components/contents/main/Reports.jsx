@@ -10,7 +10,35 @@ const Reports = () => {
   const [chartData, setChartData] = useState({ options: {}, series: [] });
   const [totalFlights, setFlightStats] = useState({ options: {}, series: [] });
   const [hotelBookingCount, setHotelBookingCount] = useState(0);
+  const [countPayment, setCountPay] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState({options: {}, series: []});
+
+
+  const fetchPayments = async () => {
+    const { data, error } = await supabase.from('payment_table').select('*');
+    if (error) throw error;
+    const Payment = data.length;
+    setCountPay(Payment);
+    const price = data.map(item => item.payment);
+    const date = data.map(item => format(new Date(item.date_of_payment), 'eeee, dd MMM yyyy'));
+    setTransactions(
+      {
+        options: {
+          chart: {
+            height: 350,
+            type: 'donut',
+            zoom: {
+              enabled: false,
+            },
+          },
+          labels: date,
+        },
+        series: price
+      }
+    )
+
+  }
 
   const fetchFlightStats = async () => {
     try {
@@ -89,6 +117,7 @@ const Reports = () => {
     setLoading(true);
     fetchFlightStats();
     fetchData();
+    fetchPayments();
   }, []);
 
   if (loading) {
@@ -100,7 +129,7 @@ const Reports = () => {
       <Header />
       <main className='data'>
         <Row>
-          <div className='m-5 col-4 rounded-2 bg-body w-75'>
+          <div className='m-5 col-4 rounded-2 bg-body-secondary w-23'>
             <h2>Hotel Booking Data</h2>
             <p>Total Bookings: {hotelBookingCount}</p>
             <Chart
@@ -110,7 +139,7 @@ const Reports = () => {
               type='donut'
             />
           </div>
-          <div className='col-4 m-5 h-25 rounded-2 bg-gradient w-50'>
+          <div className='col-4 m-5 h-25 rounded-2 bg-body-secondary bg-gradient w-50'>
             <h2>Sales Data Flights</h2>
             <Chart
               options={totalFlights.options}
@@ -119,11 +148,21 @@ const Reports = () => {
               type='bar'
             />
           </div>
-          <div className='col-4 m-5 h-25 rounded-2 bg-gradient w-50'>
+          <div className='col-4 bg-body-secondary m-5 h-25 rounded-2 bg-gradient w-50'>
             <h2>Users</h2>
             <Chart
               options={totalFlights.options}
               series={totalFlights.series}
+              height={350}
+              type='donut'
+            />
+          </div>
+          <div className='m-5 col-4 rounded-5 bg-body-secondary w-23'>
+            <h2 className=' mt-5 m-lg-3'>Total Transactions</h2>
+            <p className=' mt-5 m-lg-3'>Total Payments: {countPayment}</p>
+            <Chart
+              options={transactions.options}
+              series={transactions.series}
               height={350}
               type='donut'
             />
