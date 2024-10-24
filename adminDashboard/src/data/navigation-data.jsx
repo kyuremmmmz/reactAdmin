@@ -61,6 +61,12 @@ const NavigationData = [
   },
   {
     _id: "7",
+    name: "TRANSACTIONS",
+    path: "/home/transactions/",
+
+  },
+  {
+    _id: "7",
     name: "LOG OUT",
     path: "/home/logout/",
 
