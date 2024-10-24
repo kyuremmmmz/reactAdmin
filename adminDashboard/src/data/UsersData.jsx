@@ -1,10 +1,15 @@
 import { supabase } from "../supabaseClient"
 
-const users = async () => {
+const usersDatas = async () => {
     const { data, error } = await supabase.auth.admin.listUsers();
     if (error) {
-        return error;
+        return {
+            error : error.message,
+        };
     } else {
-        return data;
+        return {
+            data : data?.users || [],
+        };
     }
 }
+export default usersDatas;
