@@ -63,10 +63,21 @@ function Postings() {
             {dataFetched.map((hotel) => (
               <Container key={hotel.id} className='color'>
                 <Row className='object-fit-cover'>
-                  <div className='width'>
-                    <img  className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel.image}`} />
+                  <div className='col-3'>
+                    <div className='width'>
+                      <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel.image}`} />
+                    </div>
+                    <div className=' mt-4'>
+                      <div className=' width3'>
+                        <h2 className=' text-sm'>Room Prices</h2>
+                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className=' col-9'>
+                  <div className='col-9'>
                     <h3>
                       {hotel.hotel_name}
                     </h3>
@@ -79,16 +90,38 @@ function Postings() {
                     <h3 className=''>
                       Accomodations
                     </h3>
+                    <Row>
+                      {[...Array(20).keys()].map((index) => {
+                        const amenityKey = `amenity${index + 1}Url`;
+                        const amenityKey2 = `amenity${index + 1}`;
+                        return hotel[amenityKey] ? (
+                          <Col key={index} xs={7} md={3} className="d-flex justify-content-center">
+                            <div className="width2">
+                              <img
+                                className="pic2"
+                                src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel[amenityKey]}`}
+                              />
+                              <p className='text-light position-absolute bottom-50' style={{
+                                right: '100px',
+                                transform: ' translateY(330%)',
+                              }}>
+                                {hotel[amenityKey2]}
+                              </p>
+                            </div>
+                          </Col>
+                        ) : null;
+                      })}
+                    </Row>
+                    <div className="text-center mb-2">
+                      <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className=" mt-3 mx-2">
+                        Edit
+                      </Button>
+                      <Button variant="danger" onClick={() => deleteData(hotel.id)} className=" mt-3  mx-2">
+                        Delete
+                      </Button>
+                    </div>
                   </div>
                 </Row>
-                <div className="text-center top-100 mb-3">
-                  <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className="mx-2">
-                    Edit
-                  </Button>
-                  <Button variant="danger" onClick={() => deleteData(hotel.id)}>
-                    Delete
-                  </Button>
-                </div>
               </Container>
             ))}
           </ListGroup>
