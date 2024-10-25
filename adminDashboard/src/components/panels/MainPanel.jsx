@@ -17,6 +17,7 @@ import Discounts from "../contents/main/Discounts";
 import Places from "../contents/main/Places";
 import Users from "../contents/main/Users";
 import Transactions from "../contents/main/Transactions";
+import Festivals from "../contents/main/Festivals";
 
 const MainPanel = () => {
   return (
@@ -37,6 +38,7 @@ const MainPanel = () => {
         <Route path="/places" element={<Places />} />
         <Route path="/users" element={<Users />} />
         <Route path="/transactions" element={<Transactions />} />
+        <Route path="/festivals" element={<Festivals />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
     </div>
