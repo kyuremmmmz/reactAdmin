@@ -128,6 +128,7 @@ const Reports = () => {
     <div>
       <Header />
       <main className='data'>
+        <h2>Reports</h2>
         <Row>
           <div className='m-5 col-4 rounded-2 bg-body-secondary w-23'>
             <h2>Hotel Booking Data</h2>
