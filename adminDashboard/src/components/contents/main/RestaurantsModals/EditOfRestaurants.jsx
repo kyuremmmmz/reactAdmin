@@ -59,10 +59,10 @@ function EditOfRestaurants({ RestaurantsData, show, hide }) {
     const save = async () => {
         const { data, error } = await supabase.from('food_area').update({
             img: festivalName,
-            Description: description,
-            TipsForVisitors: tips,
+            description: description,
+            menu: tips,
             imgUrl: image,
-            Located: location,
+            located: location,
             ...amenities.reduce((acc, curr, index) => ({
                 ...acc,
                 [`dine${index + 1}`]: curr,
