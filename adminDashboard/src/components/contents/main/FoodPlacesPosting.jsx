@@ -62,9 +62,23 @@ function FoodPlacesPosting() {
             {dataFetched.map((hotel) => (
               <Container key={hotel.id} className='color'>
                 <Row className='object-fit-cover'>
+                  <div className='col-3'>
                     <div className='width'>
-                    <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/food_area/${hotel.imgUrl}`} />
+                      <img
+                        className='pic'
+                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/food_area/${hotel.imgUrl}`}
+                        alt={hotel.img}
+                      />
                     </div>
+                    <div className=' mt-4'>
+                      <div className=' width4'>
+                        <h2 className=' text-sm'>Tips for the visitors</h2>
+                        <ul>
+                          <li>{hotel.menu}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div className='col-9 col-md-9 col-lg-9'>
                     <h3>
                       {hotel.img}
