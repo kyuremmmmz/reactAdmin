@@ -26,7 +26,7 @@ function Users() {
     return (
         <div>
             <Header />
-            <Container className='main'>
+            <main className=' main'>
                 <h2 className='users mt-2'>Users</h2>
                 <Table striped bordered hover className=' mt-4'>
                     <thead>
@@ -61,7 +61,6 @@ function Users() {
                                                 ? 'Active'
                                                 : `Offline ${Math.floor((Date.now() - new Date(item.last_sign_in_at).getTime()) / (1000 * 60 * 60))} hrs ago`}
                                         </span>
-
                                     </td>
                                 </td>
                                 <td>
@@ -74,7 +73,7 @@ function Users() {
                         ))}
                     </tbody>
                 </Table>
-            </Container>
+            </main>
         </div>
     );
 
