@@ -66,8 +66,8 @@ function FestivalsModalUpdate({ FestivalData, show, hide }) {
             Located: location,
             ...amenities.reduce((acc, curr, index) => ({
                 ...acc,
-                [`amenity${index + 1}`]: curr,
-                [`amenity${index + 1}Url`]: amenityUrls[index],
+                [`Dine${index + 1}`]: curr,
+                [`DineUrl${index + 1}`]: amenityUrls[index],
             }), {}),
         }).match({ id: FestivalData.id });
 
