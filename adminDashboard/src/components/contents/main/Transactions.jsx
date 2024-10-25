@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 import Header from '../../panels/Header'
-import { Container, Tabs, Tab, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { supabase } from '../../../supabaseClient';
