@@ -25,7 +25,7 @@ function EditOfRestaurants({ RestaurantsData, show, hide }) {
             const filePath = `${fileName}`;
             // eslint-disable-next-line no-unused-vars
             const { data, error } = await supabase.storage
-                .from('Festivals')
+                .from('food_area')
                 .upload(filePath, file);
 
             if (error) {
@@ -41,15 +41,15 @@ function EditOfRestaurants({ RestaurantsData, show, hide }) {
     useEffect(() => {
         if (RestaurantsData) {
             setFestivalName(RestaurantsData.img || null);
-            setDescription(RestaurantsData.Description || null);
+            setDescription(RestaurantsData.description || null);
             setImage(RestaurantsData.imgUrl || null);
-            setTips(RestaurantsData.TipsForVisitors || null);
-            setLocation(RestaurantsData.Located || null);
+            setTips(RestaurantsData.menu || null);
+            setLocation(RestaurantsData.located || null);
             const newAmenities = [];
             const newUrls = [];
             for (let i = 1; i <= 20; i++) {
-                newAmenities.push(RestaurantsData[`Dine${i}`] || null);
-                newUrls.push(RestaurantsData[`DineUrl${i}`] || null);
+                newAmenities.push(RestaurantsData[`dine${i}`] || null);
+                newUrls.push(RestaurantsData[`dineUrl${i}`] || null);
             }
             setAmenities(newAmenities);
             setAmenityUrls(newUrls);
@@ -57,7 +57,7 @@ function EditOfRestaurants({ RestaurantsData, show, hide }) {
     }, [RestaurantsData]);
 
     const save = async () => {
-        const { data, error } = await supabase.from('Festivals').update({
+        const { data, error } = await supabase.from('food_area').update({
             img: festivalName,
             Description: description,
             TipsForVisitors: tips,
@@ -65,8 +65,8 @@ function EditOfRestaurants({ RestaurantsData, show, hide }) {
             Located: location,
             ...amenities.reduce((acc, curr, index) => ({
                 ...acc,
-                [`Dine${index + 1}`]: curr,
-                [`DineUrl${index + 1}`]: amenityUrls[index],
+                [`dine${index + 1}`]: curr,
+                [`dineUrl${index + 1}`]: amenityUrls[index],
             }), {}),
         }).match({ id: RestaurantsData.id });
 
@@ -155,11 +155,10 @@ EditOfRestaurants.propTypes = {
     RestaurantsData: PropTypes.shape({
         id: PropTypes.string.isRequired,
         img: PropTypes.string,
-        Description: PropTypes.string,
-        TipsForVisitors: PropTypes.string,
-        Price: PropTypes.number,
+        description: PropTypes.string,
+        menu: PropTypes.string,
         imgUrl: PropTypes.string,
-        Located: PropTypes.string,
+        located: PropTypes.string,
         Dine1: PropTypes.string,
         Dine2: PropTypes.string,
         Dine3: PropTypes.string,

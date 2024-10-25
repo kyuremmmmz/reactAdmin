@@ -7,6 +7,7 @@ import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
 import Swal from 'sweetalert2';
 import InsertionOfRestaurants from './RestaurantsModals/InsertionOfRestaurants';
+import EditOfRestaurants from './RestaurantsModals/EditOfRestaurants';
 function FoodPlacesPosting() {
   const [dataFetched, setData] = useState([]);
   const [show, setShow] = useState(false);
@@ -127,9 +128,9 @@ function FoodPlacesPosting() {
           </ListGroup>
 
           {hotelToEdit && (
-            <ModalWidget
+            <EditOfRestaurants
               show={showEditModal}
-              HotelData={hotelToEdit}
+              RestaurantsData={hotelToEdit}
               hide={handleCloseClickModal}
             />
           )}
