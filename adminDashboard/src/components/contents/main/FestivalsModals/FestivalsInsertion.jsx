@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { supabase } from '../../../../supabaseClient';
-
+import PropTypes from 'prop-types';
 function FestivalsInsertion({ show, hide }) {
     const [hotelName, setHotelName] = useState('');
     const [hotelDescription, setHotelDescription] = useState('');
-    const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [located, setLocated] = useState('');
@@ -78,7 +77,6 @@ function FestivalsInsertion({ show, hide }) {
             const { data, error } = await supabase.from('Festivals').insert([{
                 img: hotelName,
                 Description: hotelDescription,
-                Price: price,
                 Located: located,
                 TipsForVisitors: discount,
                 imgUrl: imagePath,
@@ -188,12 +186,12 @@ function FestivalsInsertion({ show, hide }) {
                                     <Form.Label>Amenity {index + 1}</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder={`Enter Amenity ${index + 1}`}
+                                        placeholder={`Enter Highlights ${index + 1}`}
                                         onChange={(e) => handleAmenityChange(index, e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Amenity {index + 1} Image</Form.Label>
+                                    <Form.Label>Highlight {index + 1} Image</Form.Label>
                                     <Form.Control
                                         type="file"
                                         onChange={(e) => handleAmenityChangeImages(index, e.target.files[0])}
@@ -216,5 +214,10 @@ function FestivalsInsertion({ show, hide }) {
         </div>
     );
 }
+
+FestivalsInsertion.propTypes = {
+    show: PropTypes.bool.isRequired,
+    hide: PropTypes.func.isRequired,
+};
 
 export default FestivalsInsertion;

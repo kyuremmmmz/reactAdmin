@@ -5,13 +5,12 @@ import Swal from 'sweetalert2';
 import { supabase } from '../../../../supabaseClient';
 import PropTypes from 'prop-types';
 
-function ModalWidget({ HotelData, show, hide }) {
-    const [hotel_name, setHotelName] = useState('');
-    const [hotel_description, setHotelDescription] = useState('');
-    const [price, setPrice] = useState(0);
-    const [discount, setDiscount] = useState('');
+function FestivalsModalUpdate({ FestivalData, show, hide }) {
+    const[festivalName, setFestivalName] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [tips, setTips] = useState(null);
     const [image, setImage] = useState(null);
-    const [located, setLocated] = useState('');
+    const [location, setLocation] = useState(null);
     const [amenities, setAmenities] = useState(Array(20).fill(''));
     const [amenityUrls, setAmenityUrls] = useState(Array(20).fill(''));
 
@@ -23,11 +22,11 @@ function ModalWidget({ HotelData, show, hide }) {
 
     const handleAmenityUrlChange = async (index, file) => {
         if (file) {
-            const fileName = `${HotelData.id}_${file.name}`;
+            const fileName = `${FestivalData.id}_${file.name}`;
             const filePath = `${fileName}`;
             // eslint-disable-next-line no-unused-vars
             const { data, error } = await supabase.storage
-                .from('hotel_amenities_url')
+                .from('Festivals')
                 .upload(filePath, file);
 
             if (error) {
@@ -41,36 +40,36 @@ function ModalWidget({ HotelData, show, hide }) {
     };
 
     useEffect(() => {
-        if (HotelData) {
-            setHotelName(HotelData.img || '');
-            setHotelDescription(HotelData.Description || '');
-            setPrice(HotelData.Price || 0);
-            setImage(HotelData.imgUrl || '');
-            setLocated(HotelData.Located || '');
+        if (FestivalData) {
+            setFestivalName(FestivalData.img || null);
+            setDescription(FestivalData.Description || null);
+            setImage(FestivalData.imgUrl || null);
+            setTips(FestivalData.TipsForVisitors || null);
+            setLocation(FestivalData.Located || null);
             const newAmenities = [];
             const newUrls = [];
             for (let i = 1; i <= 20; i++) {
-                newAmenities.push(HotelData[`Dine${i}`] || '');
-                newUrls.push(HotelData[`DineUrl${i}`] || '');
+                newAmenities.push(FestivalData[`Dine${i}`] || null);
+                newUrls.push(FestivalData[`DineUrl${i}`] || null);
             }
             setAmenities(newAmenities);
             setAmenityUrls(newUrls);
         }
-    }, [HotelData]);
+    }, [FestivalData]);
 
     const save = async () => {
         const { data, error } = await supabase.from('Festivals').update({
-            img: hotel_name,
-            Description: hotel_description,
-            hotel_price: price,
+            img: festivalName,
+            Description: description,
+            TipsForVisitors: tips,
             imgUrl: image,
-            Located: located,
+            Located: location,
             ...amenities.reduce((acc, curr, index) => ({
                 ...acc,
                 [`amenity${index + 1}`]: curr,
                 [`amenity${index + 1}Url`]: amenityUrls[index],
             }), {}),
-        }).match({ id: HotelData.id });
+        }).match({ id: FestivalData.id });
 
         if (error) {
             Swal.fire('Error', error.message, 'error');
@@ -88,48 +87,40 @@ function ModalWidget({ HotelData, show, hide }) {
     return (
         <Modal show={show} onHide={hide}>
             <Modal.Header closeButton>
-                <Modal.Title>Edit Hotel Details</Modal.Title>
+                <Modal.Title>Edit Festivals Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <FormGroup controlId="formHotelName">
-                        <Form.Label>Hotel Name</Form.Label>
+                        <Form.Label>Festival Name</Form.Label>
                         <Form.Control
                             type="text"
-                            value={hotel_name}
-                            onChange={(e) => setHotelName(e.target.value)}
+                            value={festivalName}
+                            onChange={(e) => setFestivalName(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup controlId="formHotelDescription">
-                        <Form.Label>Hotel Description</Form.Label>
+                        <Form.Label>Festival Description</Form.Label>
                         <Form.Control
                             as={'textarea'}
-                            value={hotel_description}
-                            onChange={(e) => setHotelDescription(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="formPrice">
-                        <Form.Label>Price</Form.Label>
-                        <Form.Control
-                            type="number"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup controlId="formDiscount">
-                        <Form.Label>Discount</Form.Label>
+                        <Form.Label>Tips For the visitors</Form.Label>
                         <Form.Control
-                            type="text"
-                            value={discount}
-                            onChange={(e) => setDiscount(e.target.value)}
+                            as={'textarea'}
+                            value={tips}
+                            onChange={(e) => setTips(e.target.value)}
                         />
                     </FormGroup>
-                    <FormGroup controlId="formLocated">
+                    <FormGroup controlId="location">
                         <Form.Label>Located In</Form.Label>
                         <Form.Control
                             type="text"
-                            value={located}
-                            onChange={(e) => setLocated(e.target.value)}
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
                         />
                     </FormGroup>
                     {amenities.map((amenity, index) => (
@@ -161,11 +152,12 @@ function ModalWidget({ HotelData, show, hide }) {
     );
 }
 
-ModalWidget.propTypes = {
-    HotelData: PropTypes.shape({
+FestivalsModalUpdate.propTypes = {
+    FestivalData: PropTypes.shape({
         id: PropTypes.string.isRequired,
         img: PropTypes.string,
         Description: PropTypes.string,
+        TipsForVisitors: PropTypes.string,
         Price: PropTypes.number,
         imgUrl: PropTypes.string,
         Located: PropTypes.string,
@@ -214,4 +206,4 @@ ModalWidget.propTypes = {
     hide: PropTypes.func.isRequired,
 };
 
-export default ModalWidget;
+export default FestivalsModalUpdate;

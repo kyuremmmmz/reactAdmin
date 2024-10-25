@@ -154,7 +154,7 @@ function Places() {
                         <UpdateModals
                             show={editModal}
                             hide={hideModal}
-                            PlaceData={data}
+                            PlaceData={set}
                         />
                     )}
 

@@ -4,9 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Container, ListGroup, Row, Col, Placeholder } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
-import UpdateModals from './PlacesModals/updateModals';
-import InsertionModal from './PlacesModals/InsertionModals';
 import FestivalsInsertion from './FestivalsModals/FestivalsInsertion';
+import FestivalsModalUpdate from './FestivalsModals/FestivalsModalUpdate';
 function Festivals() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
@@ -27,9 +26,10 @@ function Festivals() {
         });
     }
 
-    const openEdit = async (data) => {
-        setEditData(data);
+    const openEdit = async (datas) => {
+        console.log('Data to Edit:', datas);
         setEdit(true);
+        setEditData(datas);
     }
 
     const hideModal = async () => {
@@ -186,10 +186,10 @@ function Festivals() {
                     </ListGroup>
 
                     {data && (
-                        <UpdateModals
+                        <FestivalsModalUpdate
                             show={editModal}
                             hide={hideModal}
-                            PlaceData={data}
+                            FestivalData={set}
                         />
                     )}
 
