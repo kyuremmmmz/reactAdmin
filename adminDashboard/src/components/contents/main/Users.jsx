@@ -26,7 +26,7 @@ function Users() {
     return (
         <div>
             <Header />
-            <Container>
+            <Container className='main'>
                 <h2 className='users mt-2'>Users</h2>
                 <Table striped bordered hover className=' mt-4'>
                     <thead>
@@ -56,11 +56,12 @@ function Users() {
                                 <td>+63{item.user_metadata.phone_number}</td>
                                 <td>
                                     <td>
-                                        <span className={Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'text-success' : 'text-muted'}>
-                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000
+                                        <span className={Date.now() - new Date(item.last_sign_in_at).getTime() <= 30 * 60 * 1000 ? 'text-success' : 'text-muted'}>
+                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 30 * 60 * 1000
                                                 ? 'Active'
                                                 : `Offline ${Math.floor((Date.now() - new Date(item.last_sign_in_at).getTime()) / (1000 * 60 * 60))} hrs ago`}
                                         </span>
+
                                     </td>
                                 </td>
                                 <td>
