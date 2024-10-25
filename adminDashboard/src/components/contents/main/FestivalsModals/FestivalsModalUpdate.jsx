@@ -101,7 +101,6 @@ function ModalWidget({ HotelData, show, hide }) {
                         />
                     </FormGroup>
                     <FormGroup controlId="formHotelDescription">
-                        
                         <Form.Label>Hotel Description</Form.Label>
                         <Form.Control
                             as={'textarea'}
