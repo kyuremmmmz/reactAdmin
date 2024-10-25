@@ -57,7 +57,9 @@ function Users() {
                                 <td>
                                     <td>
                                         <span className={Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'text-success' : 'text-muted'}>
-                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'Active' : 'Offline'}
+                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000
+                                                ? 'Active'
+                                                : `Offline ${Math.floor((Date.now() - new Date(item.last_sign_in_at).getTime()) / (1000 * 60 * 60))} hrs ago`}
                                         </span>
                                     </td>
                                 </td>
