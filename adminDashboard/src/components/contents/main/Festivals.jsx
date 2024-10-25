@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup, Row, Col } from 'react-bootstrap';
+import { Button, Card, Container, ListGroup, Row, Col, Placeholder } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
 import InsertionModal from './PlacesModals/InsertionModals';
+import FestivalsInsertion from './FestivalsModals/FestivalsInsertion';
 function Festivals() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
     const [set, setEditData] = useState(null);
     const [showModal, setModal] = useState(false);
     const saveData = async () => {
-        const { data, error } = await supabase.from('places').select('*');
+        const { data, error } = await supabase.from('Festivals').select('*');
         if (error) throw error;
         setData(data);
     }
 
     const deleteData = async (id) => {
-        await supabase.from('places').delete().eq('id', id);
+        await supabase.from('Festivals').delete().eq('id', id);
         Swal.fire({
             title: 'Place deleted successfully!',
             icon: 'success',
@@ -51,40 +52,137 @@ function Festivals() {
         <div>
             <Header />
             <main className='main'>
-                <div className="container mt-5">
+                <div className="container mt-5 w-auto">
                     <Row>
-                        <h2 className="text-center w-25 col-1">Places Postings</h2>
-                        <Button variant='success' className=' col-2' onClick={showInserModal}>Add Place</Button>
+                        <h2 className="text-center w-25 col-1">Festivals Postings</h2>
+                        <Button variant='success' className=' col-2' onClick={showInserModal}>Add Festivals</Button>
                     </Row>
                     <ListGroup className="mt-4">
-                        {data.map((hotel) => (
-                            <Container key={hotel.id} className='color'>
-                                <Row className='object-fit-cover'>
-                                    <div className='width'>
-                                        <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/places_url/${hotel.image}`} />
-                                    </div>
-                                    <div className='col-9 col-md-9 col-lg-9'>
-                                        <h3>
-                                            {hotel.place_name}
-                                        </h3>
-                                        <p className=' text-info fw-bolder'>
-                                            {hotel.locatedIn}
-                                        </p>
-                                        <p className=''>
-                                            {hotel.description}
-                                        </p>
-                                        <div className="text-center mb-2">
-                                            <Button variant="primary" onClick={() => openEdit(hotel)} className=" mt-3 mx-2">
-                                                Edit
-                                            </Button>
-                                            <Button variant="danger" onClick={() => deleteData(hotel.id)} className=" mt-3  mx-2">
-                                                Delete
-                                            </Button>
+                        {
+                            data != null && data.length > 0 ? (
+                                data.map((hotel) => (
+                                    <Container key={hotel.id} className='color'>
+                                        <Row className='object-fit-cover'>
+                                            <div className='col-3'>
+                                                <div className='width'>
+                                                    <img
+                                                        className='pic'
+                                                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/Festivals/${hotel.imgUrl}`}
+                                                        alt={hotel.img}
+                                                    />
+                                                </div>
+                                                <div className=' mt-4'>
+                                                    <div className=' width4'>
+                                                        <h2 className=' text-sm'>Tips for the visitors</h2>
+                                                        <ul>
+                                                            <li>{ hotel.TipsForVisitors }</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='col-9 col-md-9 col-lg-9'>
+                                                <h3>{hotel.img}</h3>
+                                                <p className='text-info fw-bolder'>{hotel.Located}</p>
+                                                <p>{hotel.Description}</p>
+                                                <h3 className=''>
+                                                    Festivals Highlights
+                                                </h3>
+                                                <Row>
+                                                    {[...Array(20).keys()].map((index) => {
+                                                        const amenityKey = `Dine${index + 1}`;
+                                                        const amenityKey2 = `DineUrl${index + 1}`;
+                                                        return hotel[amenityKey] ? (
+                                                            <Col key={index} xs={7} md={3} className="d-flex justify-content-center">
+                                                                <div className="width2">
+                                                                    <img
+                                                                        className="pic2"
+                                                                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/Festivals/${hotel[amenityKey2]}`}
+                                                                    />
+                                                                    <p className='text-light position-absolute bottom-50' style={{
+                                                                        right: '60px',
+                                                                        transform: ' translateY(150%)',
+                                                                    }}>
+                                                                        {hotel[amenityKey]}
+                                                                    </p>
+                                                                </div>
+                                                            </Col>
+                                                        ) : null;
+                                                    })}
+                                                </Row>
+                                                <div className="text-center mb-2">
+                                                    <Button
+                                                        variant="primary"
+                                                        onClick={() => openEdit(hotel)}
+                                                        className="mt-3 mx-2"
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                    <Button
+                                                        variant="danger"
+                                                        onClick={() => deleteData(hotel.id)}
+                                                        className="mt-3 mx-2"
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </Row>
+                                    </Container>
+                                ))
+                            ) : (
+                                <Container className='color'>
+                                    <Row>
+                                        <div className='width'>
+                                            <Placeholder as="div" animation="glow">
+                                                <Placeholder xs={12} className="placeholder-image" />
+                                            </Placeholder>
                                         </div>
-                                    </div>
-                                </Row>
-                            </Container>
-                        ))}
+                                        <div className='col-9 col-md-9 col-lg-9'>
+                                            <Placeholder as="h3" animation="glow">
+                                                <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <Placeholder as="p" animation="glow" className='text-info fw-bolder'>
+                                                <Placeholder xs={4} />
+                                            </Placeholder>
+                                            <Placeholder as="p" animation="glow">
+                                                <Placeholder xs={8} />
+                                                <Placeholder xs={7} />
+                                                <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <div className="text-center mb-2">
+                                                <Placeholder.Button variant="primary" xs={4} className="mt-3 mx-2" />
+                                                <Placeholder.Button variant="danger" xs={4} className="mt-3 mx-2" />
+                                            </div>
+                                        </div>
+                                    </Row>
+                                    <Row>
+                                        <div className='width'>
+                                            <Placeholder as="div" animation="glow">
+                                                <Placeholder xs={12} className="placeholder-image" />
+                                            </Placeholder>
+                                        </div>
+                                        <div className='col-9 col-md-9 col-lg-9'>
+                                            <Placeholder as="h3" animation="glow">
+                                                <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <Placeholder as="p" animation="glow" className='text-info fw-bolder'>
+                                                <Placeholder xs={4} />
+                                            </Placeholder>
+                                            <Placeholder as="p" animation="glow">
+                                                <Placeholder xs={8} />
+                                                <Placeholder xs={7} />
+                                                <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <div className="text-center mb-2">
+                                                <Placeholder.Button variant="primary" xs={4} className="mt-3 mx-2" />
+                                                <Placeholder.Button variant="danger" xs={4} className="mt-3 mx-2" />
+                                            </div>
+                                        </div>
+                                    </Row>
+                                </Container>
+                            )
+                        }
+
                     </ListGroup>
 
                     {data && (
@@ -95,7 +193,7 @@ function Festivals() {
                         />
                     )}
 
-                    <InsertionModal show={showModal} hide={hide} />
+                    <FestivalsInsertion show={showModal} hide={hide} />
                 </div>
             </main>
         </div>
