@@ -70,12 +70,10 @@ function FoodPlacesPosting() {
                         alt={hotel.img}
                       />
                     </div>
-                    <div className=' mt-4'>
+                    <div className='mt-4'>
                       <div className=' width4'>
-                        <h2 className=' text-sm'>Tips for the visitors</h2>
-                        <ul>
-                          <li>{hotel.menu}</li>
-                        </ul>
+                        <h2 className=' text-sm '>Menu</h2>
+                        <p className=' text-break'>{hotel.menu}</p>
                       </div>
                     </div>
                   </div>
