@@ -32,7 +32,7 @@ function Transactions() {
             </Table>
         </Container>
     </div>
-  )
+)
 }
 
 export default Transactions
