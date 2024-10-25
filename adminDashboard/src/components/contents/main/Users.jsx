@@ -36,7 +36,7 @@ function Users() {
                             <th className='text-center'>User Name</th>
                             <th className='text-center'>Email</th>
                             <th className='text-center'>Phone Number</th>
-                            <th className='text-center'>Status</th> {/* New Status Column */}
+                            <th className='text-center'>Status</th>
                             <th className='text-center'>
                                 <Dropdown>
                                     <Dropdown.Toggle variant='primary'>
@@ -57,7 +57,7 @@ function Users() {
                                 <td>
                                     <td>
                                         <span className={Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'text-success' : 'text-muted'}>
-                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'active' : 'offline'}
+                                            {Date.now() - new Date(item.last_sign_in_at).getTime() <= 10 * 60 * 1000 ? 'Active' : 'Offline'}
                                         </span>
                                     </td>
                                 </td>
