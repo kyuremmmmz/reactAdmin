@@ -55,6 +55,11 @@ const NavigationData = [
     path: "/home/beaches/",
   },
   {
+    _id: "9",
+    name: "RESTAURANTS",
+    path: "/home/restaurants/",
+  },
+  {
     _id: "10",
     name: "FESTIVALS",
     path: "/home/festivals/",
