@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../panels/Header'
 import { Container, Tabs, Tab, Table } from 'react-bootstrap'
+import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
@@ -22,12 +23,12 @@ function Transactions() {
     useEffect(() => {
         fethData();
     }, [])
-  return (
+return (
     <div>
         <Header />
         <Container>
             <h2>Transactions</h2>
-            <Table striped bordered hover>
+            <Table striped bordered hover className=' mt-4'>
                 <thead>
                     <tr>
                         <th className=' text-center'>Name</th>
@@ -39,23 +40,29 @@ function Transactions() {
                         <th className=' text-center'>Payment Amount</th>
                         <th className=' text-center'>Date of Payment</th>
                     </tr>
+                </thead>
+                <tbody>
                     {data.map((item) => (
-                            <tr key={item.id} className=' text-center'>
-                            <td>{ item.name }</td>
-                            <td>{ item.gmail }</td>
-                            <td>{ item.reference_number }</td>
-                            <td>{ item.booking_id }</td>
-                            <td>+630{ item.phone }</td>
-                                <td>
+                        <tr key={item.id} className=' text-center'>
+                            <td>{item.name}</td>
+                            <td>{item.gmail}</td>
+                            <td>{item.reference_number}</td>
+                            <td>{item.booking_id}</td>
+                            <td>+630{item.phone}</td>
+                            <td>
                                 <div className='payment-card'>
-                                    <img src={item.pay_via === 'paypal'? 'https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white' : 'https://img.shields.io/badge/Credit%20Card-blue?style=for-the-badge&logo=stripe&logoColor=white'} alt='Payment Type' />
-                                    </div>
+                                    <img src={item.pay_via === 'paypal'
+                                        ? 'https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white'
+                                        : 'https://img.shields.io/badge/Credit%20Card-blue?style=for-the-badge&logo=stripe&logoColor=white'} alt='Payment Type' />
+                                </div>
                             </td>
                             <td>{item.payment}</td>
-                            <td>{item.date_of_payment}</td>
-                            </tr>
+                            <td>{item.date_of_payment
+                                ? format(new Date(item.date_of_payment), 'MMMM d, yyyy h:mm a')
+                                : 'Not Paid'}</td>
+                        </tr>
                     ))}
-                </thead>
+                </tbody>
             </Table>
         </Container>
     </div>
