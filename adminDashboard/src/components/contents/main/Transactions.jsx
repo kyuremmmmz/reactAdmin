@@ -18,8 +18,16 @@ function Transactions() {
                         <th className=' text-center'>Reference Number</th>
                         <th className=' text-center'>Booking ID</th>
                         <th className=' text-center'>Phone</th>
-                        <th className=' text-center'>Name</th>
+                        <th className=' text-center'>Paid Via</th>
                     </tr>
+                        <tr className=' text-center'>
+                            <td>John Doe</td>
+                            <td>johndoe@example.com</td>
+                            <td>123456789</td>
+                            <td>12345</td>
+                            <td>1234567890</td>
+                            <td>John Doe</td>
+                        </tr>
                 </thead>
             </Table>
         </Container>
