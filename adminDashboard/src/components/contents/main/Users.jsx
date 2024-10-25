@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
-import { Button, Container, Dropdown, DropdownButton, Row, Table } from 'react-bootstrap';
+import { Button, Dropdown, Table } from 'react-bootstrap';
 import usersDatas from '../../../data/UsersData';
 
 function Users() {
