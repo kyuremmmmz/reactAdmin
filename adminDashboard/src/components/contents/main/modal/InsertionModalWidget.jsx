@@ -22,7 +22,7 @@ function InsertionModalWidget({ show, hide }) {
     const handleImageUpload = async () => {
         if (!imageFile) {
             Swal.fire({
-                title: 'Please select a hotel image file',
+                title: 'Please Attach a hotel image file',
                 icon: 'error',
                 showConfirmButton: true,
             });
