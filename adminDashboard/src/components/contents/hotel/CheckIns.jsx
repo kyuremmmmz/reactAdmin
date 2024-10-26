@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 import Header from "../../panels/Header";
 import image from "../../../assets/check.png";
@@ -15,8 +15,18 @@ const getCurrentDateInfo = () => {
 };
 
 const CheckIns = (props) => {
-  const schedule = props.checkin;;
+  const [schedule, setSchedule] = useState([]);
   const { day, date, month, year } = getCurrentDateInfo();
+
+  const fetchData = async () => {
+    const { data, error } = await supabase.from('hotel_booking').select('*');
+    if (error) throw error;
+    setSchedule(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <div>
@@ -71,12 +81,12 @@ const CheckInItem = (props) => {
       <div className="checkin-info">
         <p className="checkin-status-id">Checkin ID #{schedule.booking_id}</p>
         <h2 className="checkin-status-title">
-          {schedule.title} {schedule.id}
+          {schedule.room_type} {schedule.booking_id}
         </h2>
       </div>
       <div className="checkin-status-info">
         <p className="checkin-status-label">Check-in Date</p>
-        <p className="checkin-status-date">{formatCheckInDate(checkin.checkin)}</p>
+        <p className="checkin-status-date">{formatCheckInDate(schedule.checkin)}</p>
       </div>
     </div>
   );
