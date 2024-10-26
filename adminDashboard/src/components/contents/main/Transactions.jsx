@@ -1,72 +1,74 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react'
-import Header from '../../panels/Header'
-import { Container, Table } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import Header from '../../panels/Header';
+import { Container, Card, Row, Col, Badge } from 'react-bootstrap';
 import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
+import { FaRegEnvelope, FaPhoneAlt, FaCreditCard, FaPaypal, FaCalendarAlt, FaReceipt } from 'react-icons/fa';
+
 function Transactions() {
     const [data, setData] = useState([]);
 
-    const fethData = async () => {
+    const fetchData = async () => {
         try {
             const { data, error } = await supabase.from('payment_table').select('*');
             if (error) throw error;
             setData(data);
         } catch (e) {
             console.error(e);
-            Swal.fire('The Internet?', 'That thing is still around?', 'question');
+            Swal.fire('Oops!', 'Could not fetch data. Please try again later.', 'error');
         }
-    }
+    };
 
     useEffect(() => {
-        fethData();
-    }, [])
-return (
-    <div>
-        <Header />
-        <main className='main'>
-            <h2>Transactions</h2>
-            <Table striped bordered hover className=' mt-4'>
-                <thead>
-                    <tr>
-                        <th className=' text-center'>Name</th>
-                        <th className=' text-center'>Email</th>
-                        <th className=' text-center'>Reference Number</th>
-                        <th className=' text-center'>Booking ID</th>
-                        <th className=' text-center'>Phone</th>
-                        <th className=' text-center'>Paid Via</th>
-                        <th className=' text-center'>Payment Amount</th>
-                        <th className=' text-center'>Date of Payment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item) => (
-                        <tr key={item.id} className=' text-center'>
-                            <td>{item.name}</td>
-                            <td>{item.gmail}</td>
-                            <td>{item.reference_number}</td>
-                            <td>{item.booking_id}</td>
-                            <td>+630{item.phone}</td>
-                            <td>
-                                <div className='payment-card'>
-                                    <img src={item.pay_via === 'paypal'
-                                        ? 'https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white'
-                                        : 'https://img.shields.io/badge/Credit%20Card-blue?style=for-the-badge&logo=stripe&logoColor=white'} alt='Payment Type' />
-                                </div>
-                            </td>
-                            <td>{item.payment}</td>
-                            <td>{item.date_of_payment
-                                ? format(new Date(item.date_of_payment), 'MMMM d, yyyy h:mm a')
-                                : 'Not Paid'}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </main>
-    </div>
-)
+        fetchData();
+    }, []);
+
+    return (
+        <div>
+            <Header />
+            <main className="main">
+                <Container className="mt-4">
+                    <h2>Transaction Records</h2>
+                    <Row xs={1} md={2} lg={3} className="g-4 mt-3">
+                        {data.map((item) => (
+                            <Col key={item.id}>
+                                <Card className="transaction-card shadow-lg">
+                                    <Card.Header className="text-center card-header">
+                                        <h5>{item.name}</h5>
+                                        <Badge bg={item.pay_via === 'paypal' ? 'info' : 'success'} className="payment-badge">
+                                            {item.pay_via === 'paypal' ? <FaPaypal /> : <FaCreditCard />}
+                                            &nbsp;{item.pay_via}
+                                        </Badge>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Card.Text className="payment-amount">
+                                            <FaReceipt className="icon" /> ${item.payment}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <FaRegEnvelope className="icon" /> {item.gmail}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <FaPhoneAlt className="icon" /> +630{item.phone}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <FaCreditCard className="icon" /> Ref: {item.reference_number}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <FaCalendarAlt className="icon" /> {item.date_of_payment
+                                                ? format(new Date(item.date_of_payment), 'MMMM d, yyyy h:mm a')
+                                                : 'Not Paid'}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            </main>
+        </div>
+    );
 }
 
-export default Transactions
+export default Transactions;

@@ -20,6 +20,12 @@ const NavigationData = [
     path: "/home/wallets/",
   },
   {
+    _id: "7",
+    name: "TRANSACTIONS",
+    path: "/home/transactions/",
+
+  },
+  {
     _id: "5",
     name: "REPORTS",
     path: "/home/reports/",
@@ -33,11 +39,6 @@ const NavigationData = [
     _id: "7",
     name: "SETTINGS",
     path: "/home/settings/",
-  },
-  {
-    _id: "7",
-    name: "DISCOUNTS",
-    path: "/home/discounts/",
   },
   {
     _id: "7",
@@ -63,12 +64,6 @@ const NavigationData = [
     _id: "10",
     name: "FESTIVALS",
     path: "/home/festivals/",
-  },
-  {
-    _id: "7",
-    name: "TRANSACTIONS",
-    path: "/home/transactions/",
-
   },
   {
     _id: "7",

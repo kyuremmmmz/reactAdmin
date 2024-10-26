@@ -95,6 +95,107 @@
   border-radius: 10px;
 }
 
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.review-content {
+  flex: 1;
+}
+
+.review-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.review-rating {
+  color: #f4c150;
+  /* Star color */
+  font-size: 16px;
+}
+
+.review-text {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+
+h2 {
+  text-align: center;
+  font-size: 26px;
+  color: #333;
+}
+
+.transaction-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+  color: #333;
+  transition: transform 0.2s;
+}
+
+.transaction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 10px;
+  border-bottom: none;
+}
+
+.payment-badge {
+  font-size: 0.9rem;
+  color: #fff;
+  margin-top: 5px;
+}
+
+.payment-amount {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4a90e2;
+}
+
+.icon {
+  color: #4a90e2;
+  margin-right: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.icon,
+.card-body p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1rem;
+  color: #555;
+}
+
 
 .color {
   background-color: rgba(218, 244, 254, 1);
