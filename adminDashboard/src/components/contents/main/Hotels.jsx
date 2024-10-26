@@ -7,6 +7,8 @@ import check from "../../../assets/check.png";
 import out from "../../../assets/out.png";
 import Schedules from "./Schedules";
 import { supabase } from "../../../supabaseClient";
+import PropTypes from "prop-types";
+
 
 const bookings = [
   {
@@ -95,8 +97,8 @@ const Hotels = () => {
   return (
     <div>
       <Header />
-      <main className="hotels">
-        <div className="container">
+      <main>
+        <div className="main">
           {/* New Booking Section */}
           <section className="room-schedules-section">
             <h2 className="room-title">New Booking</h2>
@@ -291,5 +293,33 @@ const CheckOutItem = ({ checkout }) => {
     </div>
   );
 };
+// BookingItem PropTypes
+BookingItem.propTypes = {
+  schedule: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func,
+};
+
+// CheckInItem PropTypes
+CheckInItem.propTypes = {
+  checkin: PropTypes.shape({
+    booking_id: PropTypes.string.isRequired,
+    hotel: PropTypes.string.isRequired,
+    checkin: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+// CheckOutItem PropTypes
+CheckOutItem.propTypes = {
+  checkout: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 
 export default Hotels;
