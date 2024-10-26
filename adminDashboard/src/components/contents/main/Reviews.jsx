@@ -39,6 +39,7 @@ const Reviews = () => {
                   {"☆".repeat(5 - review.rating)}
                 </div>
                 <p className="review-text">{review.comment}</p>
+                <p className="review-text">Commented in {review.placeComment}</p>
               </div>
             </div>
           ))}
