@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
 import InsertionModal from './PlacesModals/InsertionModals';
 import InsertionOfBeaches from './BeachesModals/InsertionOfBeaches';
+import UpdateBeaches from './BeachesModals/UpdateBeaches';
 function Beaches() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
@@ -152,10 +153,10 @@ function Beaches() {
                     </ListGroup>
 
                     {data && (
-                        <UpdateModals
+                        <UpdateBeaches
                             show={editModal}
                             hide={hideModal}
-                            PlaceData={set}
+                            BeachData={set}
                         />
                     )}
 

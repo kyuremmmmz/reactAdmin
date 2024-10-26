@@ -37,6 +37,35 @@ function ModalWidget({ HotelData, show, hide }) {
         }
     };
 
+    const handleImageUpdate = async (newFile) => {
+        if (newFile) {
+            if (image) {
+                const { error: deleteError } = await supabase.storage
+                    .from('hotel_amenities_url')
+                    .remove([image]);
+                if (deleteError) {
+                    Swal.fire('Error', deleteError.message, 'error');
+                    return;
+                }
+            }
+
+            const fileName = `${HotelData.id}_${newFile.name}`;
+            const filePath = `${fileName}`;
+
+            const { data, error } = await supabase.storage
+                .from('hotel_amenities_url')
+                .upload(filePath, newFile);
+            if (error) {
+                Swal.fire('Error', error.message, 'error');
+            } else {
+                setImage(fileName);
+                Swal.fire('Success', 'Image updated successfully!', 'success');
+            }
+        }
+    };
+
+
+
     useEffect(() => {
         if (HotelData) {
             setHotelName(HotelData.hotel_name || null);
@@ -115,12 +144,11 @@ function ModalWidget({ HotelData, show, hide }) {
                             onChange={(e) => setPrice(e.target.value)}
                         />
                     </FormGroup>
-                    <FormGroup controlId="formDiscount">
-                        <Form.Label>Discount</Form.Label>
+                    <FormGroup controlId="formImage">
+                        <Form.Label>Image</Form.Label>
                         <Form.Control
-                            type="text"
-                            value={discount}
-                            onChange={(e) => setDiscount(e.target.value)}
+                            type="file"
+                            onChange={(e) => handleImageUpdate(e.target.files[0])} // Call the function here
                         />
                     </FormGroup>
                     <FormGroup controlId="formLocated">

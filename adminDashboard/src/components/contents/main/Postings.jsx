@@ -19,10 +19,40 @@ function Postings() {
     setData(data);
   }
 
-  async function deleteData(id) {
-    await supabase.from('hotels').delete().eq('id', id);
+
+
+  async function deleteData(id, image) {
+    const { error: deleteHotelError } = await supabase.from('hotels').delete().eq('id', id);
+
+    if (deleteHotelError) {
+      Swal.fire({
+        title: 'Error deleting hotel!',
+        text: deleteHotelError.message,
+        icon: 'error',
+        timer: 15000
+      });
+      return;
+    }
+
+    console.log('Attempting to delete image at path:', image);
+
+    const { error: deleteImageError } = await supabase.storage
+      .from('hotel_amenities_url')
+      .remove([image]);
+
+    if (deleteImageError) {
+      console.error('Delete Image Error:', deleteImageError);
+      Swal.fire({
+        title: 'Error deleting image!',
+        text: deleteImageError.message,
+        icon: 'error',
+        timer: 15000
+      });
+      return;
+    }
+
     Swal.fire({
-      title: 'Hotel deleted successfully!',
+      title: 'Hotel and image deleted successfully!',
       icon: 'success',
       timer: 15000
     });
@@ -116,7 +146,7 @@ function Postings() {
                       <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className=" mt-3 mx-2">
                         Edit
                       </Button>
-                      <Button variant="danger" onClick={() => deleteData(hotel.id)} className=" mt-3  mx-2">
+                      <Button variant="danger" onClick={() => deleteData(hotel.id, hotel.image)} className=" mt-3  mx-2">
                         Delete
                       </Button>
                     </div>
