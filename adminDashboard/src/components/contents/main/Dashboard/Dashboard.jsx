@@ -12,6 +12,8 @@ import scheduledFlightIcon from "../../../../assets/calendar.png";
 import cancelledFlightIcon from "../../../../assets/check.png";
 import completedFlightIcon from "../../../../assets/out.png";
 import { useNavigation } from "../../../panels/NavigationContext";
+import PropTypes from "prop-types";
+
 
 // eslint-disable-next-line react/prop-types
 const StatCard = ({ value, icon, label, onClick }) => (
@@ -357,5 +359,35 @@ const Dashboard = () => {
     </div>
   );
 };
+StatCard.propTypes = {
+  value: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+};
+
+NewStatCard.propTypes = {
+  value: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+};
+
+RoomStatCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  fillWidth: PropTypes.string.isRequired,
+  fillColor: PropTypes.string.isRequired,
+};
+
+TicketStatCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  fillWidth: PropTypes.string.isRequired,
+  fillColor: PropTypes.string.isRequired,
+};
+
 
 export default Dashboard;
