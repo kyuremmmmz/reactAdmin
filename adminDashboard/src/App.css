@@ -107,8 +107,6 @@ input:focus {
   text-decoration: none;
   color: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: Inter, sans-serif;
   font-weight: 700;
   font-size: 15px;
