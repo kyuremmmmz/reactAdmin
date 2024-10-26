@@ -19,7 +19,8 @@ const CheckIns = (props) => {
   const { day, date, month, year } = getCurrentDateInfo();
 
   const fetchData = async () => {
-    const { data, error } = await supabase.from('hotel_booking').select('*');
+    const today = new Date().toISOString().split('T')[0]; 
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', today);
     if (error) throw error;
     setSchedule(data);
   }

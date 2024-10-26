@@ -83,7 +83,8 @@ const Hotels = () => {
   }
 
   async function getTheCheckinList() {
-    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', Date);
+    const today = new Date().toISOString().split('T')[0]; 
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', today);
     if (error) throw error;
     console.log(data);
 
