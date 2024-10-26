@@ -32,7 +32,6 @@ const bookings = [
 ];
 
 
-const checkins = supabase.from('hotel_booking').select('*');
 
 const checkouts = [
   {
@@ -214,18 +213,36 @@ const BookingItem = ({ schedule, onClick }) => {
 
 
 
-const CheckInItem = ({ checkin }) => {
-  const formatCheckInDate = (dateString) => {
-    const parts = dateString.split(", ");
-    const dayOfWeek = parts[0];
-    const restOfDate = parts.slice(1).join(", ");
+const CheckInItem = (props) => {
+  const checkin = props.checkin;
+  const formatBookingDate = (dateString) => {
+        const date = new Date(dateString);
 
-    return (
-      <>
-        <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
-      </>
-    );
-  };
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        };
+
+        const formattedDate = date.toLocaleString('default', options)
+            .replace(',', '') 
+            .replace('AM', 'am')
+            .replace('PM', 'pm');
+
+        const parts = formattedDate.split(", ");
+        const dayOfWeek = parts[0];
+        const restOfDate = parts.slice(1).join(", ");
+
+        return (
+            <>
+                <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
+            </>
+        );
+    };
 
   return (
     <div className="checkin-item">
@@ -234,11 +251,11 @@ const CheckInItem = ({ checkin }) => {
       </div>
       <div className="checkin-info">
         <p className="checkin-id">Check-In ID #{checkin.booking_id}</p>
-        <h2 className="checkin-status-title">{checkin.title}</h2>
+        <h2 className="checkin-status-title">{checkin.hotel}</h2>
       </div>
       <div className="checkin-status-info">
         <p className="checkin-status-label">Check-In Date</p>
-        <p className="checkin-date">{formatCheckInDate(checkin.date)}</p>
+        <p className="checkin-date">{formatBookingDate(checkin.checkin)}</p>
       </div>
     </div>
   );

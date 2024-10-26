@@ -25,7 +25,7 @@ const RoomSchedules = () => {
 
   async function getTheCheckinList() {
     const today = new Date();
-    const formattedDate = today.toISOString().split("T")[0]; 
+    const formattedDate = today.toISOString().split("T")[0];
     const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', formattedDate);
     if (error) throw error;
     console.log(data);
@@ -103,7 +103,7 @@ const RoomSchedules2 = (props) => {
   return (
     <div className="booking-item">
       <div className="booking-icon">
-        <img src={lock} alt="Booking Image" />
+        <img src={image} alt="Booking Image" />
       </div>
       <div className="booking-info">
         <p className="booking-id">Booking ID #{schedule.booking_id}</p>
