@@ -8,6 +8,7 @@ import { supabase } from "../../supabaseClient";
 const SidePanel = () => {
   const { activePath, setActivePath } = useNavigation();
   const [name, setName] = useState('');
+  const [pfp, setPfp] = useState('');
   const fetchUserData = async () => {
     try {
       const { data: { user }, error: userError } = await supabase.auth.getUser();
@@ -30,6 +31,7 @@ const SidePanel = () => {
         }
 
         setName(data.full_name);
+        setPfp(data.avatar_url);
       }
     } catch (error) {
       console.error("Error in fetchUserData:", error);
@@ -48,7 +50,7 @@ const SidePanel = () => {
     <div className="bg-primary item-side-panel content-start-vertical">
       <header className="content-mid-vertical">
         <img
-          src="https://plus.unsplash.com/premium_photo-1694819488591-a43907d1c5cc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D"
+          src={`https://supabase.com/dashboard/project/tglolshdsrixggmpvujc/storage/buckets/avatars${pfp}`}
           alt="profile"
           className="profile-image"
           height={120}
