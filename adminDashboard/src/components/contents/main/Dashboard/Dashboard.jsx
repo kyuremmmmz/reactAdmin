@@ -310,7 +310,48 @@ const Dashboard = () => {
                 />
               </div>
             </section>
+            <div className="section-divider" />
+
+            <section className="dashboard-section">
+              <h2 className="dashboard-title">Users</h2>
+              <p className="dashboard-date">
+                {day},{" "}
+                <span
+                  style={{ color: "#3d3d3d" }}
+                >{`${date} ${month} ${year}`}</span>
+              </p>
+
+              <div className="stats-grid">
+                {flightStats.map((stat, index) => {
+                  let handleClick;
+                  if (stat.label === "New Flight Bookings") {
+                    handleClick = handleFlightBookingsClick;
+                  }
+                  return (
+                    <StatCard key={index} {...stat} onClick={handleClick} />
+                  );
+                })}
+              </div>
+
+              <div className="ticket-stats">
+                <TicketStatCard
+                  title="Available Tickets"
+                  value={availableTicket}
+                  total={totalTicket}
+                  fillWidth={`${(availableTicket / totalTicket) * 100}%`}
+                  fillColor="#a6eca6"
+                />
+                <TicketStatCard
+                  title="Sold Out Tickets"
+                  value={soldOutTicket}
+                  total={totalTicket}
+                  fillWidth={`${(soldOutTicket / totalTicket) * 100}%`}
+                  fillColor="#eca6a6"
+                />
+              </div>
+            </section>
           </section>
+          
         </div>
       </main>
     </div>

@@ -69,6 +69,7 @@ const SidePanel = () => {
               className={`side-panel-button ${activePath === item.path ? "selected-button" : ""}`}
               onClick={() => handleLinkClick(item.path)}
             >
+              <span style={{ marginRight: "8px" }}>{item.icon}</span>
               {item.name}
             </Link>
           ) : null
