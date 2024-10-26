@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { supabase } from '../../../../supabaseClient';
 import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
 
 function InsertionModal({ show, hide }) {
     const [hotelName, setHotelName] = useState('');
@@ -119,5 +120,10 @@ function InsertionModal({ show, hide }) {
         </div>
     );
 }
+
+InsertionModal.propTypes = {
+    show: PropTypes.bool.isRequired,
+    hide: PropTypes.func.isRequired,
+};
 
 export default InsertionModal;
