@@ -32,28 +32,7 @@ const bookings = [
 ];
 
 
-const checkins = [
-  {
-    id: "A09863",
-    title: "Deluxe Suite",
-    date: "Monday, 16 Sept 2024, 09:42 am",
-  },
-  {
-    id: "A09864",
-    title: "Presidential Suite",
-    date: "Monday, 16 Sept 2024, 08:02 am",
-  },
-  {
-    id: "A09865",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 06:52 am",
-  },
-  {
-    id: "A09866",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 04:44 am",
-  },
-];
+const checkins = supabase.from('hotel_booking').select('*');
 
 const checkouts = [
   {
@@ -90,9 +69,11 @@ const getCurrentDateInfo = () => {
 
 const Hotels = () => {
   const [hotelBookings, setData] = useState([]);
+  const [checkinList, setCheckinList] = useState([]);
 
   useEffect(() => {
     getTheHotelList();
+    getTheCheckinList();
   }, [])
   async function getTheHotelList() {
     const { data, error } = await supabase.from('hotel_booking').select('*');
@@ -100,6 +81,14 @@ const Hotels = () => {
     console.log(data);
 
     setData(data);
+  }
+
+  async function getTheCheckinList() {
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', Date.now());
+    if (error) throw error;
+    console.log(data);
+
+    setCheckinList(data);
   }
   const { day, date, month, year } = getCurrentDateInfo();
 
@@ -158,8 +147,8 @@ const Hotels = () => {
               >{`${date} ${month} ${year}`}</span>
             </p>
             <div className="checkin-list">
-              {checkins.length > 0 ? (
-                checkins.map((checkin, index) => (
+              {checkinList.length > 0 ? (
+                checkinList.map((checkin, index) => (
                   <CheckInItem key={index} checkin={checkin} />
                 ))
               ) : (
@@ -244,7 +233,7 @@ const CheckInItem = ({ checkin }) => {
         <img src={check} alt="Check-In Image" />
       </div>
       <div className="checkin-info">
-        <p className="checkin-id">Check-In ID #{checkin.id}</p>
+        <p className="checkin-id">Check-In ID #{checkin.booking_id}</p>
         <h2 className="checkin-status-title">{checkin.title}</h2>
       </div>
       <div className="checkin-status-info">

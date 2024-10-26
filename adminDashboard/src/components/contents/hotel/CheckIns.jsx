@@ -2,29 +2,7 @@ import React from "react";
 import "./styles.css";
 import Header from "../../panels/Header";
 import image from "../../../assets/check.png";
-
-const checkins = [
-  {
-    id: "A09863",
-    title: "Deluxe Suite",
-    date: "Monday, 16 Sept 2024, 09:42 am",
-  },
-  {
-    id: "A09864",
-    title: "Presidential Suite",
-    date: "Monday, 16 Sept 2024, 08:02 am",
-  },
-  {
-    id: "A09865",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 06:52 am",
-  },
-  {
-    id: "A09866",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 04:44 am",
-  },
-];
+import { supabase } from "../../../supabaseClient";
 
 const getCurrentDateInfo = () => {
   const currentDate = new Date();
@@ -36,7 +14,8 @@ const getCurrentDateInfo = () => {
   };
 };
 
-const CheckIns = () => {
+const CheckIns = (props) => {
+  const schedule = props.checkin;;
   const { day, date, month, year } = getCurrentDateInfo();
 
   return (
@@ -54,8 +33,8 @@ const CheckIns = () => {
                 >{`${date} ${month} ${year}`}</span>
               </p>
               <div className="checkin-list">
-                {checkins.length > 0 ? (
-                  checkins.map((checkin, index) => (
+                {schedule.length > 0 ? (
+                  schedule.map((checkin, index) => (
                     <CheckInItem key={index} checkin={checkin} />
                   ))
                 ) : (
@@ -70,7 +49,8 @@ const CheckIns = () => {
   );
 };
 
-const CheckInItem = ({ checkin }) => {
+const CheckInItem = (props) => {
+  const schedule = props.checkin;;
   const formatCheckInDate = (dateString) => {
     const parts = dateString.split(", ");
     const dayOfWeek = parts[0];
@@ -89,14 +69,14 @@ const CheckInItem = ({ checkin }) => {
         <img src={image} alt="Image" />
       </div>
       <div className="checkin-info">
-        <p className="checkin-status-id">Checkin ID #{checkin.id}</p>
+        <p className="checkin-status-id">Checkin ID #{schedule.booking_id}</p>
         <h2 className="checkin-status-title">
-          {checkin.title} {checkin.id}
+          {schedule.title} {schedule.id}
         </h2>
       </div>
       <div className="checkin-status-info">
         <p className="checkin-status-label">Check-in Date</p>
-        <p className="checkin-status-date">{formatCheckInDate(checkin.date)}</p>
+        <p className="checkin-status-date">{formatCheckInDate(checkin.checkin)}</p>
       </div>
     </div>
   );
