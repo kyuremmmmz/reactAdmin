@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { supabase } from '../../../../supabaseClient';
+import PropTypes from 'prop-types';
 
 function UpdateModals({ PlaceData, show, hide }) {
     const [place_name, setHotelName] = useState(null);
@@ -95,6 +97,19 @@ function UpdateModals({ PlaceData, show, hide }) {
             </Modal.Footer>
         </Modal>
     );
+}
+
+UpdateModals.propTypes = {
+    PlaceData: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        place_name: PropTypes.string,
+        description: PropTypes.string,
+        price: PropTypes.number,
+        image: PropTypes.string,
+        locatedIn: PropTypes.string,
+    }),
+    show: PropTypes.bool.isRequired,
+    hide: PropTypes.func.isRequired,
 }
 
 export default UpdateModals;
