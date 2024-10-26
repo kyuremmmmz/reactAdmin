@@ -50,7 +50,7 @@ const SidePanel = () => {
     <div className="bg-primary item-side-panel content-start-vertical">
       <header className="content-mid-vertical">
         <img
-          src={`https://supabase.com/dashboard/project/tglolshdsrixggmpvujc/storage/buckets/avatars${pfp}`}
+          src={pfp == null ? `https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-business-user-profile-vector-png-image_1541960.jpg` :  `https://supabase.com/dashboard/project/tglolshdsrixggmpvujc/storage/buckets/avatars${pfp}`}
           alt="profile"
           className="profile-image"
           height={120}

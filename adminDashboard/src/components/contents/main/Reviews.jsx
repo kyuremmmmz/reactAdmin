@@ -31,7 +31,7 @@ const Reviews = () => {
         <div className="reviews-container">
           {comments.map((review) => (
             <div key={review.id} className="review-card">
-              <img src={`https://supabase.com/dashboard/project/tglolshdsrixggmpvujc/storage/buckets/avatars/${review.avatar_url}`} alt={`${review.full_name}'s profile`} className="profile-pic" />
+              <img src={review.avatar_url === 'null' ? `https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-business-user-profile-vector-png-image_1541960.jpg` : `https://supabase.com/dashboard/project/tglolshdsrixggmpvujc/storage/buckets/avatars/${review.avatar_url}`} alt={`${review.full_name}'s profile`} className="profile-pic" />
               <div className="review-content">
                 <h3 className="review-name">{review.full_name}</h3>
                 <div className="review-rating">
