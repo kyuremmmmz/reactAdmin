@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
-import "./hotel.css";
-import Header from "../../panels/Header";
-import lock from "../../../assets/lock.png";
-import check from "../../../assets/check.png";
-import out from "../../../assets/out.png";
-import Schedules from "./Schedules";
-import { supabase } from "../../../supabaseClient";
 import PropTypes from "prop-types";
+import  { useEffect, useState } from "react";
+import check from "../../../assets/check.png";
+import lock from "../../../assets/lock.png";
+import out from "../../../assets/out.png";
+import { supabase } from "../../../supabaseClient";
+import Header from "../../panels/Header";
+import "./hotel.css";
+import Schedules from "./Schedules";
 
 
 const bookings = [
@@ -85,7 +85,7 @@ const Hotels = () => {
   }
 
   async function getTheCheckinList() {
-    const today = new Date().toISOString().split('T')[0]; 
+    const today = new Date().toISOString().split('T')[0];
     const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', today);
     if (error) throw error;
     console.log(data);
@@ -219,33 +219,33 @@ const BookingItem = ({ schedule, onClick }) => {
 const CheckInItem = (props) => {
   const checkin = props.checkin;
   const formatBookingDate = (dateString) => {
-        const date = new Date(dateString);
+    const date = new Date(dateString);
 
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        };
-
-        const formattedDate = date.toLocaleString('default', options)
-            .replace(',', '') 
-            .replace('AM', 'am')
-            .replace('PM', 'pm');
-
-        const parts = formattedDate.split(", ");
-        const dayOfWeek = parts[0];
-        const restOfDate = parts.slice(1).join(", ");
-
-        return (
-            <>
-                <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
-            </>
-        );
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
     };
+
+    const formattedDate = date.toLocaleString('default', options)
+      .replace(',', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+
+    const parts = formattedDate.split(", ");
+    const dayOfWeek = parts[0];
+    const restOfDate = parts.slice(1).join(", ");
+
+    return (
+      <>
+        <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
+      </>
+    );
+  };
 
   return (
     <div className="checkin-item">
