@@ -49,7 +49,7 @@ function Flights() {
 
   useEffect(() => {
     setFlights(dummyFlights);
-  }, [dummyFlights, flights]);
+  }, []);
 
   return (
     <div>
