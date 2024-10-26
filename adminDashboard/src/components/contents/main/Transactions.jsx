@@ -26,7 +26,7 @@ function Transactions() {
 return (
     <div>
         <Header />
-        <Container>
+        <main className='main'>
             <h2>Transactions</h2>
             <Table striped bordered hover className=' mt-4'>
                 <thead>
@@ -64,7 +64,7 @@ return (
                     ))}
                 </tbody>
             </Table>
-        </Container>
+        </main>
     </div>
 )
 }
