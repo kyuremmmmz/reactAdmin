@@ -7,6 +7,7 @@ import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
 import InsertionModal from './PlacesModals/InsertionModals';
+import InsertionOfBeaches from './BeachesModals/InsertionOfBeaches';
 function Beaches() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
@@ -158,7 +159,7 @@ function Beaches() {
                         />
                     )}
 
-                    <InsertionModal show={showModal} hide={hide} />
+                    <InsertionOfBeaches show={showModal} hide={hide} />
                 </div>
             </main>
         </div>

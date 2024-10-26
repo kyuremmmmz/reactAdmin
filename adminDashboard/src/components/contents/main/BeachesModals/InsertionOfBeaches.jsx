@@ -45,7 +45,7 @@ function InsertionOfBeaches({ show, hide }) {
         if (!imagePath) return;
 
         try {
-            const { data, error } = await supabase.from('beaches').insert([{
+            const { data, error } = await supabase.from('Beaches').insert([{
                 beach_name: hotelName,
                 description: hotelDescription,
                 beach_located: located,
@@ -75,7 +75,7 @@ function InsertionOfBeaches({ show, hide }) {
         <div>
             <Modal show={show} onHide={hide}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Post Hotels</Modal.Title>
+                    <Modal.Title>Post Beaches</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -85,7 +85,7 @@ function InsertionOfBeaches({ show, hide }) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Beach Description</Form.Label>
-                            <Form.Control type="text" value={hotelDescription} placeholder="Enter beach description" onChange={(e) => setHotelDescription(e.target.value)} />
+                            <Form.Control as="textarea" value={hotelDescription} placeholder="Enter beach description" onChange={(e) => setHotelDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
