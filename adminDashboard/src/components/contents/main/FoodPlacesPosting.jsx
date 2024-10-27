@@ -72,9 +72,25 @@ function FoodPlacesPosting() {
                       />
                     </div>
                     <div className='mt-4'>
-                      <div className=' width3'>
-                        <h2 className=' text-sm '>Menu</h2>
-                        <p className=' text-break'>{hotel.menu}</p>
+                      <div className='width3 overflow-auto'>
+                        <h2 className='text-sm'>Menu</h2>
+                        {hotel.menu ? (
+                          <ul className="list-unstyled">
+                            {hotel.menu.split('\n').map((item, index) => {
+                              const parts = item.split(':');
+                              if (parts.length === 2) {
+                                return (
+                                  <li key={index} className='my-2'>
+                                    <strong>{parts[0].trim()}:</strong> {parts[1].trim()}
+                                  </li>
+                                );
+                              }
+                              return null;
+                            })}
+                          </ul>
+                        ) : (
+                          <p>No menu available.</p>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -61,7 +61,7 @@ function Places() {
                         {
                             data != null && data.length > 0 ? (
                                 data.map((hotel) => (
-                                    <Container key={hotel.id} className='color'>
+                                    <Container key={hotel.id} className='color1'>
                                         <Row className='object-fit-cover'>
                                             <div className=' col-3'>
                                                 <div className='width'>
