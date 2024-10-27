@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup, Row, Col, Placeholder } from 'react-bootstrap';
-import { supabase } from '../../../supabaseClient';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, ListGroup, Placeholder, Row } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { supabase } from '../../../supabaseClient';
+import Header from '../../panels/Header';
 import FestivalsInsertion from './FestivalsModals/FestivalsInsertion';
 import FestivalsModalUpdate from './FestivalsModals/FestivalsModalUpdate';
 function Festivals() {
@@ -71,12 +71,26 @@ function Festivals() {
                                                         alt={hotel.img}
                                                     />
                                                 </div>
-                                                <div className=' mt-4'>
-                                                    <div className=' width4'>
-                                                        <h2 className=' text-sm'>Tips for the visitors</h2>
-                                                        <ul>
-                                                            <li>{ hotel.TipsForVisitors }</li>
-                                                        </ul>
+                                                <div className='mt-4'>
+                                                    <div className='width3 overflow-auto'>
+                                                        <h2 className='text-sm'>Tips for The Visitors</h2>
+                                                        {hotel.TipsForVisitors ? (
+                                                            <ul className="list-unstyled">
+                                                                {hotel.TipsForVisitors.split('\n').map((item, index) => {
+                                                                    const parts = item.split(':');
+                                                                    if (parts.length === 2) {
+                                                                        return (
+                                                                            <li key={index} className='my-2'>
+                                                                                <strong>{parts[0].trim()}:</strong> {parts[1].trim()}
+                                                                            </li>
+                                                                        );
+                                                                    }
+                                                                    return null;
+                                                                })}
+                                                            </ul>
+                                                        ) : (
+                                                            <p>No tips available.</p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
