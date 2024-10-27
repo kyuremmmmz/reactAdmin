@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import Header from "../../panels/Header";
 import { Button, Col, Container, ListGroup, Row, Stack } from "react-bootstrap";
 import { supabase } from "../../../supabaseClient";
+import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 
 const Flights = () => {
   const [flightsData, setData] = useState([]);
@@ -25,25 +26,33 @@ const Flights = () => {
 
     const [timePart, timezoneOffset] = timestamp.split('+');
 
-    const [hours, minutes, seconds] = timePart.split(':');
+    const [hours, minutes, seconds] = timePart.split(':').map(part => parseInt(part, 10));
 
     const date = new Date();
-    date.setHours(parseInt(hours, 10));
-    date.setMinutes(parseInt(minutes, 10));
-    date.setSeconds(0);
-
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    date.setSeconds(seconds || 0);
 
     if (timezoneOffset) {
-      const offsetHours = parseInt(timezoneOffset, 10); 
-      date.setHours(date.getHours() + offsetHours);
+      date.setHours(date.getHours());
     }
+
     const options = {
       hour: 'numeric',
       minute: 'numeric',
       hour12: true,
     };
 
-    return date.toLocaleTimeString([], options);
+    return date.toLocaleTimeString('en-US', options);
+  };
+
+
+
+  const formatAndSetDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { month: 'short', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-PH', options).toUpperCase();
+    return formattedDate;
   };
 
 
@@ -85,9 +94,22 @@ const Flights = () => {
                         alt="Airplane"
                       />
                     </div>
-                    <div>
-                      <p className="fw-bold fs-3">{formatTime(item.departure)}</p>
-                    </div>
+                    <Row>
+                      <Col>
+                        <Col><p className="fw-bold fs-5">{formatTime(item.departure)}</p></Col>
+                        <Col><p>{item.airplane } . { formatAndSetDate(item.date) }</p></Col>
+                      </Col>
+                    </Row>
+                    
+                    <FaPlaneDeparture size={25} color=""/>
+                    <div className="horizontal-line w-25 rounded-circle bg-black"></div>
+                    <FaPlaneArrival size={25} color="" />
+                    <Row>
+                      <Col>
+                        <Col><p className="fw-bold fs-5">{formatTime(item.arrival)}</p></Col>
+                        <Col><p>{item.place} . {formatAndSetDate(item.date_departure)}</p></Col>
+                      </Col>
+                    </Row>
                   </Stack>
                 </Row>
               </div>

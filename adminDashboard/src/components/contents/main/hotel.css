@@ -299,6 +299,9 @@
   height: 100px
 }
 
+.horizontal-line {
+  height: 2px;
+}
 
 .booking-icon img,
 .checkin-icon img,
