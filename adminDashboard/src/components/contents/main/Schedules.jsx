@@ -1,7 +1,7 @@
 import React from 'react'
 import './hotel.css';
 import lock from "../../../assets/lock.png";
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 function Schedules(props) {
     const schedule = props.schedule;;
     const formatBookingDate = (dateString) => {
@@ -49,5 +49,14 @@ function Schedules(props) {
       </div>
   )
 }
+
+Schedules.propTypes = {
+    schedule: PropTypes.shape({
+        booking_id: PropTypes.string.isRequired,
+        hotel: PropTypes.string.isRequired,
+        room_type: PropTypes.string.isRequired,
+        date_of_booking: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 export default Schedules

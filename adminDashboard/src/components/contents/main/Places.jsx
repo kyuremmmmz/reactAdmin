@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup, Row, Col, Placeholder } from 'react-bootstrap';
+import { Button,  Container, ListGroup, Row, Placeholder } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
