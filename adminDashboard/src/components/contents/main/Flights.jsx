@@ -1,6 +1,6 @@
 import  { useEffect, useState } from "react";
 import Header from "../../panels/Header";
-import { Button, Col, ListGroup, Row, Stack } from "react-bootstrap";
+import { Button, Col, Container, ListGroup, Row, Stack } from "react-bootstrap";
 import { supabase } from "../../../supabaseClient";
 
 const Flights = () => {
@@ -19,7 +19,7 @@ const Flights = () => {
     <div>
       <Header />
       <main className="main">
-        <Stack gap={3} direction="horizontal">
+        <Stack gap={5} direction="horizontal">
           <div>
             <h2>Flights</h2>  
           </div>
@@ -34,10 +34,24 @@ const Flights = () => {
           <Col>
             {flightsData && flightsData.map((item) => (
               <ListGroup.Item key={item.id}>
-                <Row>
-                  <Col>{item.id}</Col>
-                  <Col>{item.price}</Col>
-                </Row>
+                <div className="booking-item2">
+                  <Row>
+                    <Stack  gap={2} direction="horizontal">
+                      <p className=" text-success fw-bold fs-6">AirPort: </p>
+                      <p className=" text-info">{item.airport}</p>
+                    </Stack>
+                  </Row>
+                  <Row>
+                    <Stack style={{transform: 'translateY(-24%)'}} direction="vertical">
+                      <p className=" fs-6">Trip to Pangasinan</p>
+                    </Stack>
+                  </Row>
+                  <Row>
+                    <Stack style={{ transform: 'translateY(-24%)' }} direction="vertical">
+                      <p className=" fs-6">Trip to Pangasinan</p>
+                    </Stack>
+                  </Row>
+                  </div>
               </ListGroup.Item>
             )) }
           </Col>
