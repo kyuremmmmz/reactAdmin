@@ -16,6 +16,14 @@ const Flights = () => {
   useEffect(() => {
     fetchData();
   }, [flightsData])
+
+  const formatToString = (number) => {
+    return Number(number).toLocaleString('en-PH', {
+      style: 'currency',
+      currency: 'PHP',
+      minimumFractionDigits: 0
+    });
+  };
   const formatTime = (timestamp) => {
     console.log("Raw timestamp:", timestamp);
 
@@ -24,6 +32,7 @@ const Flights = () => {
       return "Invalid Time";
     }
 
+    
     const [timePart, timezoneOffset] = timestamp.split('+');
 
     const [hours, minutes, seconds] = timePart.split(':').map(part => parseInt(part, 10));
@@ -112,6 +121,9 @@ const Flights = () => {
                     </Row>
                   </Stack>
                 </Row>
+                <div className="d-flex justify-content-end top-0">
+                  <p className=" text-dark fs-5 fw-bold">PHP {formatToString(item.price) }</p>
+                </div>
               </div>
             </ListGroup.Item>
           ))}
