@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { supabase } from '../../../../supabaseClient';
+import { Button, Form, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-
-function InsertionModalWidget({ show, hide }) {
+import { supabase } from '../../../../supabaseClient';
+import PropTypes from 'prop-types';
+function FestivalsInsertion({ show, hide }) {
     const [hotelName, setHotelName] = useState('');
     const [hotelDescription, setHotelDescription] = useState('');
-    const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [located, setLocated] = useState('');
@@ -30,7 +29,7 @@ function InsertionModalWidget({ show, hide }) {
         }
 
         try {
-            const imagePath = await uploadImg(imageFile, 'hotel_amenities_url');
+            const imagePath = await uploadImg(imageFile, 'Festivals');
             return imagePath;
         } catch (e) {
             Swal.fire({
@@ -54,7 +53,7 @@ function InsertionModalWidget({ show, hide }) {
         }
 
         try {
-            const imagePath = await uploadImg(image, 'hotel_amenities_url'); 
+            const imagePath = await uploadImg(image, 'Festivals');
             return imagePath;
         } catch (e) {
             Swal.fire({
@@ -75,59 +74,58 @@ function InsertionModalWidget({ show, hide }) {
         );
 
         try {
-            const { data, error } = await supabase.from('hotels').insert([{
-                hotel_name: hotelName,
-                hotel_description: hotelDescription,
-                hotel_price: price,
-                hotel_discount: discount,
-                hotel_located: located,
-                image: imagePath,
-                amenity1: amenities[0],
-                amenity2: amenities[1],
-                amenity3: amenities[2],
-                amenity4: amenities[3],
-                amenity5: amenities[4],
-                amenity6: amenities[5],
-                amenity7: amenities[6],
-                amenity8: amenities[7],
-                amenity9: amenities[8],
-                amenity10: amenities[9],
-                amenity11: amenities[10],
-                amenity12: amenities[11],
-                amenity13: amenities[12],
-                amenity14: amenities[13],
-                amenity15: amenities[14],
-                amenity16: amenities[15],
-                amenity17: amenities[16],
-                amenity18: amenities[17],
-                amenity19: amenities[18],
-                amenity20: amenities[19],
-                amenity1Url: amenityImagePaths[0],
-                amenity2Url: amenityImagePaths[1],
-                amenity3Url: amenityImagePaths[2],
-                amenity4Url: amenityImagePaths[3],
-                amenity5Url: amenityImagePaths[4],
-                amenity6Url: amenityImagePaths[5],
-                amenity7Url: amenityImagePaths[6],
-                amenity8Url: amenityImagePaths[7],
-                amenity9Url: amenityImagePaths[8],
-                amenity10Url: amenityImagePaths[9],
-                amenity11Url: amenityImagePaths[10],
-                amenity12Url: amenityImagePaths[11],
-                amenity13Url: amenityImagePaths[12],
-                amenity14Url: amenityImagePaths[13],
-                amenity15Url: amenityImagePaths[14],
-                amenity16Url: amenityImagePaths[15],
-                amenity17Url: amenityImagePaths[16],
-                amenity18Url: amenityImagePaths[17],
-                amenity19Url: amenityImagePaths[18],
-                amenity20Url: amenityImagePaths[19],
+            const { data, error } = await supabase.from('Festivals').insert([{
+                img: hotelName,
+                Description: hotelDescription,
+                Located: located,
+                TipsForVisitors: discount,
+                imgUrl: imagePath,
+                Dine1: amenities[0] || null,
+                Dine2: amenities[1] || null,
+                Dine3: amenities[2] || null,
+                Dine4: amenities[3] || null,
+                Dine5: amenities[4] || null,
+                Dine6: amenities[5] || null,
+                Dine7: amenities[6] || null,
+                Dine8: amenities[7] || null,
+                Dine9: amenities[8] || null,
+                Dine10: amenities[9] || null,
+                Dine11: amenities[10] || null,
+                Dine12: amenities[11] || null,
+                Dine13: amenities[12] || null,
+                Dine14: amenities[13] || null,
+                Dine15: amenities[14] || null,
+                Dine16: amenities[15] || null,
+                Dine17: amenities[16] || null,
+                Dine18: amenities[17] || null,
+                Dine19: amenities[18] || null,
+                Dine20: amenities[19] || null,
+                DineUrl1: amenityImagePaths[0] || null,
+                DineUrl2: amenityImagePaths[1] || null,
+                DineUrl3: amenityImagePaths[2] || null,
+                DineUrl4: amenityImagePaths[3] || null,
+                DineUrl5: amenityImagePaths[4] || null,
+                DineUrl6: amenityImagePaths[5] || null,
+                DineUrl7: amenityImagePaths[6] || null,
+                DineUrl8: amenityImagePaths[7] || null,
+                DineUrl9: amenityImagePaths[8] || null,
+                DineUrl10: amenityImagePaths[9] || null,
+                DineUrl11: amenityImagePaths[10] || null,
+                DineUrl12: amenityImagePaths[11] || null,
+                DineUrl13: amenityImagePaths[12] || null,
+                DineUrl14: amenityImagePaths[13] || null,
+                DineUrl15: amenityImagePaths[14] || null,
+                DineUrl16: amenityImagePaths[15] || null,
+                DineUrl17: amenityImagePaths[16] || null,
+                DineUrl18: amenityImagePaths[17] || null,
+                DineUrl19: amenityImagePaths[18] || null,
+                DineUrl20: amenityImagePaths[19] || null,
             }]);
 
             if (error) throw error;
             hide();
             Swal.fire({
-                title: 'Hotel has been posted!',
+                title: 'Festivals has been posted!',
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 1500
@@ -158,46 +156,42 @@ function InsertionModalWidget({ show, hide }) {
         <div>
             <Modal show={show} onHide={hide}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Post Hotels</Modal.Title>
+                    <Modal.Title>Post Festivals</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Hotel Name</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
+                            <Form.Label>Festival Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Hotel Description</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
+                            <Form.Label>Festival Description</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
                             <Form.Control style={{ textAlign: 'center' }} type="file" onChange={(e) => setImageFile(e.target.files[0])} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Discount</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel discount" onChange={(e) => setDiscount(e.target.value)} />
+                            <Form.Label>Tips for the visitors</Form.Label>
+                            <Form.Control as={'textarea'} placeholder="Tips for the visitors" onChange={(e) => setDiscount(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Hotel Price</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel Price" onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Hotel Located</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
+                            <Form.Label>Festival Located</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
                         </Form.Group>
                         {amenities.map((amenity, index) => (
-                            <React.Fragment key={index}>
+                            <React.Fragment key={`amenity-${index}`}>
                                 <Form.Group>
                                     <Form.Label>Amenity {index + 1}</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder={`Enter amenity ${index + 1}`}
+                                        placeholder={`Enter Highlights ${index + 1}`}
                                         onChange={(e) => handleAmenityChange(index, e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Amenity {index + 1} Image</Form.Label>
+                                    <Form.Label>Highlight {index + 1} Image</Form.Label>
                                     <Form.Control
                                         type="file"
                                         onChange={(e) => handleAmenityChangeImages(index, e.target.files[0])}
@@ -205,6 +199,7 @@ function InsertionModalWidget({ show, hide }) {
                                 </Form.Group>
                             </React.Fragment>
                         ))}
+
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -220,4 +215,9 @@ function InsertionModalWidget({ show, hide }) {
     );
 }
 
-export default InsertionModalWidget;
+FestivalsInsertion.propTypes = {
+    show: PropTypes.bool.isRequired,
+    hide: PropTypes.func.isRequired,
+};
+
+export default FestivalsInsertion;

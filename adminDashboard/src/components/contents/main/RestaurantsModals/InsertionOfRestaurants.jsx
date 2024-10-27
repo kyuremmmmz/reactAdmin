@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { supabase } from '../../../../supabaseClient';
+import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
-
-function InsertionModalWidget({ show, hide }) {
+function InsertionOfRestaurants({show, hide}) {
     const [hotelName, setHotelName] = useState('');
     const [hotelDescription, setHotelDescription] = useState('');
-    const [price, setPrice] = useState(0);
-    const [discount, setDiscount] = useState('');
+    const [menu, setMenu] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [located, setLocated] = useState('');
     const [amenities, setAmenities] = useState(Array(20).fill(''));
@@ -30,7 +29,7 @@ function InsertionModalWidget({ show, hide }) {
         }
 
         try {
-            const imagePath = await uploadImg(imageFile, 'hotel_amenities_url');
+            const imagePath = await uploadImg(imageFile, 'food_area');
             return imagePath;
         } catch (e) {
             Swal.fire({
@@ -54,7 +53,7 @@ function InsertionModalWidget({ show, hide }) {
         }
 
         try {
-            const imagePath = await uploadImg(image, 'hotel_amenities_url'); 
+            const imagePath = await uploadImg(image, 'food_area');
             return imagePath;
         } catch (e) {
             Swal.fire({
@@ -75,53 +74,52 @@ function InsertionModalWidget({ show, hide }) {
         );
 
         try {
-            const { data, error } = await supabase.from('hotels').insert([{
-                hotel_name: hotelName,
-                hotel_description: hotelDescription,
-                hotel_price: price,
-                hotel_discount: discount,
-                hotel_located: located,
-                image: imagePath,
-                amenity1: amenities[0],
-                amenity2: amenities[1],
-                amenity3: amenities[2],
-                amenity4: amenities[3],
-                amenity5: amenities[4],
-                amenity6: amenities[5],
-                amenity7: amenities[6],
-                amenity8: amenities[7],
-                amenity9: amenities[8],
-                amenity10: amenities[9],
-                amenity11: amenities[10],
-                amenity12: amenities[11],
-                amenity13: amenities[12],
-                amenity14: amenities[13],
-                amenity15: amenities[14],
-                amenity16: amenities[15],
-                amenity17: amenities[16],
-                amenity18: amenities[17],
-                amenity19: amenities[18],
-                amenity20: amenities[19],
-                amenity1Url: amenityImagePaths[0],
-                amenity2Url: amenityImagePaths[1],
-                amenity3Url: amenityImagePaths[2],
-                amenity4Url: amenityImagePaths[3],
-                amenity5Url: amenityImagePaths[4],
-                amenity6Url: amenityImagePaths[5],
-                amenity7Url: amenityImagePaths[6],
-                amenity8Url: amenityImagePaths[7],
-                amenity9Url: amenityImagePaths[8],
-                amenity10Url: amenityImagePaths[9],
-                amenity11Url: amenityImagePaths[10],
-                amenity12Url: amenityImagePaths[11],
-                amenity13Url: amenityImagePaths[12],
-                amenity14Url: amenityImagePaths[13],
-                amenity15Url: amenityImagePaths[14],
-                amenity16Url: amenityImagePaths[15],
-                amenity17Url: amenityImagePaths[16],
-                amenity18Url: amenityImagePaths[17],
-                amenity19Url: amenityImagePaths[18],
-                amenity20Url: amenityImagePaths[19],
+            const { data, error } = await supabase.from('food_area').insert([{
+                img: hotelName,
+                description: hotelDescription,
+                located: located,
+                imgUrl: imagePath,
+                menu: menu,
+                dine1: amenities[0],
+                dine2: amenities[1],
+                dine3: amenities[2],
+                dine4: amenities[3],
+                dine5: amenities[4],
+                dine6: amenities[5],
+                dine7: amenities[6],
+                dine8: amenities[7],
+                dine9: amenities[8],
+                dine10: amenities[9],
+                dine11: amenities[10],
+                dine12: amenities[11],
+                dine13: amenities[12],
+                dine14: amenities[13],
+                dine15: amenities[14],
+                dine16: amenities[15],
+                dine17: amenities[16],
+                dine18: amenities[17],
+                dine19: amenities[18],
+                dine20: amenities[19],
+                dineUrl1: amenityImagePaths[0],
+                dineUrl2: amenityImagePaths[1],
+                dineUrl3: amenityImagePaths[2],
+                dineUrl4: amenityImagePaths[3],
+                dineUrl5: amenityImagePaths[4],
+                dineUrl6: amenityImagePaths[5],
+                dineUrl7: amenityImagePaths[6],
+                dineUrl8: amenityImagePaths[7],
+                dineUrl9: amenityImagePaths[8],
+                dineUrl10: amenityImagePaths[9],
+                dineUrl11: amenityImagePaths[10],
+                dineUrl12: amenityImagePaths[11],
+                dineUrl13: amenityImagePaths[12],
+                dineUrl14: amenityImagePaths[13],
+                dineUrl15: amenityImagePaths[14],
+                dineUrl16: amenityImagePaths[15],
+                dineUrl17: amenityImagePaths[16],
+                dineUrl18: amenityImagePaths[17],
+                dineUrl19: amenityImagePaths[18],
+                dineUrl20: amenityImagePaths[19],
             }]);
 
             if (error) throw error;
@@ -163,28 +161,24 @@ function InsertionModalWidget({ show, hide }) {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Hotel Name</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel name" onChange={(e) => setHotelName(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Hotel Description</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel description" onChange={(e) => setHotelDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
                             <Form.Control style={{ textAlign: 'center' }} type="file" onChange={(e) => setImageFile(e.target.files[0])} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Discount</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel discount" onChange={(e) => setDiscount(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Hotel Price</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel Price" onChange={(e) => setPrice(parseInt(e.target.value, 10) || 0)} />
+                            <Form.Label>Menu</Form.Label>
+                            <Form.Control type="text" placeholder="Enter hotel Price" onChange={(e) => setMenu(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Hotel Located</Form.Label>
-                            <Form.Control type="text"  placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
+                            <Form.Control type="text" placeholder="Enter hotel located" onChange={(e) => setLocated(e.target.value)} />
                         </Form.Group>
                         {amenities.map((amenity, index) => (
                             <React.Fragment key={index}>
@@ -220,4 +214,10 @@ function InsertionModalWidget({ show, hide }) {
     );
 }
 
-export default InsertionModalWidget;
+InsertionOfRestaurants.propTypes = {
+    hide: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired,
+}
+
+
+export default InsertionOfRestaurants

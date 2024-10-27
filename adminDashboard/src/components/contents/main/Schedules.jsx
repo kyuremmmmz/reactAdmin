@@ -39,7 +39,8 @@ function Schedules(props) {
           </div>
           <div className="booking-info">
               <p className="booking-id">Booking ID #{schedule.booking_id}</p>
-              <h2 className="booking-title">{schedule.room_type}</h2>
+              <h2 className="booking-title">{schedule.hotel}</h2>
+              <h2 className="booking-title">Room Type: {schedule.room_type}</h2>
           </div>
           <div className="booking-date-info">
               <p className="booking-date-label">Booking Date</p>

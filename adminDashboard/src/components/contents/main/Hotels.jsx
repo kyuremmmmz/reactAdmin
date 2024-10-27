@@ -1,12 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
-import "./hotel.css";
-import Header from "../../panels/Header";
-import lock from "../../../assets/lock.png";
+import PropTypes from "prop-types";
+import  { useEffect, useState } from "react";
 import check from "../../../assets/check.png";
+import lock from "../../../assets/lock.png";
 import out from "../../../assets/out.png";
-import Schedules from "./Schedules";
 import { supabase } from "../../../supabaseClient";
+import Header from "../../panels/Header";
+import "./hotel.css";
+import Schedules from "./Schedules";
+
 
 const bookings = [
   {
@@ -32,28 +34,6 @@ const bookings = [
 ];
 
 
-const checkins = [
-  {
-    id: "A09863",
-    title: "Deluxe Suite",
-    date: "Monday, 16 Sept 2024, 09:42 am",
-  },
-  {
-    id: "A09864",
-    title: "Presidential Suite",
-    date: "Monday, 16 Sept 2024, 08:02 am",
-  },
-  {
-    id: "A09865",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 06:52 am",
-  },
-  {
-    id: "A09866",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 04:44 am",
-  },
-];
 
 const checkouts = [
   {
@@ -90,9 +70,11 @@ const getCurrentDateInfo = () => {
 
 const Hotels = () => {
   const [hotelBookings, setData] = useState([]);
+  const [checkinList, setCheckinList] = useState([]);
 
   useEffect(() => {
     getTheHotelList();
+    getTheCheckinList();
   }, [])
   async function getTheHotelList() {
     const { data, error } = await supabase.from('hotel_booking').select('*');
@@ -101,13 +83,22 @@ const Hotels = () => {
 
     setData(data);
   }
+
+  async function getTheCheckinList() {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', today);
+    if (error) throw error;
+    console.log(data);
+
+    setCheckinList(data);
+  }
   const { day, date, month, year } = getCurrentDateInfo();
 
   return (
     <div>
       <Header />
-      <main className="hotels">
-        <div className="container">
+      <main>
+        <div className="main">
           {/* New Booking Section */}
           <section className="room-schedules-section">
             <h2 className="room-title">New Booking</h2>
@@ -158,8 +149,8 @@ const Hotels = () => {
               >{`${date} ${month} ${year}`}</span>
             </p>
             <div className="checkin-list">
-              {checkins.length > 0 ? (
-                checkins.map((checkin, index) => (
+              {checkinList.length > 0 ? (
+                checkinList.map((checkin, index) => (
                   <CheckInItem key={index} checkin={checkin} />
                 ))
               ) : (
@@ -225,9 +216,27 @@ const BookingItem = ({ schedule, onClick }) => {
 
 
 
-const CheckInItem = ({ checkin }) => {
-  const formatCheckInDate = (dateString) => {
-    const parts = dateString.split(", ");
+const CheckInItem = (props) => {
+  const checkin = props.checkin;
+  const formatBookingDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    };
+
+    const formattedDate = date.toLocaleString('default', options)
+      .replace(',', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+
+    const parts = formattedDate.split(", ");
     const dayOfWeek = parts[0];
     const restOfDate = parts.slice(1).join(", ");
 
@@ -244,12 +253,12 @@ const CheckInItem = ({ checkin }) => {
         <img src={check} alt="Check-In Image" />
       </div>
       <div className="checkin-info">
-        <p className="checkin-id">Check-In ID #{checkin.id}</p>
-        <h2 className="checkin-status-title">{checkin.title}</h2>
+        <p className="checkin-id">Check-In ID #{checkin.booking_id}</p>
+        <h2 className="checkin-status-title">{checkin.hotel}</h2>
       </div>
       <div className="checkin-status-info">
         <p className="checkin-status-label">Check-In Date</p>
-        <p className="checkin-date">{formatCheckInDate(checkin.date)}</p>
+        <p className="checkin-date">{formatBookingDate(checkin.checkin)}</p>
       </div>
     </div>
   );
@@ -284,5 +293,33 @@ const CheckOutItem = ({ checkout }) => {
     </div>
   );
 };
+// BookingItem PropTypes
+BookingItem.propTypes = {
+  schedule: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+  onClick: PropTypes.func,
+};
+
+// CheckInItem PropTypes
+CheckInItem.propTypes = {
+  checkin: PropTypes.shape({
+    booking_id: PropTypes.string.isRequired,
+    hotel: PropTypes.string.isRequired,
+    checkin: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+// CheckOutItem PropTypes
+CheckOutItem.propTypes = {
+  checkout: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 
 export default Hotels;

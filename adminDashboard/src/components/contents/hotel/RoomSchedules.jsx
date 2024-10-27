@@ -1,36 +1,47 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-import './styles.css'; 
+import React, { useEffect, useState } from 'react';
+import './styles.css';
 import Header from '../../panels/Header';
 import image from '../../../assets/calendar.png';
-
-const roomSchedules = [
-  { id: 'A09863', title: 'Deluxe Suite', date: 'Monday, 16 Sept 2024, 09:42 am' },
-  { id: 'A09864', title: 'Presidential Suite', date: 'Monday, 16 Sept 2024, 08:02 am' },
-  { id: 'A09865', title: 'Premiere Suite', date: 'Monday, 16 Sept 2024, 06:52 am' },
-  { id: 'A09866', title: 'Premiere Suite', date: 'Monday, 16 Sept 2024, 04:44 am' },
-  { id: 'A09867', title: 'Luxury Suite', date: 'Monday, 16 Sept 2024, 10:42 am' },
-  { id: 'A09868', title: 'Standard Room', date: 'Monday, 16 Sept 2024, 11:42 am' },
-  { id: 'A09869', title: 'Economy Room', date: 'Monday, 16 Sept 2024, 12:42 pm' },
-  { id: 'A09870', title: 'Family Suite', date: 'Monday, 16 Sept 2024, 01:42 pm' },
-  { id: 'A09871', title: 'Penthouse Suite', date: 'Monday, 16 Sept 2024, 02:42 pm' },
-  { id: 'A09872', title: 'Beachfront Room', date: 'Monday, 16 Sept 2024, 03:42 pm' },
-  { id: 'A09873', title: 'Garden View Room', date: 'Monday, 16 Sept 2024, 04:42 pm' },
-];
-
-
-
-const getCurrentDateInfo = () => {
-  const currentDate = new Date();
-  return {
-    day: currentDate.toLocaleString('default', { weekday: 'long' }),
-    date: currentDate.getDate(),
-    month: currentDate.toLocaleString('default', { month: 'long' }),
-    year: currentDate.getFullYear(),
-  };
-};
+import '../main/hotel.css';
+import lock from "../../../assets/lock.png";
+import { supabase } from '../../../supabaseClient'; // Ensure this import is correct
 
 const RoomSchedules = () => {
+  const [hotelBookings, setData] = useState([]);
+  const [checkinList, setCheckinList] = useState([]);
+
+  // Fetch data on component mount
+  useEffect(() => {
+    getTheHotelList();
+    getTheCheckinList();
+  }, []);
+
+  async function getTheHotelList() {
+    const { data, error } = await supabase.from('hotel_booking').select('*');
+    if (error) throw error;
+    console.log(data);
+    setData(data);
+  }
+
+  async function getTheCheckinList() {
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkin', formattedDate);
+    if (error) throw error;
+    console.log(data);
+    setCheckinList(data);
+  }
+
+  const getCurrentDateInfo = () => {
+    const currentDate = new Date();
+    return {
+      day: currentDate.toLocaleString('default', { weekday: 'long' }),
+      date: currentDate.getDate(),
+      month: currentDate.toLocaleString('default', { month: 'long' }),
+      year: currentDate.getFullYear(),
+    };
+  };
+
   const { day, date, month, year } = getCurrentDateInfo();
 
   return (
@@ -43,16 +54,14 @@ const RoomSchedules = () => {
             <p className="room-date">
               {day}, <span style={{ color: '#3d3d3d' }}>{`${date} ${month} ${year}`}</span>
             </p>
-            <div className="room-schedules-l">
-              <div className="room-schedules-list">
-                {roomSchedules.length > 0 ? (
-                  roomSchedules.map((schedule, index) => (
-                    <RoomScheduleItem key={index} schedule={schedule} />
-                  ))
-                ) : (
-                  <p>No new schedules available.</p>
-                )}
-              </div>
+            <div className="room-schedules-list">
+              {hotelBookings.length > 0 ? (
+                hotelBookings.map((schedule, index) => (
+                  <RoomSchedules2 key={index} schedule={schedule} />
+                ))
+              ) : (
+                <p>No new schedules available.</p>
+              )}
             </div>
           </section>
         </div>
@@ -61,31 +70,48 @@ const RoomSchedules = () => {
   );
 };
 
-const RoomScheduleItem = ({ schedule }) => {
-  const formatRoomScheduleDate = (dateString) => {
-    const parts = dateString.split(', ');
-    const dayOfWeek = parts[0]; 
-    const restOfDate = parts.slice(1).join(', ');
+const RoomSchedules2 = (props) => {
+  const schedule = props.schedule;
+  const formatBookingDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    };
+
+    const formattedDate = date.toLocaleString('default', options)
+      .replace(',', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+
+    const parts = formattedDate.split(", ");
+    const dayOfWeek = parts[0];
+    const restOfDate = parts.slice(1).join(", ");
 
     return (
       <>
-        <span style={{ color: '#0047fa' }}>{dayOfWeek}</span>, {restOfDate}
+        <span style={{ color: "#0047fa" }}>{dayOfWeek}</span>, {restOfDate}
       </>
     );
   };
 
   return (
-    <div className="room-schedule-item">
-      <div className="room-schedule-icon">
-        <img src={image} alt="Schedule Image" />
+    <div className="booking-item">
+      <div className="booking-icon">
+        <img src={image} alt="Booking Image" />
       </div>
-      <div className="room-schedule-info">
-        <p className="room-schedule-id">Room Schedule ID #{this.schedule.id}</p>
-        <h2 className="room-schedule-title">{this.schedule.title} {this.schedule.id}</h2>
+      <div className="booking-info">
+        <p className="booking-id">Booking ID #{schedule.booking_id}</p>
+        <h2 className="booking-title">{schedule.room_type}</h2>
       </div>
-      <div className="room-schedule-date-info">
-        <p className="room-schedule-date-label">Schedule Date</p>
-        <p className="room-schedule-date">{formatRoomScheduleDate(this.schedule.date)}</p>
+      <div className="booking-date-info">
+        <p className="booking-date-label">Booking Date</p>
+        <p className="booking-date">{formatBookingDate(schedule.date_of_booking)}</p>
       </div>
     </div>
   );

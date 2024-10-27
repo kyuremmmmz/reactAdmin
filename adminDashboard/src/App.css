@@ -36,6 +36,8 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .bg-pangasinan {
@@ -101,13 +103,10 @@ input:focus {
   margin: 4px 0px;
   background-color: #2196f3;
   border: none;
-  border-radius: 9999px;
   cursor: pointer;
   text-decoration: none;
   color: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: Inter, sans-serif;
   font-weight: 700;
   font-size: 15px;
