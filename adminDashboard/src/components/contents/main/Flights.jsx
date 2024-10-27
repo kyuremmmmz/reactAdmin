@@ -121,8 +121,15 @@ const Flights = () => {
                     </Row>
                   </Stack>
                 </Row>
+                
+                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-380%)' }}>
+                  <p className=" text-info fs-5 fw-bold">Departure: {item.airplane} - {item.date} - { item.departure }</p>
+                </div>
+                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-380%)' }}>
+                  <p className=" text-info fs-5 fw-bold">Arrival: {item.place} - {item.date_departure} - {item.departure}</p>
+                </div>
                 <div className="d-flex justify-content-end top-0">
-                  <p className=" text-dark fs-5 fw-bold">PHP {formatToString(item.price) }</p>
+                  <p className=" text-dark fs-3 fw-bold">PHP {formatToString(item.price)}</p>
                 </div>
               </div>
             </ListGroup.Item>
