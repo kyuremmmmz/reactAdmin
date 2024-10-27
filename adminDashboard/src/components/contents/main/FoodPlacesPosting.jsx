@@ -8,6 +8,7 @@ import ModalWidget from './modal/ModalWidget';
 import Swal from 'sweetalert2';
 import InsertionOfRestaurants from './RestaurantsModals/InsertionOfRestaurants';
 import EditOfRestaurants from './RestaurantsModals/EditOfRestaurants';
+import PlaceHolders from './PlaceHolders/PlaceHolders';
 function FoodPlacesPosting() {
   const [dataFetched, setData] = useState([]);
   const [show, setShow] = useState(false);
@@ -60,7 +61,7 @@ function FoodPlacesPosting() {
             <Button variant='success' className=' col-2' onClick={handleEditClick}>Add Restaurants</Button>
           </Row>
           <ListGroup className="mt-4">
-            {dataFetched.map((hotel) => (
+            {dataFetched != null && dataFetched.length > 0 ? dataFetched.map((hotel) => (
               <Container key={hotel.id} className='color'>
                 <Row className='object-fit-cover'>
                   <div className='col-3'>
@@ -140,7 +141,7 @@ function FoodPlacesPosting() {
                   </div>
                 </Row>
               </Container>
-            ))}
+            )): <PlaceHolders/>}
           </ListGroup>
 
           {hotelToEdit && (

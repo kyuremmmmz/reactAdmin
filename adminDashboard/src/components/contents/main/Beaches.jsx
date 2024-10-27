@@ -9,6 +9,7 @@ import UpdateModals from './PlacesModals/updateModals';
 import InsertionModal from './PlacesModals/InsertionModals';
 import InsertionOfBeaches from './BeachesModals/InsertionOfBeaches';
 import UpdateBeaches from './BeachesModals/UpdateBeaches';
+import PlaceHolders from './PlaceHolders/PlaceHolders';
 function Beaches() {
     const [data, setData] = useState([]);
     const [editModal, setEdit] = useState(false);
@@ -56,7 +57,7 @@ function Beaches() {
             <main className='main'>
                 <div className="container mt-5">
                     <Row>
-                        <h2 className="text-center w-25 col-1">Places Postings</h2>
+                        <h2 className="text-center w-25 col-1">Beaches Postings</h2>
                         <Button variant='success' className=' col-2' onClick={showInserModal}>Add Beach</Button>
                     </Row>
                     <ListGroup className="mt-4">
@@ -65,14 +66,16 @@ function Beaches() {
                                 data.map((hotel) => (
                                     <Container key={hotel.id} className='color1'>
                                         <Row className='object-fit-cover'>
-                                            <div className='width'>
-                                                <img
-                                                    className='pic'
-                                                    src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/beaches/${hotel.image}`}
-                                                    alt={hotel.beach_name}
-                                                />
+                                            <div className=' col-3'>
+                                                <div className='width'>
+                                                    <img
+                                                        className='pic'
+                                                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/beaches/${hotel.image}`}
+                                                        alt={hotel.beach_name}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className='col-9 col-md-9 col-lg-9'>
+                                            <div className='mt-3 col-9 col-md-9 col-lg-9'>
                                                 <h3>{hotel.beach_name}</h3>
                                                 <p className='text-info fw-bolder'>{hotel.beach_located}</p>
                                                 <p>{hotel.description}</p>
@@ -97,56 +100,7 @@ function Beaches() {
                                     </Container>
                                 ))
                             ) : (
-                                <Container className='color'>
-                                    <Row>
-                                        <div className='width'>
-                                            <Placeholder as="div" animation="glow">
-                                                <Placeholder xs={12} className="placeholder-image" />
-                                            </Placeholder>
-                                        </div>
-                                        <div className='col-9 col-md-9 col-lg-9'>
-                                            <Placeholder as="h3" animation="glow">
-                                                <Placeholder xs={6} />
-                                            </Placeholder>
-                                            <Placeholder as="p" animation="glow" className='text-info fw-bolder'>
-                                                <Placeholder xs={4} />
-                                            </Placeholder>
-                                            <Placeholder as="p" animation="glow">
-                                                <Placeholder xs={8} />
-                                                <Placeholder xs={7} />
-                                                <Placeholder xs={6} />
-                                            </Placeholder>
-                                            <div className="text-center mb-2">
-                                                <Placeholder.Button variant="primary" xs={4} className="mt-3 mx-2" />
-                                                <Placeholder.Button variant="danger" xs={4} className="mt-3 mx-2" />
-                                            </div>
-                                        </div>
-                                    </Row>
-                                    <Row>
-                                        <div className='width'>
-                                            <Placeholder as="div" animation="glow">
-                                                <Placeholder xs={12} className="placeholder-image" />
-                                            </Placeholder>
-                                        </div>
-                                        <div className='col-9 col-md-9 col-lg-9'>
-                                            <Placeholder as="h3" animation="glow">
-                                                <Placeholder xs={6} />
-                                            </Placeholder>
-                                            <Placeholder as="p" animation="glow" className='text-info fw-bolder'>
-                                                <Placeholder xs={4} />
-                                            </Placeholder>
-                                            <Placeholder as="p" animation="glow">
-                                                <Placeholder xs={8} />
-                                                <Placeholder xs={7} />
-                                                <Placeholder xs={6} />
-                                            </Placeholder>
-                                            <div className="text-center mb-2">
-                                                <Placeholder.Button variant="primary" xs={4} className="mt-3 mx-2" />
-                                                <Placeholder.Button variant="danger" xs={4} className="mt-3 mx-2" />
-                                            </div>
-                                        </div>
-                                    </Row>
-                                </Container>
+                                <PlaceHolders/>
                             )
                         }
 

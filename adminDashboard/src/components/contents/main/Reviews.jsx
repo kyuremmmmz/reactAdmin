@@ -4,11 +4,7 @@ import { supabase } from "../../../supabaseClient";
 
 const Reviews = () => {
   const [comments, setComments] = useState([]);
-  const [imgUrl, setImage] = useState('');
   
-  async function images() {
-    const {data, error} = await supabase.from('')
-  }
 
   const datas = async () => {
     try {
