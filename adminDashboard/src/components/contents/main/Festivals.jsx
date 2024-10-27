@@ -80,7 +80,7 @@ function Festivals() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='col-9 col-md-9 col-lg-9'>
+                                            <div className=' mt-3 col-9 col-md-9 col-lg-9'>
                                                 <h3>{hotel.img}</h3>
                                                 <p className='text-info fw-bolder'>{hotel.Located}</p>
                                                 <p>{hotel.Description}</p>

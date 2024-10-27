@@ -72,13 +72,13 @@ function FoodPlacesPosting() {
                       />
                     </div>
                     <div className='mt-4'>
-                      <div className=' width4'>
+                      <div className=' width3'>
                         <h2 className=' text-sm '>Menu</h2>
                         <p className=' text-break'>{hotel.menu}</p>
                       </div>
                     </div>
                   </div>
-                  <div className='col-9 col-md-9 col-lg-9'>
+                  <div className=' mt-3 col-9 col-md-9 col-lg-9'>
                     <h3>
                       {hotel.img}
                     </h3>
