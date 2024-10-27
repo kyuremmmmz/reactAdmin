@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Placeholder, Container, ListGroup, Row, Col } from 'react-bootstrap';
+import { Button, Container, ListGroup, Row, Col } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
 import InsertionModalWidget from './modal/InsertionModalWidget';

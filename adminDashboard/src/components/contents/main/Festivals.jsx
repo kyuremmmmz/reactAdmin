@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Button, Col, Container, ListGroup, Placeholder, Row } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { supabase } from '../../../supabaseClient';

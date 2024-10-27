@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import { Container, Card, Row, Col, Badge } from 'react-bootstrap';
 import { format } from 'date-fns';

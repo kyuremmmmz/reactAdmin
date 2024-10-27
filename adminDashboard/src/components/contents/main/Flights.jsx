@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Header from "../../panels/Header";
 import { Button, Col, ListGroup, Row, Stack } from "react-bootstrap";
 import { supabase } from "../../../supabaseClient";

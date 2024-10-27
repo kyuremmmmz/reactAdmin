@@ -1,4 +1,3 @@
-import React from 'react'
 import './hotel.css';
 import lock from "../../../assets/lock.png";
 import PropTypes from 'prop-types';
