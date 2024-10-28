@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup, Row, Col, Placeholder } from 'react-bootstrap';
+import { Button,  Container, ListGroup, Row, Placeholder } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
 import UpdateModals from './PlacesModals/updateModals';
@@ -61,16 +61,18 @@ function Places() {
                         {
                             data != null && data.length > 0 ? (
                                 data.map((hotel) => (
-                                    <Container key={hotel.id} className='color'>
+                                    <Container key={hotel.id} className='color1'>
                                         <Row className='object-fit-cover'>
-                                            <div className='width'>
-                                                <img
-                                                    className='pic'
-                                                    src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/places_url/${hotel.image}`}
-                                                    alt={hotel.place_name}
-                                                />
+                                            <div className=' col-3'>
+                                                <div className='width'>
+                                                    <img
+                                                        className='pic'
+                                                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/places_url/${hotel.image}`}
+                                                        alt={hotel.place_name}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className='col-9 col-md-9 col-lg-9'>
+                                            <div className=' mt-3 col-9 col-md-9 col-lg-9'>
                                                 <h3>{hotel.place_name}</h3>
                                                 <p className='text-info fw-bolder'>{hotel.locatedIn}</p>
                                                 <p>{hotel.description}</p>

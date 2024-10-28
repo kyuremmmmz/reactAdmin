@@ -8,6 +8,7 @@ import ModalWidget from './modal/ModalWidget';
 import Swal from 'sweetalert2';
 import InsertionOfRestaurants from './RestaurantsModals/InsertionOfRestaurants';
 import EditOfRestaurants from './RestaurantsModals/EditOfRestaurants';
+import PlaceHolders from './PlaceHolders/PlaceHolders';
 function FoodPlacesPosting() {
   const [dataFetched, setData] = useState([]);
   const [show, setShow] = useState(false);
@@ -60,7 +61,7 @@ function FoodPlacesPosting() {
             <Button variant='success' className=' col-2' onClick={handleEditClick}>Add Restaurants</Button>
           </Row>
           <ListGroup className="mt-4">
-            {dataFetched.map((hotel) => (
+            {dataFetched != null && dataFetched.length > 0 ? dataFetched.map((hotel) => (
               <Container key={hotel.id} className='color'>
                 <Row className='object-fit-cover'>
                   <div className='col-3'>
@@ -72,13 +73,29 @@ function FoodPlacesPosting() {
                       />
                     </div>
                     <div className='mt-4'>
-                      <div className=' width4'>
-                        <h2 className=' text-sm '>Menu</h2>
-                        <p className=' text-break'>{hotel.menu}</p>
+                      <div className='width3 overflow-auto'>
+                        <h2 className='text-sm'>Menu</h2>
+                        {hotel.menu ? (
+                          <ul className="list-unstyled">
+                            {hotel.menu.split('\n').map((item, index) => {
+                              const parts = item.split(':');
+                              if (parts.length === 2) {
+                                return (
+                                  <li key={index} className='my-2'>
+                                    <strong>{parts[0].trim()}:</strong> {parts[1].trim()}
+                                  </li>
+                                );
+                              }
+                              return null;
+                            })}
+                          </ul>
+                        ) : (
+                          <p>No menu available.</p>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className='col-9 col-md-9 col-lg-9'>
+                  <div className=' mt-3 col-9 col-md-9 col-lg-9'>
                     <h3>
                       {hotel.img}
                     </h3>
@@ -124,7 +141,7 @@ function FoodPlacesPosting() {
                   </div>
                 </Row>
               </Container>
-            ))}
+            )): <PlaceHolders/>}
           </ListGroup>
 
           {hotelToEdit && (

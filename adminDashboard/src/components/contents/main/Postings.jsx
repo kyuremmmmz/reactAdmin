@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../panels/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Container, ListGroup, Row, Col } from 'react-bootstrap';
+import { Button, Container, ListGroup, Row, Col } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import ModalWidget from './modal/ModalWidget';
 import InsertionModalWidget from './modal/InsertionModalWidget';
 import Swal from 'sweetalert2';
+import PlaceHolders from './PlaceHolders/PlaceHolders';
 
 function Postings() {
   const [dataFetched, setData] = useState([]);
@@ -90,70 +91,71 @@ function Postings() {
             <Button variant='success' className=' col-2' onClick={handleEditClick}>Add Hotel</Button>
           </Row>
           <ListGroup className="mt-4">
-            {dataFetched.map((hotel) => (
-              <Container key={hotel.id} className='color'>
-                <Row className='object-fit-cover'>
-                  <div className='col-3'>
-                    <div className='width'>
-                      <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel.image}`} />
-                    </div>
-                    <div className=' mt-4'>
-                      <div className=' width3'>
-                        <h2 className=' text-sm'>Room Prices</h2>
-                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
-                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
-                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
-                        <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+            {dataFetched != null && dataFetched.length > 0 ? 
+              dataFetched.map((hotel) => (
+                <Container key={hotel.id} className='color'>
+                  <Row className='object-fit-cover'>
+                    <div className='col-3'>
+                      <div className='width'>
+                        <img className='pic' src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel.image}`} />
+                      </div>
+                      <div className=' mt-4'>
+                        <div className=' width3'>
+                          <h2 className=' text-sm'>Room Prices</h2>
+                          <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                          <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                          <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                          <p>Deluxe Suite: ₱3,000 to ₱5,000 per night</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className='col-9 col-md-9 col-lg-9'>
-                    <h3>
-                      {hotel.hotel_name}
-                    </h3>
-                    <p className=' text-info fw-bolder'>
-                      {hotel.hotel_located}
-                    </p>
-                    <p className=''>
-                      {hotel.hotel_description}
-                    </p>
-                    <h3 className=''>
-                      Accomodations
-                    </h3>
-                    <Row>
-                      {[...Array(20).keys()].map((index) => {
-                        const amenityKey = `amenity${index + 1}Url`;
-                        const amenityKey2 = `amenity${index + 1}`;
-                        return hotel[amenityKey] ? (
-                          <Col key={index} xs={7} md={3} className="d-flex justify-content-center">
-                            <div className="width2">
-                              <img
-                                className="pic2"
-                                src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel[amenityKey]}`}
-                              />
-                              <p className='text-light position-absolute bottom-50' style={{
-                                right: '100px',
-                                transform: ' translateY(330%)',
-                              }}>
-                                {hotel[amenityKey2]}
-                              </p>
-                            </div>
-                          </Col>
-                        ) : null;
-                      })}
-                    </Row>
-                    <div className="text-center mb-2">
-                      <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className=" mt-3 mx-2">
-                        Edit
-                      </Button>
-                      <Button variant="danger" onClick={() => deleteData(hotel.id, hotel.image)} className=" mt-3  mx-2">
-                        Delete
-                      </Button>
+                    <div className=' mt-3 col-9 col-md-9 col-lg-9'>
+                      <h3>
+                        {hotel.hotel_name}
+                      </h3>
+                      <p className=' text-info fw-bolder'>
+                        {hotel.hotel_located}
+                      </p>
+                      <p className=''>
+                        {hotel.hotel_description}
+                      </p>
+                      <h3 className=''>
+                        Accomodations
+                      </h3>
+                      <Row>
+                        {[...Array(20).keys()].map((index) => {
+                          const amenityKey = `amenity${index + 1}Url`;
+                          const amenityKey2 = `amenity${index + 1}`;
+                          return hotel[amenityKey] ? (
+                            <Col key={index} xs={7} md={3} className="d-flex justify-content-center">
+                              <div className="width2">
+                                <img
+                                  className="pic2"
+                                  src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/hotel_amenities_url/${hotel[amenityKey]}`}
+                                />
+                                <p className='text-light position-absolute bottom-50' style={{
+                                  right: '100px',
+                                  transform: ' translateY(330%)',
+                                }}>
+                                  {hotel[amenityKey2]}
+                                </p>
+                              </div>
+                            </Col>
+                          ) : null;
+                        })}
+                      </Row>
+                      <div className="text-center mb-2">
+                        <Button variant="primary" onClick={() => handleEditClickModal(hotel)} className=" mt-3 mx-2">
+                          Edit
+                        </Button>
+                        <Button variant="danger" onClick={() => deleteData(hotel.id, hotel.image)} className=" mt-3  mx-2">
+                          Delete
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </Row>
-              </Container>
-            ))}
+                  </Row>
+                </Container>
+              )) : <PlaceHolders/> }
           </ListGroup>
 
           {hotelToEdit && (
