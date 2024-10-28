@@ -127,11 +127,39 @@ const Flights = () => {
                     </Row>
                   </Stack>
                 </Row>
+                <div className="hangin"></div>
+                <Row>
+                  <Stack gap={2} direction="horizontal">
+                    <div className="rounded-circle">
+                      <img
+                        src={`https://tglolshdsrixggmpvujc.supabase.co/storage/v1/object/public/flights/${item.airplane_img}`}
+                        className="rounded-circle"
+                        alt="Airplane"
+                      />
+                    </div>
+                    <Row>
+                      <Col>
+                        <Col><p className="fw-bold fs-5">{formatTime(item.return)}</p></Col>
+                        <Col><p>{item.airplane} . {formatAndSetDate(item.return_date)}</p></Col>
+                      </Col>
+                    </Row>
+
+                    <FaPlaneDeparture size={25} color="" />
+                    <div className="horizontal-line w-25 rounded-circle bg-black"></div>
+                    <FaPlaneArrival size={25} color="" />
+                    <Row>
+                      <Col>
+                        <Col><p className="fw-bold fs-5">{formatTime(item.return_arrival)}</p></Col>
+                        <Col><p>{item.place} . {formatAndSetDate(item.date_arrival)}</p></Col>
+                      </Col>
+                    </Row>
+                  </Stack>
+                </Row>
                 
-                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-380%)' }}>
+                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-650%)' }}>
                   <p className=" text-info fs-5 fw-bold">Departure: {item.airplane} - {item.date} - { item.departure }</p>
                 </div>
-                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-380%)' }}>
+                <div className="d-flex justify-content-end top-0" style={{ transform: 'translateY(-650%)' }}>
                   <p className=" text-info fs-5 fw-bold">Arrival: {item.place} - {item.date_departure} - {item.departure}</p>
                 </div>
                 <div className="d-flex justify-content-end top-0">
