@@ -19,9 +19,11 @@ function FlightModals({hide, show}) {
                                   <Form.Control type="text" placeholder="Enter Origin" />
                               </Form.Group>
                           </Col>
-                          <div className="horizontal-line w-25 rounded-circle bg-black" style={{
-                              transform: 'translateY(2450%)',
-                          }}></div>
+                          <Col>
+                              <div className="horizontal-line w-100 rounded-circle bg-black" style={{
+                                  transform: 'translateY(2450%)',
+                              }}></div>
+                          </Col>
                           <Col>
                               <Form.Group>
                                   <Form.Label>Destination</Form.Label>
@@ -32,20 +34,56 @@ function FlightModals({hide, show}) {
                       <Row>
                           <Col>
                               <Form.Group>
-                                  <Form.Label>Origin</Form.Label>
-                                  <Form.Control type="text" placeholder="Enter Origin" />
+                                  <Form.Label>Departure Time</Form.Label>
+                                  <Form.Control type="time" placeholder="Enter Origin" />
                               </Form.Group>
                           </Col>
-                          <div className="horizontal-line w-25 rounded-circle bg-black" style={{
-                              transform: 'translateY(2450%)',
-                          }}></div>
+                          <Col>
+                              <div className="horizontal-line w-100 rounded-circle bg-black" style={{
+                                  transform: 'translateY(2450%)',
+                              }}></div>
+                          </Col>
                           <Col>
                               <Form.Group>
-                                  <Form.Label>Destination</Form.Label>
-                                  <Form.Control type="text" placeholder="Enter Destination" />
+                                  <Form.Label>Arrival Time</Form.Label>
+                                  <Form.Control type="time" placeholder="Enter Destination" />
                               </Form.Group>
                           </Col>
                       </Row>
+                      <Row>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Departure Date</Form.Label>
+                                  <Form.Control type="date" placeholder="Enter Origin" />
+                              </Form.Group>
+                          </Col>
+                          <Col>
+                              <div className="horizontal-line w-100 rounded-circle bg-black" style={{
+                                  transform: 'translateY(2450%)',
+                              }}></div>
+                          </Col>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Arrival Date</Form.Label>
+                                  <Form.Control type="date" placeholder="Enter Destination" />
+                              </Form.Group>
+                          </Col>
+                      </Row>
+                  </Form>
+              </Modal.Body>
+              <Modal.Header>
+                  <Modal.Title>Add Flight Names</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <Form>
+                      <Row>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Airline name</Form.Label>
+                                  <Form.Control type="text" placeholder="Enter Airline name" />
+                              </Form.Group>
+                          </Col>
+                    </Row>
                   </Form>
               </Modal.Body>
               <Modal.Footer>
