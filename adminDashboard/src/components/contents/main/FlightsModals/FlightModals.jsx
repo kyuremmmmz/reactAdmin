@@ -92,11 +92,11 @@ function FlightModals({hide, show}) {
                               </Form.Group>
                               <Form.Group>
                                   <Form.Label>Ticket Type</Form.Label>
-                                  <Form.Select>
+                                  <Form.Select onChange={(e)=> e.target.value.toLowerCase()}>
                                       <option>Select Ticket Type</option>
-                                      <option>Economy</option>
-                                      <option>Business</option>
-                                      <option>First Class</option>
+                                      <option>Fastest</option>
+                                      <option>Cheapest</option>
+                                      <option>Best</option>
                                   </Form.Select>
                               </Form.Group>
                           </Col>
