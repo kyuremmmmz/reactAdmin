@@ -82,6 +82,19 @@ function FlightModals({hide, show}) {
                                   <Form.Label>Airline name</Form.Label>
                                   <Form.Control type="text" placeholder="Enter Airline name" />
                               </Form.Group>
+                              <Form.Group>
+                                  <Form.Label>AirPort name(Only accepting accronyms)</Form.Label>
+                                  <Form.Control type="text" placeholder="Enter AirPort name" />
+                              </Form.Group>
+                              <Form.Group>
+                                  <Form.Label>Ticket Type</Form.Label>
+                                  <Form.Select>
+                                      <option>Select Ticket Type</option>
+                                      <option>Economy</option>
+                                      <option>Business</option>
+                                      <option>First Class</option>
+                                  </Form.Select>
+                              </Form.Group>
                           </Col>
                     </Row>
                   </Form>
