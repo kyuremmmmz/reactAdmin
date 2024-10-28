@@ -3,10 +3,16 @@ import Header from "../../panels/Header";
 import { Button, Col, Container , ListGroup, Row, Stack } from "react-bootstrap";
 import { supabase } from "../../../supabaseClient";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
+import FlightModals from "./FlightsModals/FlightModals";
 
 const Flights = () => {
   const [flightsData, setData] = useState([]);
+  const [onShow, setShow] = useState(false);
 
+
+  const toggleShow = () => setShow(true);
+
+  const toggleHide = () => setShow(false);
   const fetchData = async () => {
     const { data, error } = await supabase.from('flightsList').select('*');
     if (error) throw error;
@@ -74,7 +80,7 @@ const Flights = () => {
             <h2>Flights</h2>  
           </div>
           <div>
-            <Button variant="success">
+            <Button onClick={() => toggleShow()} variant="success">
               Add New Flight
             </Button>
           </div>
@@ -134,6 +140,7 @@ const Flights = () => {
               </div>
             </ListGroup.Item>
           ))}
+          <FlightModals show={ onShow } hide={toggleHide} />
         </Row>
       </main>
     </div>
