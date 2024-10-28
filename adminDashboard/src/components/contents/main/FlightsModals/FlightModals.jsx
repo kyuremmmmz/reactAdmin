@@ -79,12 +79,16 @@ function FlightModals({hide, show}) {
                       <Row>
                           <Col>
                               <Form.Group>
-                                  <Form.Label>Airline name</Form.Label>
-                                  <Form.Control type="text" placeholder="Enter Airline name" />
+                                  <Form.Label>Airline Logo</Form.Label>
+                                  <Form.Control type="file" placeholder="Enter Airline name" />
                               </Form.Group>
                               <Form.Group>
                                   <Form.Label>AirPort name(Only accepting accronyms)</Form.Label>
                                   <Form.Control type="text" placeholder="Enter AirPort name" />
+                              </Form.Group>
+                              <Form.Group>
+                                  <Form.Label>Price</Form.Label>
+                                  <Form.Control type="number" placeholder="Enter Price" />
                               </Form.Group>
                               <Form.Group>
                                   <Form.Label>Ticket Type</Form.Label>
