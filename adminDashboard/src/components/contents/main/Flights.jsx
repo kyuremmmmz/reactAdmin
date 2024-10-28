@@ -1,6 +1,6 @@
 import  { useEffect, useState } from "react";
 import Header from "../../panels/Header";
-import { Button, Col, Container, ListGroup, Row, Stack } from "react-bootstrap";
+import { Button, Col, Container , ListGroup, Row, Stack } from "react-bootstrap";
 import { supabase } from "../../../supabaseClient";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 
