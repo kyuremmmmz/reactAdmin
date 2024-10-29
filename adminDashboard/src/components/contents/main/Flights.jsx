@@ -140,7 +140,7 @@ const Flights = () => {
                     <Row>
                       <Col>
                         <Col><p className="fw-bold fs-5">{formatTime(item.return)}</p></Col>
-                        <Col><p>{item.airplane} . {formatAndSetDate(item.return_date)}</p></Col>
+                        <Col><p>{item.place} . {formatAndSetDate(item.return_date)}</p></Col>
                       </Col>
                     </Row>
 
@@ -150,7 +150,7 @@ const Flights = () => {
                     <Row>
                       <Col>
                         <Col><p className="fw-bold fs-5">{formatTime(item.return_arrival)}</p></Col>
-                        <Col><p>{item.place} . {formatAndSetDate(item.date_arrival)}</p></Col>
+                        <Col><p>{item.airplane} . {formatAndSetDate(item.date_arrival)}</p></Col>
                       </Col>
                     </Row>
                   </Stack>

@@ -69,6 +69,25 @@ function FlightModals({hide, show}) {
                               </Form.Group>
                           </Col>
                       </Row>
+                      <Row>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Return Time</Form.Label>
+                                  <Form.Control type="time" placeholder="Enter Origin" />
+                              </Form.Group>
+                          </Col>
+                          <Col>
+                              <div className="horizontal-line w-100 rounded-circle bg-black" style={{
+                                  transform: 'translateY(2450%)',
+                              }}></div>
+                          </Col>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Arrival Time</Form.Label>
+                                  <Form.Control type="time" placeholder="Enter Destination" />
+                              </Form.Group>
+                          </Col>
+                      </Row>
                   </Form>
               </Modal.Body>
               <Modal.Header>
