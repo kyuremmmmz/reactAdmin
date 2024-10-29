@@ -1,9 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../../panels/Header'
 import { Col, Form, Modal, Row } from 'react-bootstrap'
 import PropTypes from 'prop-types'
+import { supabase } from '../../../../supabaseClient';
 
-function FlightModals({hide, show}) {
+function FlightModals({ hide, show }) {
+    const [origin, setOrigin] = useState(null);
+    const [destination, setDestination] = useState(null);
+    const [departureTime, setDepartureTime] = useState(null);
+    const [arrivalTime, setArrivalTime] = useState(null);
+    const [price, setPrice] = useState(0);
+    const [image, setImage] = useState(null);
+    const [returnTime, setReturnTime] = useState(null);
+    const [return_arrival, setReturnArrival] = useState(null);
+    const [Airport, setAirport] = useState(null);
+    const [AirportName, setAirportName] = useState(null);
+    const [ticket, setTicket] = useState(null);
+
+    const data = async () => {
+        const { data, error } = await supabase.from('flightsList').insert({
+            airplane: origin,
+            place: destination,
+            departure: departureTime,
+            arrival: arrivalTime,
+            price: price,
+            image: image,
+            return_time: returnTime,
+            return_arrival: return_arrival,
+            airport: Airport,
+            airport_name: AirportName,
+            ticket: ticket,
+        });
+        if (error) throw error;
+        
+    }
+    
+    useEffect(() => {
+        
+    }, [])
+
   return (
     <div>
           <Modal onHide={hide} show={show}>
@@ -85,6 +120,25 @@ function FlightModals({hide, show}) {
                               <Form.Group>
                                   <Form.Label>Arrival Time</Form.Label>
                                   <Form.Control type="time" placeholder="Enter Destination" />
+                              </Form.Group>
+                          </Col>
+                      </Row>
+                      <Row>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Return Date</Form.Label>
+                                  <Form.Control type="date" placeholder="Enter Origin" />
+                              </Form.Group>
+                          </Col>
+                          <Col>
+                              <div className="horizontal-line w-100 rounded-circle bg-black" style={{
+                                  transform: 'translateY(2450%)',
+                              }}></div>
+                          </Col>
+                          <Col>
+                              <Form.Group>
+                                  <Form.Label>Arrival Date</Form.Label>
+                                  <Form.Control type="date" placeholder="Enter Destination" />
                               </Form.Group>
                           </Col>
                       </Row>
