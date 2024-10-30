@@ -14,22 +14,21 @@ function FlightModals({ hide, show }) {
     const [returnTime, setReturnTime] = useState(null);
     const [return_arrival, setReturnArrival] = useState(null);
     const [Airport, setAirport] = useState(null);
-    const [AirportName, setAirportName] = useState(null);
     const [ticket, setTicket] = useState(null);
-
+    const [departureDate, setdepartureDate] = useState(null);
+    const [arrivalDate, setArrivalDate] = useState(null);
     const data = async () => {
         const { data, error } = await supabase.from('flightsList').insert({
             airplane: origin,
             place: destination,
             departure: departureTime,
             arrival: arrivalTime,
-            price: price,
-            image: image,
-            return_time: returnTime,
+            return: returnTime,
             return_arrival: return_arrival,
+            price: price,
             airport: Airport,
-            airport_name: AirportName,
-            ticket: ticket,
+            image: image,
+            ticket_type: ticket,
         });
         if (error) throw error;
         
