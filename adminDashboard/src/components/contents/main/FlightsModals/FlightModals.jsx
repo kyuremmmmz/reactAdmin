@@ -303,7 +303,7 @@ function FlightModals({ hide, show }) {
                                         <option value="LAX">Los Angeles International (LAX)</option>
                                         <option value="DXB">Dubai International (DXB)</option>
                                         <option value="HND">Tokyo Haneda (HND)</option>
-                                        <option value="ORD">O'Hare International (ORD)</option>
+                                        <option value="ORD">O Hare International (ORD)</option>
                                         <option value="LHR">London Heathrow (LHR)</option>
                                         <option value="CDG">Charles de Gaulle Airport (CDG)</option>
                                         <option value="DFW">Dallas/Fort Worth International (DFW)</option>
