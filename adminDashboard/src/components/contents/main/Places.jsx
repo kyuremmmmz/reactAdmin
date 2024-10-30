@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button,  Container, ListGroup, Row, Placeholder } from 'react-bootstrap';
 import { supabase } from '../../../supabaseClient';
 import Swal from 'sweetalert2';
-import UpdateModals from './PlacesModals/updateModals';
+import UpdateModals from './PlacesModals/UpdateModals';
 import InsertionModal from './PlacesModals/InsertionModals';
 function Places() {
     const [data, setData] = useState([]);
