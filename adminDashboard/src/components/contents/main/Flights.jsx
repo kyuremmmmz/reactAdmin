@@ -63,6 +63,25 @@ const Flights = () => {
 
 
 
+  const markOnboard = async (id) => {
+    await supabase
+      .from("flightsList")
+      .update({ cancelled: false })
+      .eq("id", id);
+    fetchData();
+  };
+
+
+  const cancelFlight = async (id) => {
+    await supabase
+      .from("flightsList")
+      .update({ cancelled: true })
+      .eq("id", id);
+    fetchData();
+  };
+
+
+
   const formatAndSetDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: 'short', day: 'numeric' };
@@ -164,6 +183,30 @@ const Flights = () => {
                 </div>
                 <div className="d-flex justify-content-end top-0">
                   <p className=" text-dark fs-3 fw-bold">PHP {formatToString(item.price)}</p>
+                </div>
+                <Stack direction="horizontal" gap={3}>
+                  <div className="d-flex" style={{
+                    transform: 'translateY(-200%)'
+                  }}>
+                    <Button
+                      variant="danger"
+                      onClick={() => cancelFlight(item.id)}
+                      disabled={item.cancelled}
+                    >
+                      Mark as Cancel
+                    </Button>
+                  </div>
+                  <div className="d-flex" style={{
+                    transform: 'translateY(-200%)'
+                  }}>
+                    <Button variant="info" onClick={() => markOnboard(item.id)}
+                      disabled={!item.cancelled}>Mark as Onboard</Button>
+                  </div>
+                </Stack>
+                <div className="d-flex">
+                  <p className=" text-dark fs-3 fw-bold">Status: {item.cancelled == true
+                    ? 'Cancelled' : 'On Board'
+                  }</p>
                 </div>
               </div>
             </ListGroup.Item>

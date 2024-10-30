@@ -13,6 +13,7 @@ import cancelledFlightIcon from "../../../../assets/check.png";
 import completedFlightIcon from "../../../../assets/out.png";
 import { useNavigation } from "../../../panels/NavigationContext";
 import PropTypes from "prop-types";
+import { supabase } from "../../../../supabaseClient";
 
 
 // eslint-disable-next-line react/prop-types
@@ -83,6 +84,8 @@ const TicketStatCard = ({ title, value, total, fillWidth, fillColor }) => (
 );
 
 const fetchHotelStats = () => {
+  const { data, error } = supabase.from('hotel_booking').select('*').eq('created_at', Date.now());
+  const newbookings = data.length
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
