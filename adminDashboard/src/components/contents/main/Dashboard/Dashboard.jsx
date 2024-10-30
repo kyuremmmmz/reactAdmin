@@ -96,12 +96,18 @@ const fetchHotelStats = async () => {
     const { data: allBookings, error: allError } = await supabase
       .from('hotel_booking')
       .select('*');
-
+    
+    const { data: checkout, error: checkoutErr } = await supabase
+      .from('hotel_booking')
+      .select('*').eq('checkout', today);
+    if (checkoutErr) throw checkoutErr;
     if (todayError) throw todayError;
     if (allError) throw allError;
 
+
     const newBookingsCount = todayBookings ? todayBookings.length : 0;
     const totalBookingsCount = allBookings ? allBookings.length : 0;
+    const checkOutsTodayCount = checkout? checkout.length : 0;
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -110,10 +116,10 @@ const fetchHotelStats = async () => {
             { value: newBookingsCount, icon: newBookingsIcon, label: "New Bookings" },
             { value: totalBookingsCount, icon: scheduledRoomsIcon, label: "Scheduled Rooms" },
             { value: 20, icon: checkedInIcon, label: "Checked-In" },
-            { value: 1000, icon: checkOutsTodayIcon, label: "Check-Outs Today" },
+            { value: checkOutsTodayCount, icon: checkOutsTodayIcon, label: "Check-Outs Today" },
           ],
-          availableRooms: 1000,
-          soldOutRooms: 185,
+          availableRooms: 1000 - totalBookingsCount,
+          soldOutRooms: totalBookingsCount,
           totalRooms: 1000,
         });
       }, 500);

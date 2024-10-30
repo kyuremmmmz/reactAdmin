@@ -70,10 +70,12 @@ const getCurrentDateInfo = () => {
 const Hotels = () => {
   const [hotelBookings, setData] = useState([]);
   const [checkinList, setCheckinList] = useState([]);
+  const [checkoutsList, setCheckoutsList] = useState([]);
 
   useEffect(() => {
     getTheHotelList();
     getTheCheckinList();
+    getTheCheckoutList();
   }, [])
   async function getTheHotelList() {
     const { data, error } = await supabase.from('hotel_booking').select('*');
@@ -81,6 +83,15 @@ const Hotels = () => {
     console.log(data);
 
     setData(data);
+  }
+
+  async function getTheCheckoutList() {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkout', today);
+    if (error) throw error;
+    console.log(data);
+
+    setCheckoutsList(data);
   }
 
   async function getTheCheckinList() {
@@ -168,8 +179,8 @@ const Hotels = () => {
               >{`${date} ${month} ${year}`}</span>
             </p>
             <div className="co-list">
-              {checkouts.length > 0 ? (
-                checkouts.map((checkout, index) => (
+              {checkoutsList.length > 0 ? (
+                checkoutsList.map((checkout, index) => (
                   <CheckOutItem key={index} checkout={checkout} />
                 ))
               ) : (
@@ -263,9 +274,27 @@ const CheckInItem = (props) => {
   );
 };
 
-const CheckOutItem = ({ checkout }) => {
-  const formatCheckOutDate = (dateString) => {
-    const parts = dateString.split(", ");
+const CheckOutItem = (props) => {
+  const checkout = props.checkout;
+  const formatBookingDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    };
+
+    const formattedDate = date.toLocaleString('default', options)
+      .replace(',', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+
+    const parts = formattedDate.split(", ");
     const dayOfWeek = parts[0];
     const restOfDate = parts.slice(1).join(", ");
 
@@ -282,12 +311,12 @@ const CheckOutItem = ({ checkout }) => {
         <img src={out} alt="Check-Out Image" />
       </div>
       <div className="co-info-status">
-        <p className="co-id">Check-Out ID #{checkout.id}</p>
-        <h2 className="co-status-title">{checkout.title}</h2>
+        <p className="co-id">Check-Out ID #{checkout.booking_id}</p>
+        <h2 className="co-status-title">{checkout.hotel}</h2>
       </div>
       <div className="co-info-date">
         <p className="co-status-label">Check-Out Date</p>
-        <p className="co-status-date">{formatCheckOutDate(checkout.date)}</p>
+        <p className="co-status-date">{formatBookingDate(checkout.checkout)}</p>
       </div>
     </div>
   );
