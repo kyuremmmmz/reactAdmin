@@ -128,12 +128,34 @@ function FlightModals({ hide, show }) {
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Origin</Form.Label>
-                                    <Form.Control
+                                    <Form.Select
                                         value={origin}
                                         onChange={(e) => setOrigin(e.target.value)}
-                                        type="text"
-                                        placeholder="Enter Origin"
-                                    />
+                                    >
+                                        <option>Select Origin</option>
+                                        {/* Top International Airports */}
+                                        <option value="ATL">Hartsfield-Jackson Atlanta International (ATL)</option>
+                                        <option value="PEK">Beijing Capital International (PEK)</option>
+                                        <option value="LAX">Los Angeles International (LAX)</option>
+                                        <option value="DXB">Dubai International (DXB)</option>
+                                        <option value="HND">Tokyo Haneda (HND)</option>
+                                        <option value="ORD">O Hare International (ORD)</option>
+                                        <option value="LHR">London Heathrow (LHR)</option>
+                                        <option value="CDG">Charles de Gaulle Airport (CDG)</option>
+                                        <option value="DFW">Dallas/Fort Worth International (DFW)</option>
+                                        <option value="CAN">Guangzhou Baiyun International (CAN)</option>
+                                        {/* Major Airports in the Philippines */}
+                                        <option value="MNL">Ninoy Aquino International (MNL)</option>
+                                        <option value="CEB">Mactan-Cebu International (CEB)</option>
+                                        <option value="CRK">Clark International (CRK)</option>
+                                        <option value="DVO">Francisco Bangoy International (DVO)</option>
+                                        <option value="ILO">Iloilo International (ILO)</option>
+                                        <option value="ZAM">Zamboanga International (ZAM)</option>
+                                        <option value="KLO">Kalibo International (KLO)</option>
+                                        <option value="PPS">Puerto Princesa International (PPS)</option>
+                                        <option value="TAG">Bohol-Panglao International (TAG)</option>
+                                        <option value="LGP">Legazpi Airport (LGP)</option>
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>
                             <Col>
@@ -145,12 +167,34 @@ function FlightModals({ hide, show }) {
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Destination</Form.Label>
-                                    <Form.Control
+                                    <Form.Select
                                         value={destination}
                                         onChange={(e) => setDestination(e.target.value)}
-                                        type="text"
-                                        placeholder="Enter Destination"
-                                    />
+                                    >
+                                        <option>Select Destination</option>
+                                        {/* Top International Airports */}
+                                        <option value="ATL">Hartsfield-Jackson Atlanta International (ATL)</option>
+                                        <option value="PEK">Beijing Capital International (PEK)</option>
+                                        <option value="LAX">Los Angeles International (LAX)</option>
+                                        <option value="DXB">Dubai International (DXB)</option>
+                                        <option value="HND">Tokyo Haneda (HND)</option>
+                                        <option value="ORD">O Hare International (ORD)</option>
+                                        <option value="LHR">London Heathrow (LHR)</option>
+                                        <option value="CDG">Charles de Gaulle Airport (CDG)</option>
+                                        <option value="DFW">Dallas/Fort Worth International (DFW)</option>
+                                        <option value="CAN">Guangzhou Baiyun International (CAN)</option>
+                                        {/* Major Airports in the Philippines */}
+                                        <option value="MNL">Ninoy Aquino International (MNL)</option>
+                                        <option value="CEB">Mactan-Cebu International (CEB)</option>
+                                        <option value="CRK">Clark International (CRK)</option>
+                                        <option value="DVO">Francisco Bangoy International (DVO)</option>
+                                        <option value="ILO">Iloilo International (ILO)</option>
+                                        <option value="ZAM">Zamboanga International (ZAM)</option>
+                                        <option value="KLO">Kalibo International (KLO)</option>
+                                        <option value="PPS">Puerto Princesa International (PPS)</option>
+                                        <option value="TAG">Bohol-Panglao International (TAG)</option>
+                                        <option value="LGP">Legazpi Airport (LGP)</option>
+                                    </Form.Select>
                                 </Form.Group>
                             </Col>
                         </Row>
