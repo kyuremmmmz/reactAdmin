@@ -393,7 +393,7 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className='col-4 bg-body-secondary m-5 h-25 rounded-2 bg-gradient w-50'>
-                  <h2>Users</h2>
+                  <h2>Sales</h2>
                   <Chart
                     options={totalFlights.options}
                     series={totalFlights.series}
