@@ -121,7 +121,7 @@ const Settings = () => {
                   <Row>
                     <Col>
                       <h5>Support and Resources</h5>
-                      <ul>
+                      <ul className='supp'>
                         <li>Knowledge Base (Documentation)</li>
                         <li>Contact Information</li>
                         <li>Troubleshooting Guides</li>
