@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Col, Form, Modal, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { supabase } from '../../../../supabaseClient';
