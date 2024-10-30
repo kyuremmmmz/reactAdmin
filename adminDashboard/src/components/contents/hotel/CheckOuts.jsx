@@ -1,31 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import Header from "../../panels/Header";
 
 import image from "../../../assets/out.png";
+import { supabase } from "../../../supabaseClient";
 
-const checkouts = [
-  {
-    id: "A09863",
-    title: "Deluxe Suite",
-    date: "Monday, 16 Sept 2024, 09:42 am",
-  },
-  {
-    id: "A09864",
-    title: "Presidential Suite",
-    date: "Monday, 16 Sept 2024, 08:02 am",
-  },
-  {
-    id: "A09865",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 06:52 am",
-  },
-  {
-    id: "A09866",
-    title: "Premiere Suite",
-    date: "Monday, 16 Sept 2024, 04:44 am",
-  },
-];
+
 
 const getCurrentDateInfo = () => {
   const currentDate = new Date();
@@ -38,8 +18,19 @@ const getCurrentDateInfo = () => {
 };
 
 const CheckOuts = () => {
+  const [schedule, setSchedule] = useState([]);
   const { day, date, month, year } = getCurrentDateInfo();
 
+  const fetchData = async () => {
+    const today = new Date().toISOString().split('T')[0];
+    const { data, error } = await supabase.from('hotel_booking').select('*').eq('checkout', today);
+    if (error) throw error;
+    setSchedule(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
   return (
     <div>
       <Header />
@@ -55,8 +46,8 @@ const CheckOuts = () => {
                 >{`${date} ${month} ${year}`}</span>
               </p>
               <div className="co-list">
-                {checkouts.length > 0 ? (
-                  checkouts.map((checkout, index) => (
+                {schedule.length > 0 ? (
+                  schedule.map((checkout, index) => (
                     <CheckOutItem key={index} checkout={checkout} />
                   ))
                 ) : (
@@ -71,9 +62,26 @@ const CheckOuts = () => {
   );
 };
 
-const CheckOutItem = ({ checkout }) => {
-  const formatCheckOutDate = (dateString) => {
-    const parts = dateString.split(", ");
+const CheckOutItem = (props) => {
+  const schedule = props.checkout;;
+  const formatBookingDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    };
+
+    const formattedDate = date.toLocaleString('default', options)
+      .replace(',', '')
+      .replace('AM', 'am')
+      .replace('PM', 'pm');
+
+    const parts = formattedDate.split(", ");
     const dayOfWeek = parts[0];
     const restOfDate = parts.slice(1).join(", ");
 
@@ -85,19 +93,19 @@ const CheckOutItem = ({ checkout }) => {
   };
 
   return (
-    <div className="co-status-item">
-      <div className="co-icon">
-        <img src={image} alt="Check-out Image" />
+    <div className="checkin-item">
+      <div className="checkin-icon">
+        <img src={image} alt="Image" />
       </div>
-      <div className="co-info">
-        <p className="co-status-id">ID #{checkout.id}</p>
-        <h2 className="co-status-title">
-          {checkout.title} {checkout.id}
+      <div className="checkin-info">
+        <p className="checkin-status-id">Checkout ID #{schedule.booking_id}</p>
+        <h2 className="checkin-status-title">
+          {schedule.room_type} {schedule.booking_id}
         </h2>
       </div>
-      <div className="co-info-date">
-        <p className="co-status-label">Check-out Date</p>
-        <p className="co-status-date">{formatCheckOutDate(checkout.date)}</p>
+      <div className="checkin-status-info">
+        <p className="checkin-status-label">Check-out Date</p>
+        <p className="checkin-status-date">{formatBookingDate(schedule.checkout)}</p>
       </div>
     </div>
   );
