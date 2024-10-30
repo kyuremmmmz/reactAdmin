@@ -3,6 +3,7 @@ import Header from '../../../panels/Header'
 import { Col, Form, Modal, Row } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { supabase } from '../../../../supabaseClient';
+import Swal from 'sweetalert2';
 
 function FlightModals({ hide, show }) {
     const [origin, setOrigin] = useState(null);
@@ -17,26 +18,39 @@ function FlightModals({ hide, show }) {
     const [ticket, setTicket] = useState(null);
     const [departureDate, setdepartureDate] = useState(null);
     const [arrivalDate, setArrivalDate] = useState(null);
-    const data = async () => {
-        const { data, error } = await supabase.from('flightsList').insert({
-            airplane: origin,
-            place: destination,
-            departure: departureTime,
-            arrival: arrivalTime,
-            return: returnTime,
-            return_arrival: return_arrival,
-            price: price,
-            airport: Airport,
-            image: image,
-            ticket_type: ticket,
-        });
-        if (error) throw error;
+    const [returnDate, setReturnDate] = useState(null);
+    const [arrivalReturnDate, setArrivalReturnDate] = useState(null);
+    const datas = async () => {
+        try {
+            const { data, error } = await supabase.from('flightsList').insert({
+                airplane: origin,
+                place: destination,
+                departure: departureTime,
+                arrival: arrivalTime,
+                date: departureDate,
+                date_departure: arrivalDate,
+                return: returnTime,
+                return_arrival: return_arrival,
+                price: price,
+                airport: Airport,
+                airplane_img: image,
+                ticket_type: ticket,
+                date_arrival: returnDate,
+                return_date: arrivalReturnDate,
+            });
+            if (error) throw error;
+            return data;
+        } catch (err) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${err.message}`,
+            })
+            console.error(err.message);
+        }
         
     }
     
-    useEffect(() => {
-        
-    }, [])
 
   return (
     <div>
@@ -181,7 +195,9 @@ function FlightModals({ hide, show }) {
                           <button type="button" className="btn btn-secondary" onClick={hide}>Cancel</button>
                       </Col>
                       <Col>
-                          <button type="submit" className="btn btn-primary">Submit</button>
+                          <button type="submit" onClick={() => {
+                              datas();
+                          }} className="btn btn-primary">Submit</button>
                       </Col>
                   </Row>
               </Modal.Footer>
