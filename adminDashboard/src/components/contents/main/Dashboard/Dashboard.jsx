@@ -83,25 +83,47 @@ const TicketStatCard = ({ title, value, total, fillWidth, fillColor }) => (
   </div>
 );
 
-const fetchHotelStats = () => {
-  const { data, error } = supabase.from('hotel_booking').select('*').eq('created_at', Date.now());
-  const newbookings = data.length
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        stats: [
-          { value: 95, icon: newBookingsIcon, label: "New Bookings" },
-          { value: 50, icon: scheduledRoomsIcon, label: "Scheduled Rooms" },
-          { value: 20, icon: checkedInIcon, label: "Checked-In" },
-          { value: 1000, icon: checkOutsTodayIcon, label: "Check-Outs Today" },
-        ],
-        availableRooms: 1000,
-        soldOutRooms: 185,
-        totalRooms: 1000,
-      });
-    }, 500);
-  });
+const fetchHotelStats = async () => {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+
+    const { data: todayBookings, error: todayError } = await supabase
+      .from('hotel_booking')
+      .select('*')
+      .eq('date_of_booking', today);
+
+    const { data: allBookings, error: allError } = await supabase
+      .from('hotel_booking')
+      .select('*');
+
+    if (todayError) throw todayError;
+    if (allError) throw allError;
+
+    const newBookingsCount = todayBookings ? todayBookings.length : 0;
+    const totalBookingsCount = allBookings ? allBookings.length : 0;
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          stats: [
+            { value: newBookingsCount, icon: newBookingsIcon, label: "New Bookings" },
+            { value: totalBookingsCount, icon: scheduledRoomsIcon, label: "Scheduled Rooms" },
+            { value: 20, icon: checkedInIcon, label: "Checked-In" },
+            { value: 1000, icon: checkOutsTodayIcon, label: "Check-Outs Today" },
+          ],
+          availableRooms: 1000,
+          soldOutRooms: 185,
+          totalRooms: 1000,
+        });
+      }, 500);
+    });
+  } catch (err) {
+    console.error("Error fetching hotel stats:", err.message);
+    return { stats: [], availableRooms: 0, soldOutRooms: 0, totalRooms: 0 };
+  }
 };
+
 
 const fetchFlightStats = () => {
   return new Promise((resolve) => {

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../../../panels/Header';
+import React, { useState } from 'react';
 import { Col, Form, Modal, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { supabase } from '../../../../supabaseClient';
@@ -21,8 +20,49 @@ function FlightModals({ hide, show }) {
     const [returnDate, setReturnDate] = useState('');
     const [arrivalReturnDate, setArrivalReturnDate] = useState('');
 
+    const uploadImg = async (image, folder) => {
+        const { data, error } = await supabase.storage.from(folder).upload(image.name, image);
+        if (error) throw error;
+        return data.path;
+    };
+
+    const handleImageUpload = async () => {
+        if (!image) {
+            Swal.fire({
+                title: 'Please select an airline logo image file',
+                icon: 'error',
+                showConfirmButton: true,
+            });
+            return null;
+        }
+
+        // Validate image type (you can extend this to other types if needed)
+        const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validImageTypes.includes(image.type)) {
+            Swal.fire({
+                title: 'Invalid image type. Please upload a JPEG, PNG, or GIF image.',
+                icon: 'error',
+                showConfirmButton: true,
+            });
+            return null;
+        }
+
+        try {
+            const imagePath = await uploadImg(image, 'flights');
+            return imagePath;
+        } catch (e) {
+            Swal.fire({
+                title: e.message,
+                icon: 'error',
+                showConfirmButton: true,
+            });
+            return null;
+        }
+    };
+
     const datas = async () => {
         try {
+            const img = await handleImageUpload();
             const { data, error } = await supabase.from('flightsList').insert({
                 airplane: origin,
                 place: destination,
@@ -34,17 +74,20 @@ function FlightModals({ hide, show }) {
                 return_arrival: returnArrival,
                 price: price,
                 airport: airport,
-                airplane_img: image,
+                airplane_img: img,
                 ticket_type: ticket,
                 date_arrival: returnDate,
                 return_date: arrivalReturnDate,
+                cancelled: false,
             });
             if (error) throw error;
             Swal.fire({
                 icon: 'success',
-                title: 'Inserted Success',
-                text: `success`,
+                title: 'Inserted Successfully',
+                text: 'Flight details added successfully!',
             });
+            // Clear form after successful submission
+            resetForm();
             return data;
         } catch (err) {
             Swal.fire({
@@ -54,6 +97,23 @@ function FlightModals({ hide, show }) {
             });
             console.error(err.message);
         }
+    };
+
+    const resetForm = () => {
+        setOrigin('');
+        setDestination('');
+        setDepartureTime('');
+        setArrivalTime('');
+        setPrice(0);
+        setImage(null);
+        setReturnTime('');
+        setReturnArrival('');
+        setAirport('');
+        setTicket('');
+        setDepartureDate('');
+        setArrivalDate('');
+        setReturnDate('');
+        setArrivalReturnDate('');
     };
 
     return (
@@ -174,7 +234,7 @@ function FlightModals({ hide, show }) {
                             </Col>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Arrival Time</Form.Label>
+                                    <Form.Label>Return Arrival Time</Form.Label>
                                     <Form.Control
                                         value={returnArrival}
                                         onChange={(e) => setReturnArrival(e.target.value)}
@@ -204,7 +264,7 @@ function FlightModals({ hide, show }) {
                             </Col>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Arrival Date</Form.Label>
+                                    <Form.Label>Arrival Return Date</Form.Label>
                                     <Form.Control
                                         value={arrivalReturnDate}
                                         onChange={(e) => setArrivalReturnDate(e.target.value)}
@@ -242,13 +302,12 @@ function FlightModals({ hide, show }) {
                                         <option value="PEK">Beijing Capital International (PEK)</option>
                                         <option value="LAX">Los Angeles International (LAX)</option>
                                         <option value="DXB">Dubai International (DXB)</option>
-                                        <option value="HND">Tokyo Haneda Airport (HND)</option>
-                                        <option value="ORD">O Hare International (ORD)</option>
+                                        <option value="HND">Tokyo Haneda (HND)</option>
+                                        <option value="ORD">O'Hare International (ORD)</option>
                                         <option value="LHR">London Heathrow (LHR)</option>
-                                        <option value="PVG">Shanghai Pudong International (PVG)</option>
-                                        <option value="CDG">Paris Charles de Gaulle (CDG)</option>
+                                        <option value="CDG">Charles de Gaulle Airport (CDG)</option>
                                         <option value="DFW">Dallas/Fort Worth International (DFW)</option>
-
+                                        <option value="CAN">Guangzhou Baiyun International (CAN)</option>
                                         {/* Major Airports in the Philippines */}
                                         <option value="MNL">Ninoy Aquino International (MNL)</option>
                                         <option value="CEB">Mactan-Cebu International (CEB)</option>
@@ -262,7 +321,18 @@ function FlightModals({ hide, show }) {
                                         <option value="LGP">Legazpi Airport (LGP)</option>
                                     </Form.Select>
                                 </Form.Group>
-
+                                <Form.Group>
+                                    <Form.Label>Ticket Type</Form.Label>
+                                    <Form.Select
+                                        value={ticket}
+                                        onChange={(e) => setTicket(e.target.value)}
+                                    >
+                                        <option>Select Ticket Type</option>
+                                        <option>Fastest</option>
+                                        <option>Cheapest</option>
+                                        <option>Best</option>
+                                    </Form.Select>
+                                </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Price</Form.Label>
                                     <Form.Control
@@ -272,37 +342,18 @@ function FlightModals({ hide, show }) {
                                         placeholder="Enter Price"
                                     />
                                 </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Ticket Type</Form.Label>
-                                    <Form.Select
-                                        value={ticket}
-                                        onChange={(e) => setTicket(e.target.value.toLowerCase())}
-                                    >
-                                        <option>Select Ticket Type</option>
-                                        <option>Fastest</option>
-                                        <option>Cheapest</option>
-                                        <option>Best</option>
-                                    </Form.Select>
-                                </Form.Group>
                             </Col>
                         </Row>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Row>
-                        <Col>
-                            <button type="button" className="btn btn-secondary" onClick={hide}>Cancel</button>
-                        </Col>
-                        <Col>
-                            <button
-                                type="submit"
-                                onClick={() => datas()}
-                                className="btn btn-primary"
-                            >
-                                Submit
-                            </button>
-                        </Col>
-                    </Row>
+                    <button className="btn btn-secondary" onClick={hide}>Close</button>
+                    <button
+                        className="btn btn-primary"
+                        onClick={datas}
+                    >
+                        Submit
+                    </button>
                 </Modal.Footer>
             </Modal>
         </div>
