@@ -63,7 +63,7 @@ const CheckOuts = () => {
 };
 
 const CheckOutItem = (props) => {
-  const schedule = props.checkout;;
+  const schedule = props.checkout;
   const formatBookingDate = (dateString) => {
     const date = new Date(dateString);
     const options = {
