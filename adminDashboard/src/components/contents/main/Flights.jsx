@@ -96,7 +96,7 @@ const Flights = () => {
       <main className="main">
         <Stack gap={5} direction="horizontal">
           <div>
-            <h2>Flights</h2>  
+            <h2>Flights</h2>
           </div>
           <div>
             <Button onClick={() => toggleShow()} variant="success">

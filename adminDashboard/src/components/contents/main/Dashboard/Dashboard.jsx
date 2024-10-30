@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
+import Chart from 'react-apexcharts';
 import Header from "../../../panels/Header";
 import newBookingsIcon from "../../../../assets/lock.png";
 import checkOutsTodayIcon from "../../../../assets/out.png";
@@ -14,6 +15,9 @@ import completedFlightIcon from "../../../../assets/out.png";
 import { useNavigation } from "../../../panels/NavigationContext";
 import PropTypes from "prop-types";
 import { supabase } from "../../../../supabaseClient";
+import Reports from "../Reports";
+import { Row } from "react-bootstrap";
+import { format } from "date-fns";
 
 
 // eslint-disable-next-line react/prop-types
@@ -131,34 +135,6 @@ const fetchHotelStats = async () => {
 };
 
 
-const fetchFlightStats = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          value: 120,
-          icon: newFlightBookingIcon,
-          label: "New Flight Bookings",
-        },
-        { value: 40, icon: scheduledFlightIcon, label: "Scheduled Flights" },
-        { value: 15, icon: cancelledFlightIcon, label: "Cancelled Flights" },
-        { value: 980, icon: completedFlightIcon, label: "Completed Flights" },
-      ]);
-    }, 500);
-  });
-};
-
-const fetchTicketStats = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        availableTicket: 900,
-        soldOutTicket: 50,
-        totalTicket: 1000,
-      });
-    }, 1000);
-  });
-};
 
 const Dashboard = () => {
   const { setActivePath } = useNavigation();
@@ -173,16 +149,6 @@ const Dashboard = () => {
   const [availableRooms, setAvailableRooms] = useState(0);
   const [soldOutRooms, setSoldOutRooms] = useState(0);
   const [totalRooms, setTotalRooms] = useState(0);
-  const [flightStats, setFlightStats] = useState([
-    { value: 0, icon: newFlightBookingIcon, label: "New Flight Bookings" },
-    { value: 0, icon: scheduledFlightIcon, label: "Scheduled Flights" },
-    { value: 0, icon: cancelledFlightIcon, label: "Cancelled Flights" },
-    { value: 0, icon: completedFlightIcon, label: "Completed Flights" },
-  ]);
-  const [availableTicket, setAvailableTicket] = useState(0);
-  const [soldOutTicket, setSoldOutTicket] = useState(0);
-  const [totalTicket, setTotalTicket] = useState(0);
-
   useEffect(() => {
     const fetchStats = async () => {
       const { stats, availableRooms, soldOutRooms, totalRooms } =
@@ -196,25 +162,123 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      const flightData = await fetchFlightStats();
-      setFlightStats(flightData);
-    };
+  const [chartData, setChartData] = useState({ options: {}, series: [] });
+  const [totalFlights, setFlightStats] = useState({ options: {}, series: [] });
+  const [hotelBookingCount, setHotelBookingCount] = useState(0);
+  const [countPayment, setCountPay] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState({ options: {}, series: [] });
 
-    fetchStats();
+  const fetchPayments = async () => {
+    const { data, error } = await supabase.from('payment_table').select('*');
+    if (error) throw error;
+    const Payment = data.length;
+    setCountPay(Payment);
+    const price = data.map(item => item.payment);
+    const date = data.map(item => format(new Date(item.date_of_payment), 'eeee, dd MMM yyyy'));
+    setTransactions(
+      {
+        options: {
+          chart: {
+            height: 350,
+            type: 'donut',
+            zoom: {
+              enabled: false,
+            },
+          },
+          labels: date,
+        },
+        series: price
+      }
+    )
+
+  }
+
+  const fetchFlightStats = async () => {
+    try {
+      const { data, error } = await supabase.from('flightBooking').select('created_at, payment');
+      if (error) throw error;
+
+      const groupedData = data.reduce((acc, item) => {
+        const formattedDate = format(new Date(item.created_at), 'eeee, dd MMM yyyy');
+        acc[formattedDate] = (acc[formattedDate] || 0) + item.payment;
+        return acc;
+      }, {});
+
+      const totalAmounts = Object.values(groupedData);
+
+      setFlightStats({
+        options: {
+          chart: {
+            height: 350,
+            type: 'bar',
+            zoom: {
+              enabled: false,
+            },
+          },
+          xaxis: {
+            categories: Object.keys(groupedData),
+          },
+        },
+        series: [{
+          name: 'Total Bookings',
+          data: totalAmounts,
+        }],
+      });
+    } catch (error) {
+      console.error('Error fetching flight stats:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('hotel_booking')
+        .select('date_of_booking, price');
+
+      if (error) throw error;
+
+      const count = data.length;
+      setHotelBookingCount(count);
+
+      const formattedDates = data.map(item =>
+        format(new Date(item.date_of_booking), 'eeee, dd MMM yyyy')
+      );
+
+      const salesAmounts = data.map(item => item.price);
+
+      setChartData({
+        options: {
+          chart: {
+            height: 350,
+            type: 'donut',
+            zoom: {
+              enabled: false,
+            },
+          },
+          labels: formattedDates,
+        },
+        series: salesAmounts,
+      });
+    } catch (error) {
+      console.error('Error fetching hotel booking data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetchFlightStats();
+    fetchData();
+    fetchPayments();
   }, []);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      const ticketData = await fetchTicketStats();
-      setAvailableTicket(ticketData.availableTicket);
-      setSoldOutTicket(ticketData.soldOutTicket);
-      setTotalTicket(ticketData.totalTicket);
-    };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    fetchStats();
-  }, []);
+
 
   const handleNewBookingsClick = () => {
     setActivePath("/home/hotels/");
@@ -235,11 +299,6 @@ const Dashboard = () => {
   const handleCheckOutClick = () => {
     navigate("/home/checkedout");
     setActivePath("/home/hotels/");
-  };
-  const handleFlightBookingsClick = () => {
-    setActivePath("/home/hotels/");
-
-    navigate("/home/flightbookings");
   };
 
   const currentDate = new Date();
@@ -306,85 +365,55 @@ const Dashboard = () => {
             <div className="section-divider" />
 
             <section className="dashboard-section">
-              <h2 className="dashboard-title">Flight Dashboard</h2>
+              <h2 className="dashboard-title">Reports</h2>
               <p className="dashboard-date">
                 {day},{" "}
                 <span
                   style={{ color: "#3d3d3d" }}
                 >{`${date} ${month} ${year}`}</span>
               </p>
-
-              <div className="stats-grid">
-                {flightStats.map((stat, index) => {
-                  let handleClick;
-                  if (stat.label === "New Flight Bookings") {
-                    handleClick = handleFlightBookingsClick;
-                  }
-                  return (
-                    <StatCard key={index} {...stat} onClick={handleClick} />
-                  );
-                })}
-              </div>
-
-              <div className="ticket-stats">
-                <TicketStatCard
-                  title="Available Tickets"
-                  value={availableTicket}
-                  total={totalTicket}
-                  fillWidth={`${(availableTicket / totalTicket) * 100}%`}
-                  fillColor="#a6eca6"
-                />
-                <TicketStatCard
-                  title="Sold Out Tickets"
-                  value={soldOutTicket}
-                  total={totalTicket}
-                  fillWidth={`${(soldOutTicket / totalTicket) * 100}%`}
-                  fillColor="#eca6a6"
-                />
-              </div>
+              <Row>
+                <div className='m-5 col-4 rounded-2 bg-body-secondary w-23'>
+                  <h2>Hotel Booking Data</h2>
+                  <p>Total Bookings: {hotelBookingCount}</p>
+                  <Chart
+                    options={chartData.options}
+                    series={chartData.series}
+                    height={350}
+                    type='donut'
+                  />
+                </div>
+                <div className='col-4 m-5 h-25 rounded-2 bg-body-secondary bg-gradient w-50'>
+                  <h2>Sales Data Flights</h2>
+                  <Chart
+                    options={totalFlights.options}
+                    series={totalFlights.series}
+                    height={350}
+                    type='bar'
+                  />
+                </div>
+                <div className='col-4 bg-body-secondary m-5 h-25 rounded-2 bg-gradient w-50'>
+                  <h2>Users</h2>
+                  <Chart
+                    options={totalFlights.options}
+                    series={totalFlights.series}
+                    height={350}
+                    type='donut'
+                  />
+                </div>
+                <div className='m-5 col-4 rounded-5 bg-body-secondary w-23'>
+                  <h2 className=' mt-5 m-lg-3'>Total Transactions</h2>
+                  <p className=' mt-5 m-lg-3'>Total Payments: {countPayment}</p>
+                  <Chart
+                    options={transactions.options}
+                    series={transactions.series}
+                    height={350}
+                    type='donut'
+                  />
+                </div>
+              </Row>
             </section>
-            <div className="section-divider" />
-
-            <section className="dashboard-section">
-              <h2 className="dashboard-title">Users</h2>
-              <p className="dashboard-date">
-                {day},{" "}
-                <span
-                  style={{ color: "#3d3d3d" }}
-                >{`${date} ${month} ${year}`}</span>
-              </p>
-
-              <div className="stats-grid">
-                {flightStats.map((stat, index) => {
-                  let handleClick;
-                  if (stat.label === "New Flight Bookings") {
-                    handleClick = handleFlightBookingsClick;
-                  }
-                  return (
-                    <StatCard key={index} {...stat} onClick={handleClick} />
-                  );
-                })}
-              </div>
-
-              <div className="ticket-stats">
-                <TicketStatCard
-                  title="Available Tickets"
-                  value={availableTicket}
-                  total={totalTicket}
-                  fillWidth={`${(availableTicket / totalTicket) * 100}%`}
-                  fillColor="#a6eca6"
-                />
-                <TicketStatCard
-                  title="Sold Out Tickets"
-                  value={soldOutTicket}
-                  total={totalTicket}
-                  fillWidth={`${(soldOutTicket / totalTicket) * 100}%`}
-                  fillColor="#eca6a6"
-                />
-              </div>
             </section>
-          </section>
-          
         </div>
       </main>
     </div>
