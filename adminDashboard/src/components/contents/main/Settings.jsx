@@ -21,7 +21,7 @@ const Settings = () => {
                     
                     {/* Profile Settings Section */}
                     <Row className="mb-4">
-                        <Col xs={12} md={6} className="text-left">
+                        <Col className="text-left">
                             <span className="setting-link" onClick={() => toggleSection('profile')} >
                             Profile Settings
                             </span>
@@ -55,7 +55,7 @@ const Settings = () => {
 
                     {/* Account Settings Section */}
                     <Row className="mb-4">
-                        <Col xs={12} md={6} className="text-left">
+                        <Col className="text-left">
                             <span 
                                 className="setting-link" 
                                 onClick={() => toggleSection('account')}
@@ -88,7 +88,7 @@ const Settings = () => {
 
                     {/* Help Center Section */}
                     <Row className="mb-4">
-                        <Col xs={12} md={6} className="text-left">
+                        <Col className="text-left">
                             <span 
                                 className="setting-link" 
                                 onClick={() => toggleSection('help')}

@@ -4,11 +4,13 @@
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
+
 .settings-header {
     font-size: 40px; 
     font-weight: bold;
     margin-bottom: 40px;
     color: #3D3D3D; 
+
 }
 
 .setting-link {
@@ -28,8 +30,52 @@
 }
 
 /* Profile Settings Container */
-.profile-form-container,
-.account-form-container,
+.profile-form-container {
+    margin-left: 20px;
+    padding: 20px;
+    max-width: 700px;
+    background-color: #DAF4FE;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.input-name, .input-email, .input-contact {
+    padding-left: 15px;
+}
+
+.label-name, .label-email, .label-contact {
+    margin-left: 5px;
+}
+
+.save-button {
+    background-color: #489ADC;
+    margin-top: 20px;
+}
+
+/* Account Settings Container */
+.account-form-container {
+    margin-left: 20px;
+    padding: 20px;
+    max-width: 700px;
+    background-color: #DAF4FE;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.input-password, .input-recovery {
+    padding-left: 15px;
+}
+
+.label-password, .label-recovery {
+    margin-left: 5px;
+}
+
+.save-account {
+    background-color: #489ADC;
+    margin-top: 20px;
+}
+
+/* Help Center Container */
 .help-center-container {
     margin-left: 20px;
     padding: 20px;
@@ -39,26 +85,6 @@
     font-size: 20px;
 }
 
-/* Inputs and Labels */
-.input-name, .input-email, .input-contact,
-.input-password, .input-recovery {
-    padding-left: 15px;
-    width: 100%; /* Full width for inputs */
-}
-
-.label-name, .label-email, .label-contact,
-.label-password, .label-recovery {
-    margin-left: 5px;
-}
-
-/* Buttons */
-.save-button, .save-account {
-    background-color: #489ADC;
-    margin-top: 20px;
-    width: 100%; /* Full width for buttons */
-}
-
-/* Help Center Section */
 h5 {
     color: #3D3D3D;
     font-size: 30px;
@@ -69,65 +95,4 @@ h5 {
 ul {
     color: #489ADC;
     font-size: 25px;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .settings-header {
-        font-size: 30px; /* Smaller header size for mobile */
-    }
-
-    .setting-link {
-        font-size: 24px; /* Adjust font size for links */
-    }
-
-    .section-description {
-        font-size: 18px; /* Smaller description font */
-        margin-left: 10px; /* Adjust left margin */
-    }
-
-    .profile-form-container,
-    .account-form-container,
-    .help-center-container {
-        margin-left: 10px; /* Adjust left margin */
-        padding: 15px; /* Adjust padding */
-        max-width: 90%; /* Full width on smaller screens */
-    }
-
-    h5 {
-        font-size: 24px; /* Smaller heading size */
-    }
-
-    ul {
-        font-size: 20px; /* Adjust font size for lists */
-    }
-}
-
-@media (max-width: 576px) {
-    .settings-header {
-        font-size: 24px; /* Even smaller for very small screens */
-    }
-
-    .setting-link {
-        font-size: 20px; /* Smaller links */
-    }
-
-    .section-description {
-        font-size: 16px; /* Smaller description font */
-    }
-
-    .profile-form-container,
-    .account-form-container,
-    .help-center-container {
-        padding: 10px; /* Reduce padding */
-        margin-left: 0; /* Remove left margin */
-    }
-
-    h5 {
-        font-size: 20px; /* Smaller heading size */
-    }
-
-    ul {
-        font-size: 18px; /* Smaller list font size */
-    }
 }

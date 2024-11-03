@@ -55,7 +55,7 @@ function Beaches() {
             <main className='main'>
                 <div className="container mt-5">
                     <Row>
-                        <h2 className="text-center w-25 col-1">Beaches Postingss</h2>
+                        <h2 className="text-center w-25 col-1">Beaches Postings</h2>
                         <Button variant='success' className=' col-2' onClick={showInserModal}>Add Beach</Button>
                     </Row>
                     <ListGroup className="mt-4">
